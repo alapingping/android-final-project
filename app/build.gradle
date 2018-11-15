@@ -1,0 +1,56 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.sports.sportclub"
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+}
+
+dependencies {
+    //bmod-skd
+    compile 'cn.bmob.android:bmob-sdk:3.6.3'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    compile('com.squareup.retrofit2:retrofit:2.1.0') { exclude group: 'com.squareup.okhttp3' }
+    compile('com.squareup.retrofit2:converter-gson:2.1.0') {
+        exclude group: 'com.google.code.gson'
+        exclude group: 'com.squareup.okhttp3'
+    }
+    compile('com.squareup.okhttp3:okhttp:3.3.0') { exclude group: 'com.squareup.okio' }
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:cardview-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.android.support:support-vector-drawable:26.1.0'
+    implementation 'com.github.bumptech.glide:glide:4.1.1'
+    implementation files('libs/CircleImageView/gradle/wrapper/gradle-wrapper.jar')
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestCompile('com.android.support:support-annotations:26.1.0') {
+
+        force = true
+
+    }
+    implementation 'com.android.support:cardview-v7:26.1.0'
+    implementation 'com.android.support:gridlayout-v7:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+}
