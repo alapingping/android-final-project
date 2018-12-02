@@ -22,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         //初始化bmob服务
+
         Bmob.initialize(this, "5fad9f2543ffa83e56155a46398d6ede");
 
             //设置下划线
