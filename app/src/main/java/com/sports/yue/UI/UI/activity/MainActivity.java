@@ -24,6 +24,7 @@ import com.sports.yue.UI.UI.fragment.MeFragment;
 import com.sports.yue.UI.UI.fragment.HomeFragment;
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.fragment.GroupFragment;
+import com.sports.yue.UI.UI.fragment.My_groupFragment;
 import com.sports.yue.UI.UI.fragment.ScheduleFragment;
 
 import cn.bmob.v3.BmobUser;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity
 
 
     private static boolean isExist = false;   //判断是否退出
-    private String [] titles = {"Home","Schedule","Favorite"};
+    private String [] titles = {"Home","Schedule","Favorite","Group"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,7 +164,11 @@ public class MainActivity extends AppCompatActivity
                         changeFragment(R.id.frame_content,new MeFragment());
                         setActionBarTitle(-1,3);
                         return true;
-
+                    case R.id.navigation_group:
+                        //禁用侧滑功能
+                        changeFragment(R.id.frame_content,new My_groupFragment());
+                        setActionBarTitle(-1,4);
+                        return true;
                 }
                 return false;
             };

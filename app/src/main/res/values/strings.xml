@@ -45,6 +45,17 @@
     <string name="communicate">Communicate</string>
     <string name="share">Share</string>
     <string name="send">Send</string>
+    <string name="group_name000">分组名称</string>
+    <string name="member000">0/8</string>
+    <string name="name000">name</string>
+    <string name="activity_type000">activity type</string>
+    <string name="number_of_participants000">Number Of Participants</string>
+    <string name="locations000">Locations</string>
+    <string name="todo000">加入这个组</string>
+    <string name="like000">点赞</string>
+    <string name="save000">收藏</string>
+    <string name="grouppicture000">群组图片</string>
+    <string name="groups010">组</string>
 
 
 </resources>
