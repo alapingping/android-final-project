@@ -13,8 +13,16 @@ import cn.bmob.v3.listener.UpdateListener;
 
 public class Db_operation {
 
-    public Db_operation(){
-        test();
+    private static Db_operation Db_op = null;
+
+    private Db_operation(){
+    }
+
+    public static Db_operation getDb_op() {
+        if (Db_op == null){
+            Db_op = new Db_operation();
+        }
+        return Db_op;
     }
 
     private void test(){
@@ -39,7 +47,7 @@ public class Db_operation {
 
 
     //查
-    public static Room[] search(){
+    private Room[] search(){
         //查
         int[] sizes = new int[1];
         BmobQuery<Room> room = new BmobQuery<Room>();
@@ -94,7 +102,7 @@ public class Db_operation {
     }
 
     //增
-    public static void add(Room room){
+    private void add(Room room){
         room.save(new SaveListener<String>() {
             @Override
             public void done(String objectId, BmobException e) {
@@ -109,7 +117,7 @@ public class Db_operation {
     }
 
     //删
-    public static void delete(String roomid){
+    private void delete(String roomid){
         //删
         final Room book = new Room();
         String id = getIDbyRoomId("123");
@@ -128,7 +136,7 @@ public class Db_operation {
             }
         });
     }
-    private static String getIDbyRoomId(String id){
+    private String getIDbyRoomId(String id){
         String objId = "";
         Room[] li = search();
         boolean flag = false;
@@ -147,7 +155,7 @@ public class Db_operation {
     }
 
     //改
-    public static void updata(Room room){
+    private void updata(Room room){
         String id = getIDbyRoomId(room.getRoomId());
         if (id.equalsIgnoreCase("error")){
             return;
