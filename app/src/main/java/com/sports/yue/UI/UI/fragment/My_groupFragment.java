@@ -10,7 +10,7 @@ import android.widget.ExpandableListView;
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.models.Group;
 import com.sports.yue.UI.UI.Adapter.GroupAdapter;
-import com.sports.yue.UI.UI.models.User;
+import com.sports.yue.UI.UI.models.Users;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,17 +55,17 @@ public class My_groupFragment extends Fragment {
         }
 
         Group group1 = new Group("我创建的组");
-        group1.addUser(new User(img[0], "319" ,"学习", "3/9", "我爱娜扎！"));
-        group1.addUser(new User(img[0], "319" ,"学习", "3/9", "我爱娜扎！"));
-        group1.addUser(new User(img[0], "319" ,"学习", "3/9", "我爱娜扎！"));
-        group1.addUser(new User(img[0], "319" ,"学习", "3/9", "我爱娜扎！"));
+        group1.addUser(new Users(img[0], "319" ,"学习", "3/9", "我爱娜扎！"));
+        group1.addUser(new Users(img[0], "319" ,"学习", "3/9", "我爱娜扎！"));
+        group1.addUser(new Users(img[0], "319" ,"学习", "3/9", "我爱娜扎！"));
+        group1.addUser(new Users(img[0], "319" ,"学习", "3/9", "我爱娜扎！"));
 
 //        group1.addUser(new User(img[3], "杨幂", false, "其实我跟恺威已经离婚了，现在跟李易峰在一起，就酱~"));
 
         Group group2 = new Group("我加入的组");
-        group2.addUser(new User(img[0], "319" ,"学习", "3/9", "我爱娜扎！"));
-        group2.addUser(new User(img[0], "319" ,"学习", "3/9", "我爱娜扎！"));
-        group2.addUser(new User(img[0], "319" ,"学习", "3/9", "我爱娜扎！"));
+        group2.addUser(new Users(img[0], "319" ,"学习", "3/9", "我爱娜扎！"));
+        group2.addUser(new Users(img[0], "319" ,"学习", "3/9", "我爱娜扎！"));
+        group2.addUser(new Users(img[0], "319" ,"学习", "3/9", "我爱娜扎！"));
 
 
 

@@ -12,7 +12,7 @@ import java.util.List;
 
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.models.Group;
-import com.sports.yue.UI.UI.models.User;
+import com.sports.yue.UI.UI.models.Users;
 
 public class GroupAdapter extends BaseExpandableListAdapter {
 
@@ -58,7 +58,7 @@ public class GroupAdapter extends BaseExpandableListAdapter {
             holder = (ChildHolder) convertView.getTag();
         }
 ////        //设置数据
-        User user = getGroup(groupPosition).getChild(childPosition);
+        Users user = getGroup(groupPosition).getChild(childPosition);
         holder.img.setImageResource(user.getImgId());
         holder.RoomName.setText(user.getRoomName());
         holder.Type.setText(user.getType());
@@ -108,7 +108,7 @@ public class GroupAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public User getChild(int groupPosition, int childPosition) {
+    public Users getChild(int groupPosition, int childPosition) {
         return list.get(groupPosition).getChild(childPosition);
     }
 

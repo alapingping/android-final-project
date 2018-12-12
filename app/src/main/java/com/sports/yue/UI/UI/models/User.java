@@ -1,72 +1,72 @@
 package com.sports.yue.UI.UI.models;
 
-public class User {
-    private int imgId;
-    private String RoomName;
-    private String Type;
-    private String Member;
-    private String Location;
+import java.io.File;
+import java.util.Date;
 
+import cn.bmob.v3.BmobObject;
 
-    public User() {
-        super();
-    }
-    public User(int imgId, String RoomName, String Type , String Member, String Location) {
-        super();
-        this.imgId = imgId;
-        this.RoomName = RoomName;
-        this.Type = Type;
-        this.Member = Member;
-        this.Location = Location;
-    }
+public class User extends BmobObject {
+    private String UserSex;
+    private String UserEmail;
+    private String UserPhone;
+    private String UserPass;
+    private String UserName;//PK
+    private String UserInfo;
+    private Date createdAt;
+    private Date updatedAt;
 
-    public int getImgId() {
-        return imgId;
+    public User(String name,String phone,String pass){
+        UserName = name;
+        UserPhone = phone;
+        UserPhone = pass;
     }
-    public void setImgId(int imgId) {
-        this.imgId = imgId;
-    }
+    public User(){}
 
-    public String getLocation() {
-        return Location;
+    public String getUserName() {
+        return UserName;
     }
 
-    public String getMember() {
-        return Member;
+    public String getUserEmail() {
+        return UserEmail;
     }
 
-    public String getRoomName() {
-        return RoomName;
+    public String getUserInfo() {
+        return UserInfo;
     }
 
-    public String getType() {
-        return Type;
+    public String getUserPass() {
+        return UserPass;
     }
 
-    public void setLocation(String location) {
-        Location = location;
+    public String getUserPhone() {
+        return UserPhone;
     }
 
-    public void setMember(String member) {
-        Member = member;
+    public String getUserSex() {
+        return UserSex;
     }
 
-    public void setRoomName(String roomName) {
-        RoomName = roomName;
+    public void setUserName(String userName) {
+        UserName = userName;
     }
 
-    public void setType(String type) {
-        Type = type;
+    public void setUserEmail(String userEmail) {
+        UserEmail = userEmail;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public void setUserInfo(String userInfo) {
+        UserInfo = userInfo;
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
+    public void setUserPass(String userPass) {
+        UserPass = userPass;
     }
 
+    public void setUserPhone(String userPhone) {
+        UserPhone = userPhone;
+    }
+
+    public void setUserSex(String userSex) {
+        UserSex = userSex;
+    }
 }

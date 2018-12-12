@@ -1,15 +1,73 @@
 package com.sports.yue.UI.UI.models;
 import cn.bmob.v3.BmobObject;
+import java.util.Date;
 
 public class Room extends BmobObject {
-    private String RoomId;
+    private Date ActivityTime;
+    private String ActivityPosition;
+    private Number RoomMaxPeople;
+    private String RoomType;
+    private String RoomDescription;
+    private String RoomCreator;
     private String RoomName;
+    private String RoomId;//PK
+    private Date createdAt;
+    private Date updateAt;
+
 
     public Room(String id,String name){
         RoomId = id;
         RoomName = name;
     }
     public Room(){}
+
+    public Date getActivityTime() {
+        return ActivityTime;
+    }
+
+    public Number getRoomMaxPeople() {
+        return RoomMaxPeople;
+    }
+
+    public String getActivityPosition() {
+        return ActivityPosition;
+    }
+
+    public String getRoomCreator() {
+        return RoomCreator;
+    }
+
+    public String getRoomDescription() {
+        return RoomDescription;
+    }
+
+    public String getRoomType() {
+        return RoomType;
+    }
+
+    public void setActivityPosition(String activityPosition) {
+        ActivityPosition = activityPosition;
+    }
+
+    public void setActivityTime(Date activityTime) {
+        ActivityTime = activityTime;
+    }
+
+    public void setRoomCreator(String roomCreator) {
+        RoomCreator = roomCreator;
+    }
+
+    public void setRoomDescription(String roomDescription) {
+        RoomDescription = roomDescription;
+    }
+
+    public void setRoomMaxPeople(Number roomMaxPeople) {
+        RoomMaxPeople = roomMaxPeople;
+    }
+
+    public void setRoomType(String roomType) {
+        RoomType = roomType;
+    }
 
     public String getRoomId() {
         return RoomId;

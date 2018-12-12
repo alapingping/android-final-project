@@ -7,14 +7,14 @@ public class Group {
     //分组名
     public String groupName;
     //有很多User
-    public List<User> list;
+    public List<Users> list;
 
     public Group(String groupName){
         this.groupName = groupName;
-        list = new ArrayList<User>();
+        list = new ArrayList<Users>();
     }
     //添加User
-    public void addUser(User user){
+    public void addUser(Users user){
         list.add(user);
     }
 
@@ -27,7 +27,7 @@ public class Group {
         return list.size();
     }
     //获取分组中某个孩子
-    public User getChild(int childPosition) {
+    public Users getChild(int childPosition) {
         return list.get(childPosition);
     }
 
