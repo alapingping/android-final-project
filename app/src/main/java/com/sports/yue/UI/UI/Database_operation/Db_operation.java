@@ -61,7 +61,13 @@ public class Db_operation {
     /*
     *   所有参数都能为空，都为空时是查找此表内所有信息。
     */
-    private Room[] searchRoom(String roomid){
+
+    /**
+     *
+     * @param roomid               房间ID
+     * @return                      符合条件的Room数组
+     */
+    public Room[] searchRoom(String roomid){
         //查
         int[] sizes = new int[1];
         BmobQuery<Room> room = new BmobQuery<Room>();
@@ -116,7 +122,14 @@ public class Db_operation {
         });
         return lists;
     }
-    private Community[] searchCommunity(String username,String roomid,Date createdat){
+    /**
+     *
+     * @param username             用户名
+     * @param roomid               房间ID
+     * @param createdat            创建时间
+     * @return                      符合条件的Community数组
+     */
+    public Community[] searchCommunity(String username,String roomid,Date createdat){
         //查
         int[] sizes = new int[1];
         BmobQuery<Community> room = new BmobQuery<Community>();
@@ -179,7 +192,14 @@ public class Db_operation {
         });
         return lists;
     }
-    private Community[] searchCommunity(String username,String roomid,String createdat){
+    /**
+     *
+     * @param username             用户名
+     * @param roomid               房间ID
+     * @param createdat            创建时间
+     * @return                      符合条件的Community数组
+     */
+    public Community[] searchCommunity(String username,String roomid,String createdat){
         //查
         int[] sizes = new int[1];
         BmobQuery<Community> room = new BmobQuery<Community>();
@@ -242,7 +262,14 @@ public class Db_operation {
         });
         return lists;
     }
-    private Message[] searchMessage(String username,String roomid,Date createdat){
+    /**
+     *
+     * @param username             用户名
+     * @param roomid               房间ID
+     * @param createdat            创建时间
+     * @return                      符合条件的Message数组
+     */
+    public Message[] searchMessage(String username,String roomid,Date createdat){
         //查
         int[] sizes = new int[1];
         BmobQuery<Message> room = new BmobQuery<Message>();
@@ -301,7 +328,14 @@ public class Db_operation {
         });
         return lists;
     }
-    private Message[] searchMessage(String username,String roomid,String createdat){
+    /**
+     *
+     * @param username             用户名
+     * @param roomid               房间ID
+     * @param createdat            创建时间
+     * @return                      符合条件的Message数组
+     */
+    public Message[] searchMessage(String username,String roomid,String createdat){
         //查
         int[] sizes = new int[1];
         BmobQuery<Message> room = new BmobQuery<Message>();
@@ -360,7 +394,12 @@ public class Db_operation {
         });
         return lists;
     }
-    private User[] searchUser(String username){
+    /**
+     *
+     * @param username             用户名
+     * @return                      符合条件的User数组
+     */
+    public User[] searchUser(String username){
         //查
         int[] sizes = new int[1];
         BmobQuery<User> room = new BmobQuery<User>();
@@ -423,7 +462,11 @@ public class Db_operation {
     }
 
     //增
-    private void add(Room room){
+    /**
+     *
+     * @param room          Room
+     */
+    public void add(Room room){
         room.save(new SaveListener<String>() {
             @Override
             public void done(String objectId, BmobException e) {
@@ -436,8 +479,12 @@ public class Db_operation {
             }
         });
     }
-    private void add(Community room){
-        room.save(new SaveListener<String>() {
+    /**
+     *
+     * @param community          Community
+     */
+    public void add(Community community){
+        community.save(new SaveListener<String>() {
             @Override
             public void done(String objectId, BmobException e) {
                 if (e == null) {
@@ -449,8 +496,12 @@ public class Db_operation {
             }
         });
     }
-    private void add(Message room){
-        room.save(new SaveListener<String>() {
+    /**
+     *
+     * @param message              Message
+     */
+    public void add(Message message){
+        message.save(new SaveListener<String>() {
             @Override
             public void done(String objectId, BmobException e) {
                 if (e == null) {
@@ -462,8 +513,12 @@ public class Db_operation {
             }
         });
     }
-    private void add(User room){
-        room.save(new SaveListener<String>() {
+    /**
+     *
+     * @param user                  User
+     */
+    public void add(User user){
+        user.save(new SaveListener<String>() {
             @Override
             public void done(String objectId, BmobException e) {
                 if (e == null) {
@@ -477,10 +532,12 @@ public class Db_operation {
     }
 
     //删
-    /*
-     *   所有参数都能为空，都为空时是删除此表内所有信息，请慎重填写。
+    /**
+     * 所有参数都能为空，都为空时是删除此表内所有信息，请慎重填写。
+     *                       删除Room
+     * @param roomid        房间ID
      */
-    private void deleteRoom(String roomid){
+    public void deleteRoom(String roomid){
         List<String> id = getRoomObjectIDbyRoomId(roomid);
         for (String ida : id){
             final Room book = new Room();
@@ -498,7 +555,14 @@ public class Db_operation {
 
         }
     }
-    private void deleteCommunity(String username,String roomid,Date createdat){
+    /**
+     * 所有参数都能为空，都为空时是删除此表内所有信息，请慎重填写。
+     *                        删除Community
+     * @param username      用户名
+     * @param roomid        房间ID
+     * @param createdat     创建时间
+     */
+    public void deleteCommunity(String username,String roomid,Date createdat){
         List<String> id = getCommunityId(username,roomid,createdat);
         for (String ida : id){
             final Community book = new Community();
@@ -515,7 +579,14 @@ public class Db_operation {
             });
         }
     }
-    private void deleteMessage(String username,String roomid,Date createdat){
+    /**
+     * 所有参数都能为空，都为空时是删除此表内所有信息，请慎重填写。
+     *                        删除message
+     * @param username      用户名
+     * @param roomid        房间ID
+     * @param createdat     创建时间
+     */
+    public void deleteMessage(String username,String roomid,Date createdat){
         List<String> id = getMessageId(username,roomid,createdat);
         for (String ida : id){
             final Message book = new Message();
@@ -532,7 +603,12 @@ public class Db_operation {
             });
         }
     }
-    private void deleteUser(String username) {
+    /**
+     * 所有参数都能为空，都为空时是删除此表内所有信息，请慎重填写。
+     *                        删除User
+     * @param username      用户名
+     */
+    public void deleteUser(String username) {
         List<String> id = getUserId(username);
         for (String ida : id) {
             final User book = new User();
@@ -552,7 +628,12 @@ public class Db_operation {
 
 
     //改
-    private void updata(Room room){
+
+    /**
+     *
+     * @param room          Room
+     */
+    public void updata(Room room){
         List<String> id = getRoomObjectIDbyRoomId(room.getRoomId());
         if (id.size()==0){
             return;
@@ -570,13 +651,17 @@ public class Db_operation {
             });
         }
     }
-    private void updata(Community room){
-        List<String> id = getCommunityId(room.getUserName(),room.getRoomId(),room.getCreatedAt());
+    /**
+     *
+     * @param community          Community
+     */
+    public void updata(Community community){
+        List<String> id = getCommunityId(community.getUserName(),community.getRoomId(),community.getCreatedAt());
         if (id.size()==0){
             return;
         }
         for (String s:id){
-            room.update(s, new UpdateListener() {
+            community.update(s, new UpdateListener() {
                 @Override
                 public void done(BmobException e) {
                     if (e == null) {
@@ -588,13 +673,17 @@ public class Db_operation {
             });
         }
     }
-    private void updata(Message room){
-        List<String> id = getMessageId(room.getUserName(),room.getRoomId(),room.getCreatedAt());
+    /**
+     *
+     * @param message              Message
+     */
+    public void updata(Message message){
+        List<String> id = getMessageId(message.getUserName(),message.getRoomId(),message.getCreatedAt());
         if (id.size()==0){
             return;
         }
         for (String s:id){
-            room.update(s, new UpdateListener() {
+            message.update(s, new UpdateListener() {
                 @Override
                 public void done(BmobException e) {
                     if (e == null) {
@@ -606,13 +695,17 @@ public class Db_operation {
             });
         }
     }
-    private void updata(User room){
-        List<String> id = getUserId(room.getUserName());
+    /**
+     *
+     * @param user                  User
+     */
+    public void updata(User user){
+        List<String> id = getUserId(user.getUserName());
         if (id.size()==0){
             return;
         }
         for (String s:id){
-            room.update(s, new UpdateListener() {
+            user.update(s, new UpdateListener() {
                 @Override
                 public void done(BmobException e) {
                     if (e == null) {
@@ -728,4 +821,25 @@ public class Db_operation {
         }
         return objid;
     }
+
+//    public boolean add(String table,Object o){
+//        switch (table){
+//            case "ROOM":
+//                add((Room)o);
+//                return true;
+//            case "COMMUNITY":
+//                add((Community)o);
+//                return true;
+//            case "MESSAGE":
+//                add((Message)o);
+//                return true;
+//            case "USER":
+//                add((User)o);
+//                return true;
+//            default:
+//                return false;
+//        }
+//    }
+//
+//    public boolean delete(String table,)
 }
