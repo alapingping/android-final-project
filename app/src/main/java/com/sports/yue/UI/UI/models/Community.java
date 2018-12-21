@@ -4,22 +4,25 @@ import java.util.Date;
 
 import cn.bmob.v3.BmobObject;
 
+/**
+ * 社区
+ */
 public class Community extends BmobObject {
     private String UserName;//PK
-    private Number Like;
+    private Number Likes;
     private String Video;
     private String RoomId;//PK
     private String Email;
-//    private Date createdAT;//PK
-//    private Date updatedAt;
+    private Date createdAT;//PK
+    private Date updatedAt;
 
     public Community(String Roonid,String Username){
         UserName = Username;
         RoomId = Roonid;
     }
     public Community(){}
-    public Number getLike() {
-        return Like;
+    public Number getLikes() {
+        return Likes;
     }
     public String getEmail() {
         return Email;
@@ -33,8 +36,8 @@ public class Community extends BmobObject {
     public void setEmail(String email) {
         Email = email;
     }
-    public void setLike(Number like) {
-        Like = like;
+    public void setLikes(Number likes) {
+        Likes = likes;
     }
     public void setVideo(String video) {
         Video = video;

@@ -1,5 +1,8 @@
 package com.sports.yue.UI.UI.models;
 
+/**
+ *
+ */
 public class Users {
     private int imgId;
     private String RoomName;

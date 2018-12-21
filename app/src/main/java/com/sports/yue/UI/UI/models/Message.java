@@ -4,6 +4,9 @@ import java.util.Date;
 
 import cn.bmob.v3.BmobObject;
 
+/**
+ * 留言
+ */
 public class Message extends BmobObject {
     private String UserName;//PK
     private String RoomId;//PK

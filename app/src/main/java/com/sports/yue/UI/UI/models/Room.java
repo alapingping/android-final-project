@@ -2,6 +2,9 @@ package com.sports.yue.UI.UI.models;
 import cn.bmob.v3.BmobObject;
 import java.util.Date;
 
+/**
+ * 房间
+ */
 public class Room extends BmobObject {
     private Date ActivityTime;
     private String ActivityPosition;

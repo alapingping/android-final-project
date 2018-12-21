@@ -3,6 +3,9 @@ package com.sports.yue.UI.UI.models;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 我的组
+ */
 public class Group {
     //分组名
     public String groupName;

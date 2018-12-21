@@ -5,6 +5,9 @@ import java.util.Date;
 
 import cn.bmob.v3.BmobObject;
 
+/**
+ * 用户信息
+ */
 public class User extends BmobObject {
     private String UserSex;
     private String UserEmail;
