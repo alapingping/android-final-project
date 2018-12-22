@@ -12,6 +12,7 @@ import com.sports.yue.UI.UI.models.Room;
 import com.sports.yue.UI.UI.models.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DbManager {
 
@@ -53,6 +54,17 @@ public class DbManager {
         SQLiteDatabase db4 = dbHelper.getWritableDatabase();
         db4.execSQL(sql);
         db4.close();
+
+        sql = "CREATE TABLE IF NOT EXISTS CURRENTUSER ("
+                + "UserName varchar PRIMARY KEY,Password varchar)";
+        SQLiteDatabase db5 = dbHelper.getWritableDatabase();
+        db5.execSQL(sql);
+        db5.close();
+
+        List<String[]> se = select(null,new String[]{"CURRENTUSER"},null,null);
+        if (se.size() == 0){
+            insert("CURRENTUSER",new String[]{"UserName","Password"},new String[]{"-1","-1"});
+        }
     }
 
     public static DbManager getDb_M(Context context){
@@ -139,11 +151,18 @@ public class DbManager {
      * @param tablename the name of table
      * @param field the field you want to set
      * @param fieldvalue the value of each field
-     * @param selectfield this can help you find the data you want to updata
+     * @param selectfield this can help you find the data you want to updata, if null update all
      * @param selectfieldvalue this can help you find the data you want to updata
      */
     public void update(String tablename,String[] field,String[] fieldvalue,String[] selectfield,String[] selectfieldvalue){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values=new ContentValues();
+        for (int i = 0;i < field.length;i++){
+            values.put(field[i],fieldvalue[i]);
+        }
+        if (selectfield == null){
+            db.update(tablename,values,null,null);
+        }
         String whereClause = "";
         for (int i = 0;i < selectfield.length;i++){
             if (i == selectfield.length - 1){
@@ -152,11 +171,6 @@ public class DbManager {
             }
             whereClause += selectfield[i] + "=?,";
         }
-        ContentValues values=new ContentValues();
-        for (int i = 0;i < field.length;i++){
-            values.put(field[i],fieldvalue[i]);
-        }
-
         db.update(tablename,values,whereClause,selectfieldvalue);
         db.close();
     }

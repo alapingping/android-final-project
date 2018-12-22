@@ -36,6 +36,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.List;
+
 import cn.bmob.v3.Bmob;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -105,7 +107,9 @@ public class LoginActivity extends AppCompatActivity {
 //        while (!isInternet.isNetworkAvalible(getApplicationContext())){
 //
 //        }
-
+        List<String[]> li = DbManager.getDb_M(getApplicationContext()).select(new String[]{"UserName"},new String[]{"CURRENTUSER"},
+                new String[]{"UserName","Password"},new String[]{"-1","-1"});
+        if (li.size() > 0) {
             //设置下划线
             TextView forget_text = findViewById(R.id.forget_text);
             forget_text.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
@@ -113,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
             forget_text.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(LoginActivity.this,"该功能未开放",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "该功能未开放", Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -122,11 +126,20 @@ public class LoginActivity extends AppCompatActivity {
             signup_text.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                     startActivity(intent);
                 }
             });
+        }else {
+            li = DbManager.getDb_M(getApplicationContext()).select(new String[]{"UserName"},new String[]{"CURRENTUSER"},
+                    null,null);
+            try {
+                jump2main(new JSONObject(li.get(0)[0]));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
+    }
 
 
     //登陆按钮的跳转
@@ -137,8 +150,10 @@ public class LoginActivity extends AppCompatActivity {
         final String username = username_input.getText().toString();
         String password = password_input.getText().toString();
 
+        DbManager.getDb_M(getApplicationContext()).update("CURRENTUSER",new String[]{"UserName","Password"},new String[]{username,password},null,null);
+
         JSONObject obj = new JSONObject();
-        obj.put("UserPhone","135");
+//        obj.put("UserPhone","135");
         //使用retrofit实现登录请求
         BmobService service = Client.retrofit.create(BmobService.class);
         Call<ResponseBody> call = service.getUser(obj);
@@ -170,7 +185,6 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             jump2main(jsonObject);
                         }
-
                     }
                 }
                 else if(response.code() == 400) {
@@ -183,7 +197,6 @@ public class LoginActivity extends AppCompatActivity {
                 showmsg(t.getMessage());
             }
         });
-
 }
 
 

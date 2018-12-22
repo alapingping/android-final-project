@@ -26,6 +26,7 @@ import com.sports.yue.R;
 import com.sports.yue.UI.UI.fragment.GroupFragment;
 import com.sports.yue.UI.UI.fragment.My_groupFragment;
 import com.sports.yue.UI.UI.fragment.ScheduleFragment;
+import com.sports.yue.UI.UI.local_db.DbManager;
 
 import cn.bmob.v3.BmobUser;
 
@@ -217,6 +218,7 @@ public class MainActivity extends AppCompatActivity
 
 
     public void onClickLogout(View view){
+        DbManager.getDb_M(getApplicationContext()).update("CURRENTUSER",new String[]{"UserName","Password"},new String[]{"-1","-1"},null,null);
         BmobUser.logOut();
         Intent intent = new Intent(MainActivity.this,LoginActivity.class);
         startActivity(intent);
