@@ -176,11 +176,11 @@ public class Db_operation {
                         for (int i = 0; i < n; i++) {
                             str = str + lists[i].getEmail() + " " + lists[i].getRoomId()+
                                     " " + lists[i].getUserName()+ " " + lists[i].getVideo()+
-                                    " " + lists[i].getCreatedAt()+ " " + lists[i].getLike() +
+                                    " " + lists[i].getCreatedAt()+ " " + lists[i].getLikes() +
                                     " " + lists[i].getObjectId() + "\n";
                             System.out.println(lists[i].getEmail() + "," + lists[i].getRoomId()+
                                     "," + lists[i].getUserName()+ "," + lists[i].getVideo()+
-                                    "," + lists[i].getCreatedAt()+ "," + lists[i].getLike()+
+                                    "," + lists[i].getCreatedAt()+ "," + lists[i].getLikes()+
                                     "," + lists[i].getObjectId() + "");
                         }                  //  textView.setText(str);
                     } else {
@@ -246,11 +246,11 @@ public class Db_operation {
                         for (int i = 0; i < n; i++) {
                             str = str + lists[i].getEmail() + " " + lists[i].getRoomId()+
                                     " " + lists[i].getUserName()+ " " + lists[i].getVideo()+
-                                    " " + lists[i].getCreatedAt()+ " " + lists[i].getLike() +
+                                    " " + lists[i].getCreatedAt()+ " " + lists[i].getLikes() +
                                     " " + lists[i].getObjectId() + "\n";
                             System.out.println(lists[i].getEmail() + "," + lists[i].getRoomId()+
                                     "," + lists[i].getUserName()+ "," + lists[i].getVideo()+
-                                    "," + lists[i].getCreatedAt()+ "," + lists[i].getLike()+
+                                    "," + lists[i].getCreatedAt()+ "," + lists[i].getLikes()+
                                     "," + lists[i].getObjectId() + "");
                         }                  //  textView.setText(str);
                     } else {
