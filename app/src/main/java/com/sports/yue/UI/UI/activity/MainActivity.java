@@ -32,7 +32,6 @@ import cn.bmob.v3.BmobUser;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
     private static boolean isExist = false;   //判断是否退出
     private String [] titles = {"Home","Schedule","Favorite","Group"};
 

@@ -1,22 +1,49 @@
 package com.sports.yue.UI.UI.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Paint;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.sports.yue.R;
-import com.sports.yue.UI.UI.Database_operation.Db_operation;
+import com.sports.yue.UI.UI.api.BmobService;
+import com.sports.yue.UI.UI.api.Client;
 import com.sports.yue.UI.UI.models.User;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.http.Body;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private JSONObject jsonObject = null;
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION};
+    private List<String> mPermissionList = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    public void onClickSignup(View view) {
+    public void onClickSignup(View view) throws JSONException {
         //注册功能的实现
         EditText username_input = findViewById(R.id.username_input);
         EditText password_input = findViewById(R.id.password_input);
@@ -44,18 +71,53 @@ public class RegisterActivity extends AppCompatActivity {
         String password = password_input.getText().toString();
         String ensure_password = ensure_password_input.getText().toString();
 
+
         if(!password.equals(ensure_password)){
             showmsg("两次输入密码不一致!");
             return;
         }
-        User[] us = Db_operation.getDb_op().searchUser(username);
-        if (us.length > 0){
-            showmsg("此用户名已被注册!");
-            return;
+
+        //创建注册用户模板
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("UserName",username);
+            jsonObject.put("UserPass",password);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        User user = new User(username,password);
-        Db_operation.getDb_op().add(user);
-        showmsg("注册成功!");
+
+        //将json转为请求体
+
+        RequestBody body = RequestBody.create(
+                MediaType.parse("application/json"),new Gson().toJson(jsonObject));
+
+        //使用retrofit发送请求
+        BmobService service = Client.retrofit.create(BmobService.class);
+        Call<ResponseBody> call = service.postUser(body);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                if(response.code() == 201){
+                    showmsg("注册成功");
+                    jump2login();
+                }
+                else if(response.code() == 400) {
+                    showmsg("该用户名已存在");
+                }
+                else if(response.code() == 401) {
+                    showmsg("该用户名已存在");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                showmsg(t.getMessage());
+            }
+        });
+
+
     }
     //显示信息
     public void showmsg(String msg){
@@ -67,4 +129,6 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+
 }
