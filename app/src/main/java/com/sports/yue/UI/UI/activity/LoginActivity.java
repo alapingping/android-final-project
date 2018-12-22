@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.api.BmobService;
 import com.sports.yue.UI.UI.api.Client;
@@ -217,7 +218,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-        Intent intent = new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this,mapActivity.class);
         startActivity(intent);
         finish();
     }
