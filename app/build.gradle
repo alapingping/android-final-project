@@ -5,8 +5,8 @@ android {
         config {
             keyAlias 'key0'
             keyPassword '123456'
-            storeFile file('C:/Users/CLANNAD/Desktop/android-final/yue.jks')
-//            storeFile file('F:/android_about/android-final-project/yue.jks')
+//            storeFile file('C:/Users/CLANNAD/Desktop/android-final/yue.jks')
+            storeFile file('F:/android_about/android-final-project/yue.jks')
 
             storePassword '123456'
         }
@@ -87,4 +87,8 @@ dependencies {
     //    implementation files('libs/BaiduLBS_AndroidSDK_Lib/libs/BaiduLBS_Android.jar')
     //    implementation files('libs/BaiduLBS_AndroidSDK_Lib/libs/IndoorscapeAlbumPlugin.jar')
     implementation files('libs/BaiduLBS_Android.jar')
+
+    compile 'com.zhy:base-adapter:3.0.3'
+    compile 'fm.jiecao:jiecaovideoplayer:5.5'
+    //    compile project(path: ':jcvideoplayer-lib')
 }

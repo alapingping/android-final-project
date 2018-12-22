@@ -19,6 +19,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.sports.yue.UI.UI.fragment.CommunityFragment;
 import com.sports.yue.UI.UI.fragment.FavoriteFragment;
 import com.sports.yue.UI.UI.fragment.MeFragment;
 import com.sports.yue.UI.UI.fragment.HomeFragment;
@@ -163,7 +165,7 @@ public class MainActivity extends AppCompatActivity
                         return true;
                     case R.id.navigation_coaches:
                         //禁用侧滑功能
-                        changeFragment(R.id.frame_content,new MeFragment());
+                        changeFragment(R.id.frame_content,new CommunityFragment());
                         setActionBarTitle(-1,3);
                         return true;
                     case R.id.navigation_group:
