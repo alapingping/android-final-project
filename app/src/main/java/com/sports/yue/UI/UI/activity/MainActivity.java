@@ -109,33 +109,34 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         //处理左侧导航抽屉点击事件
         int id = item.getItemId();
         int position = -1;
         Fragment fragment = null;
-        if (id == R.id.nav_home) {
-            // Handle the home action
-            fragment = new HomeFragment();
-            position = 0;
-        } else if (id == R.id.nav_favorite) {
-           fragment = new FavoriteFragment();
-            position = 1;
-        } else if (id == R.id.nav_schedule) {
-            fragment = new ScheduleFragment();
-            position = 2;
-        } else if (id == R.id.nav_share) {
-            Toast.makeText(MainActivity.this,"该功能未开放",Toast.LENGTH_LONG).show();
-            DrawerLayout drawer = findViewById(R.id.drawer_layout);
-            drawer.closeDrawer(GravityCompat.START);
-            return true;
-        } else if (id == R.id.nav_send) {
-            Toast.makeText(MainActivity.this,"该功能未开放",Toast.LENGTH_LONG).show();
-            DrawerLayout drawer = findViewById(R.id.drawer_layout);
-            drawer.closeDrawer(GravityCompat.START);
-            return true;
-        }
+//        if (id == R.id.nav_home) {
+//            // Handle the home action
+//            fragment = new HomeFragment();
+//            position = 0;
+//        } else if (id == R.id.nav_favorite) {
+//           fragment = new FavoriteFragment();
+//            position = 1;
+//        } else if (id == R.id.nav_schedule) {
+//            fragment = new ScheduleFragment();
+//            position = 2;
+//        } else if (id == R.id.nav_share) {
+//            Toast.makeText(MainActivity.this,"该功能未开放",Toast.LENGTH_LONG).show();
+//            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+//            drawer.closeDrawer(GravityCompat.START);
+//            return true;
+//        } else if (id == R.id.nav_send) {
+//            Toast.makeText(MainActivity.this,"该功能未开放",Toast.LENGTH_LONG).show();
+//            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+//            drawer.closeDrawer(GravityCompat.START);
+//            return true;
+//        }
 
         changeFragment(R.id.frame_content,fragment);
         setActionBarTitle(position,1);
