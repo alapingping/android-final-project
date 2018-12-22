@@ -27,6 +27,11 @@ dependencies {
     //bmod-skd
     compile 'cn.bmob.android:bmob-sdk:3.6.3'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //baidu navigation
+    compile files('libs/onsdk_all.aar')
+    compile files('aar')
+    //baidu Map
+    compile files('libs/BaiduLBS_Android.jar')
     compile('com.squareup.retrofit2:retrofit:2.1.0') { exclude group: 'com.squareup.okhttp3' }
     compile('com.squareup.retrofit2:converter-gson:2.1.0') {
         exclude group: 'com.google.code.gson'
@@ -53,8 +58,7 @@ dependencies {
     implementation 'com.android.support:cardview-v7:26.1.0'
     implementation 'com.android.support:gridlayout-v7:26.1.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
-
     implementation files('libs/BaiduLBS_AndroidSDK_Lib/libs/BaiduLBS_Android.jar')
     implementation files('libs/BaiduLBS_AndroidSDK_Lib/libs/IndoorscapeAlbumPlugin.jar')
-
+    implementation files('libs/BaiduLBS_Android.jar')
 }
