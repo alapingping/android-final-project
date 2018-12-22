@@ -13,8 +13,7 @@ public class Community extends BmobObject {
     private String Video;
     private String RoomId;//PK
     private String Email;
-    private Date createdAT;//PK
-    private Date updatedAt;
+
 
     public Community(String Roonid,String Username){
         UserName = Username;

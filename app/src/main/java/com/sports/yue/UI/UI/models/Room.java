@@ -14,8 +14,6 @@ public class Room extends BmobObject {
     private String RoomCreator;
     private String RoomName;
     private String RoomId;//PK
-    private Date createdAt;
-    private Date updateAt;
 
 
     public Room(String id,String name){

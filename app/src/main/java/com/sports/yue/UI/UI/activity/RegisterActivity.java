@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.sports.yue.R;
+import com.sports.yue.UI.UI.Database_operation.Db_operation;
 import com.sports.yue.UI.UI.api.BmobService;
 import com.sports.yue.UI.UI.api.Client;
 import com.sports.yue.UI.UI.models.User;
@@ -78,44 +79,10 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         //创建注册用户模板
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("UserName",username);
-            jsonObject.put("UserPass",password);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        //将json转为请求体
-
-        RequestBody body = RequestBody.create(
-                MediaType.parse("application/json"),new Gson().toJson(jsonObject));
-
-        //使用retrofit发送请求
-        BmobService service = Client.retrofit.create(BmobService.class);
-        Call<ResponseBody> call = service.postUser(body);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                if(response.code() == 201){
-                    showmsg("注册成功");
-                    jump2login();
-                }
-                else if(response.code() == 400) {
-                    showmsg("该用户名已存在");
-                }
-                else if(response.code() == 401) {
-                    showmsg("该用户名已存在");
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                showmsg(t.getMessage());
-            }
-        });
+        User user = new User(username, password);
+        Db_operation.getDb_op().add(user);
+        showmsg("注册成功");
+        jump2login();
 
 
     }

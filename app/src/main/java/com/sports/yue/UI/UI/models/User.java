@@ -15,8 +15,7 @@ public class User extends BmobObject {
     private String UserPass;
     private String UserName;//PK
     private String UserInfo;
-    private Date createdAt;
-    private Date updatedAt;
+
 
     public User(String name,String pass){
         UserName = name;

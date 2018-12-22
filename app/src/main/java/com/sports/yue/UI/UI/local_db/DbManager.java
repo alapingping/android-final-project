@@ -40,16 +40,16 @@ public class DbManager {
 
         //这里创建Message表
         sql = "CREATE TABLE IF NOT EXISTS MESSAGE ("
-                + "UserName varchar PRIMARY KEY, RoomId varchar PRIMARY KEY,MessageContent varchar,"
-                + "createdAt datetime PRIMARY KEY,updatedAt datetime)";
+                + "UserName varchar, RoomId varchar,MessageContent varchar,"
+                + "createdAt datetime,updatedAt datetime, PRIMARY KEY(UserName,RoomId,createdAt))";
         SQLiteDatabase db3 = dbHelper.getWritableDatabase();
         db3.execSQL(sql);
         db3.close();
 
         //这里创建Community表
         sql = "CREATE TABLE IF NOT EXISTS COMMUNITY ("
-                + "UserName varchar PRIMARY KEY, Likes number,Video varchar,RoomId varcahr PRIMARY KEY,"
-                + "Email varchar,createdAT datetime PRIMARY KEY,updatedAt datetime)";
+                + "UserName varchar, Likes number,Video varchar,RoomId varcahr ,"
+                + "Email varchar,createdAT datetime,updatedAt datetime, PRIMARY KEY (UserName,RoomId,createdAT))";
         SQLiteDatabase db4 = dbHelper.getWritableDatabase();
         db4.execSQL(sql);
         db4.close();

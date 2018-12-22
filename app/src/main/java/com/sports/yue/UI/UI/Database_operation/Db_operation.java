@@ -646,8 +646,9 @@ public class Db_operation {
             public void done(String objectId, BmobException e) {
                 if (e == null) {
 //                            tv_show.setText("添加数据成功，返回objectId为：" + objectId);
-//                            temp_objectId = objectId;
+//                            temp_objectId = objectId; result[0] = true;
                 } else {
+//                    result[0] = true;
 //                            tv_show.setText("创建数据失败：" + e.getMessage());
                 }
             }
