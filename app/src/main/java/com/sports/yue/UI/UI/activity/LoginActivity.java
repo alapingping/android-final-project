@@ -107,9 +107,7 @@ public class LoginActivity extends AppCompatActivity {
 //        while (!isInternet.isNetworkAvalible(getApplicationContext())){
 //
 //        }
-        List<String[]> li = DbManager.getDb_M(getApplicationContext()).select(new String[]{"UserName"},new String[]{"CURRENTUSER"},
-                new String[]{"UserName","Password"},new String[]{"-1","-1"});
-        if (li.size() > 0) {
+        if (CurrentUser.getInstance(getApplicationContext()).getUserName()=="-1" && CurrentUser.getInstance(getApplicationContext()).getUserPass() == "-1") {
             //设置下划线
             TextView forget_text = findViewById(R.id.forget_text);
             forget_text.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
@@ -131,10 +129,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         }else {
-            li = DbManager.getDb_M(getApplicationContext()).select(new String[]{"UserName"},new String[]{"CURRENTUSER"},
-                    null,null);
             try {
-                jump2main(new JSONObject(li.get(0)[0]));
+                jump2main(new JSONObject(CurrentUser.getInstance(getApplicationContext()).getUserName()));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -150,7 +146,7 @@ public class LoginActivity extends AppCompatActivity {
         final String username = username_input.getText().toString();
         String password = password_input.getText().toString();
 
-        DbManager.getDb_M(getApplicationContext()).update("CURRENTUSER",new String[]{"UserName","Password"},new String[]{username,password},null,null);
+        CurrentUser.getInstance(getApplicationContext()).setCurrentUser(getApplicationContext(),username,password);
 
         JSONObject obj = new JSONObject();
 //        obj.put("UserPhone","135");
@@ -210,8 +206,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
         try {
-            CurrentUser.getInstance().setUserName(jsonObject.getString("UserName"));
-            CurrentUser.getInstance().setUserName(jsonObject.getString("UserPass"));
+            CurrentUser.getInstance(getApplicationContext()).setUserName(jsonObject.getString("UserName"));
+            CurrentUser.getInstance(getApplicationContext()).setUserName(jsonObject.getString("UserPass"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
