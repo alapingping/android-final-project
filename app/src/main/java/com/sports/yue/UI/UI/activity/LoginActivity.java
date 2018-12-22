@@ -29,6 +29,7 @@ import com.sports.yue.UI.UI.models.Message;
 import com.sports.yue.UI.UI.models.Room;
 import com.sports.yue.UI.UI.models.User;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -153,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
         DbManager.getDb_M(getApplicationContext()).update("CURRENTUSER",new String[]{"UserName","Password"},new String[]{username,password},null,null);
 
         JSONObject obj = new JSONObject();
-//        obj.put("UserPhone","135");
+        obj.put("UserPhone","135");
         //使用retrofit实现登录请求
         BmobService service = Client.retrofit.create(BmobService.class);
         Call<ResponseBody> call = service.getUser(obj);
@@ -162,10 +163,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 if(response.code() == 200){
-                    showmsg("登陆成功");
+
                     try {
                         String str =  response.body().string();
                         jsonObject = new JSONObject(str);
+                        JSONArray jsonArray = jsonObject.getJSONArray("results");
+                        if(password.equals(jsonArray.getJSONObject(0).getString("UserPass")))
+                            showmsg("登陆成功");
 
                     } catch (JSONException e) {
                         e.printStackTrace();

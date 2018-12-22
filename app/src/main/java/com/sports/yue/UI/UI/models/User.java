@@ -19,7 +19,7 @@ public class User extends BmobObject {
 
     public User(String name,String pass){
         UserName = name;
-        UserPhone = pass;
+        UserPass = pass;
     }
 
     public User(){}
