@@ -144,8 +144,6 @@ public class LoginActivity extends AppCompatActivity {
         final String username = username_input.getText().toString();
         String password = password_input.getText().toString();
 
-        CurrentUser.getInstance(getApplicationContext()).setCurrentUser(getApplicationContext(),username,password);
-
         JSONObject obj = new JSONObject();
         obj.put("UserName",username);
         //使用retrofit实现登录请求
@@ -161,8 +159,11 @@ public class LoginActivity extends AppCompatActivity {
                         String str =  response.body().string();
                         jsonObject = new JSONObject(str);
                         JSONArray jsonArray = jsonObject.getJSONArray("results");
-                        if(password.equals(jsonArray.getJSONObject(0).getString("UserPass")))
+                        if(password.equals(jsonArray.getJSONObject(0).getString("UserPass"))) {
                             showmsg("登陆成功");
+                            CurrentUser.getInstance(getApplicationContext()).setCurrentUser(getApplicationContext(),username,password);
+                            jump2main(username, password);
+                        }
                         else{
                             showmsg("用户名或密码错误");
                             return ;
