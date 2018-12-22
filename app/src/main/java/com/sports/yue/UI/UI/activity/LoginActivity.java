@@ -10,6 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sports.yue.R;
+import com.sports.yue.UI.UI.Database_operation.Db_operation;
+import com.sports.yue.UI.UI.Internet.isInternet;
+import com.sports.yue.UI.UI.local_db.DbManager;
+import com.sports.yue.UI.UI.models.Community;
+import com.sports.yue.UI.UI.models.Message;
+import com.sports.yue.UI.UI.models.Room;
+import com.sports.yue.UI.UI.models.User;
 
 
 import cn.bmob.v3.Bmob;
@@ -24,6 +31,52 @@ public class LoginActivity extends AppCompatActivity {
         //初始化bmob服务
 
         Bmob.initialize(this, "5fad9f2543ffa83e56155a46398d6ede");
+
+        DbManager.getDb_M(getApplicationContext()).delete("USER",null,null);
+        DbManager.getDb_M(getApplicationContext()).delete("ROOM",null,null);
+        DbManager.getDb_M(getApplicationContext()).delete("COMMUNITY",null,null);
+        DbManager.getDb_M(getApplicationContext()).delete("MESSAGE",null,null);
+        if (isInternet.isNetworkAvalible(getApplicationContext())){
+            User[] us = Db_operation.getDb_op().searchUser(null);
+            for (User u : us){
+                if (DbManager.getDb_M(getApplicationContext()).select(new String[]{"UserName"},new String[]{"USER"},null,null).size() > 0){
+                    DbManager.getDb_M(getApplicationContext()).update(u);
+                }else {
+                    DbManager.getDb_M(getApplicationContext()).insert(u);
+                }
+            }
+
+            Room[] r = Db_operation.getDb_op().searchRoom(null);
+            for (Room u : r){
+                if (DbManager.getDb_M(getApplicationContext()).select(new String[]{"RoomId"},new String[]{"ROOM"},null,null).size() > 0){
+                    DbManager.getDb_M(getApplicationContext()).update(u);
+                }else {
+                    DbManager.getDb_M(getApplicationContext()).insert(u);
+                }
+            }
+
+            Message[] m = Db_operation.getDb_op().searchAllMessage();
+            for (Message u : m){
+                if (DbManager.getDb_M(getApplicationContext()).select(new String[]{"UserName","RoomId","createdAT"},
+                        new String[]{u.getUserName(),u.getRoomId(),u.getCreatedAt()},null,null).size() > 0){
+                    DbManager.getDb_M(getApplicationContext()).update(u);
+                }else {
+                    DbManager.getDb_M(getApplicationContext()).insert(u);
+                }
+            }
+            Community[] c = Db_operation.getDb_op().searchAllCommunity();
+            for (Community u : c){
+                if (DbManager.getDb_M(getApplicationContext()).select(new String[]{"UserName","RoomId","createdAT"},
+                        new String[]{u.getUserName(),u.getRoomId(),u.getCreatedAt()},null,null).size() > 0){
+                    DbManager.getDb_M(getApplicationContext()).update(u);
+                }else {
+                    DbManager.getDb_M(getApplicationContext()).insert(u);
+                }
+            }
+        }
+//        while (!isInternet.isNetworkAvalible(getApplicationContext())){
+//
+//        }
 
             //设置下划线
             TextView forget_text = findViewById(R.id.forget_text);

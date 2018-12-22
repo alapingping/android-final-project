@@ -262,6 +262,70 @@ public class Db_operation {
         });
         return lists;
     }
+
+    /**
+     *
+     * @return  所有Community
+     */
+    public Community[] searchAllCommunity(){
+        //查
+        int[] sizes = new int[1];
+        BmobQuery<Community> room = new BmobQuery<Community>();
+        room.findObjects(new FindListener<Community>() {  //按行查询，查到的数据放到List<Goods>的集合
+//
+//            @Override
+//            public void onSuccess(JSONArray jsonArray) {                //注意：查询结果是JSONArray
+////                showToast("查询成功：" + jsonArray.length());
+////                Toast.makeText(HomeFragment.this,"该功能未开放",Toast.LENGTH_LONG).show();
+//
+//            }
+
+            @Override
+            public void done(List<Community> list, BmobException e) {
+                if (e == null){
+                    if (e == null) {
+                        sizes[0] = list.size();
+                        //  textView.setText(str);
+                    } else {
+                        System.out.println(e.getErrorCode());
+                    }
+
+                }
+            }
+        });
+
+        Community[] lists = new Community[sizes[0]];
+        BmobQuery<Community> rooms = new BmobQuery<Community>();
+        rooms.findObjects(new FindListener<Community>() {
+            @Override
+            public void done(List<Community> list, BmobException e) {
+                if (e == null){
+                    if (e == null) {
+                        int n = list.size();
+                        for (int i = 0; i < n; i++) {
+                            lists[i] = list.get(i);
+                        }
+                        Arrays.sort(lists, 0, n);		// 新加了一个排序函数
+                        String str = "";
+                        for (int i = 0; i < n; i++) {
+                            str = str + lists[i].getEmail() + " " + lists[i].getRoomId()+
+                                    " " + lists[i].getUserName()+ " " + lists[i].getVideo()+
+                                    " " + lists[i].getCreatedAt()+ " " + lists[i].getLikes() +
+                                    " " + lists[i].getObjectId() + "\n";
+                            System.out.println(lists[i].getEmail() + "," + lists[i].getRoomId()+
+                                    "," + lists[i].getUserName()+ "," + lists[i].getVideo()+
+                                    "," + lists[i].getCreatedAt()+ "," + lists[i].getLikes()+
+                                    "," + lists[i].getObjectId() + "");
+                        }                  //  textView.setText(str);
+                    } else {
+                        System.out.println(e.getErrorCode());
+                    }
+
+                }
+            }
+        });
+        return lists;
+    }
     /**
      *
      * @param username             用户名
@@ -396,7 +460,66 @@ public class Db_operation {
     }
     /**
      *
-     * @param username             用户名
+     * @return  所有Message
+     */
+    public Message[] searchAllMessage(){
+        //查
+        int[] sizes = new int[1];
+        BmobQuery<Message> room = new BmobQuery<Message>();
+        room.findObjects(new FindListener<Message>() {  //按行查询，查到的数据放到List<Goods>的集合
+//
+//            @Override
+//            public void onSuccess(JSONArray jsonArray) {                //注意：查询结果是JSONArray
+////                showToast("查询成功：" + jsonArray.length());
+////                Toast.makeText(HomeFragment.this,"该功能未开放",Toast.LENGTH_LONG).show();
+//
+//            }
+
+            @Override
+            public void done(List<Message> list, BmobException e) {
+                if (e == null){
+                    if (e == null) {
+                        sizes[0] = list.size();
+                        //  textView.setText(str);
+                    } else {
+                        System.out.println(e.getErrorCode());
+                    }
+
+                }
+            }
+        });
+
+        Message[] lists = new Message[sizes[0]];
+        BmobQuery<Message> rooms = new BmobQuery<Message>();
+        rooms.findObjects(new FindListener<Message>() {
+            @Override
+            public void done(List<Message> list, BmobException e) {
+                if (e == null){
+                    if (e == null) {
+                        int n = list.size();
+                        for (int i = 0; i < n; i++) {
+                            lists[i] = list.get(i);
+                        }
+                        Arrays.sort(lists, 0, n);		// 新加了一个排序函数
+                        String str = "";
+                        for (int i = 0; i < n; i++) {
+                            str = str + lists[i].getMessageContent() + " " + lists[i].getRoomId() +
+                                    " " + lists[i].getUserName() + " " + lists[i].getObjectId() + "\n";
+                            System.out.println(lists[i].getMessageContent() + "," + lists[i].getRoomId() +
+                                    "," + lists[i].getUserName() + "," + lists[i].getObjectId() + "");
+                        }                  //  textView.setText(str);
+                    } else {
+                        System.out.println(e.getErrorCode());
+                    }
+
+                }
+            }
+        });
+        return lists;
+    }
+    /**
+     *
+     * @param username             用户名,为空时查询所有用户
      * @return                      符合条件的User数组
      */
     public User[] searchUser(String username){

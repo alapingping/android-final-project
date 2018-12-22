@@ -10,6 +10,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sports.yue.R;
+import com.sports.yue.UI.UI.Database_operation.Db_operation;
+import com.sports.yue.UI.UI.models.User;
+
+import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -44,8 +48,14 @@ public class RegisterActivity extends AppCompatActivity {
             showmsg("两次输入密码不一致!");
             return;
         }
-
-
+        User[] us = Db_operation.getDb_op().searchUser(username);
+        if (us.length > 0){
+            showmsg("此用户名已被注册!");
+            return;
+        }
+        User user = new User(username,password);
+        Db_operation.getDb_op().add(user);
+        showmsg("注册成功!");
     }
     //显示信息
     public void showmsg(String msg){

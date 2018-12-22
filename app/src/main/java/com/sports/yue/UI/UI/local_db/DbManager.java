@@ -5,6 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.sports.yue.R;
+import com.sports.yue.UI.UI.models.Community;
+import com.sports.yue.UI.UI.models.Message;
+import com.sports.yue.UI.UI.models.Room;
+import com.sports.yue.UI.UI.models.User;
+
 import java.util.ArrayList;
 
 public class DbManager {
@@ -62,7 +68,7 @@ public class DbManager {
      * @param fieldvalue the value of each field
      * @return long(Object_id) the object id for the data you have insert
      */
-    public int insert(String tablename,String[] field,String[] fieldvalue){
+    public boolean insert(String tablename,String[] field,String[] fieldvalue){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         //打开连接，写入数据
         ContentValues values=new ContentValues();
@@ -73,16 +79,50 @@ public class DbManager {
         //
         long student_Id=db.insert(tablename,null,values);
         db.close();
-        return (int)student_Id;
+        if (student_Id > 0)
+            return true;
+        return false;
     }
+
+    public boolean insert(User o){
+        return insert("USER",
+                new String[]{"UserSex", "UserEmail","UserPhone","UserPass","UserName","UserInfo","createdAt","updatedAt"},
+                new String[]{((User)o).getUserSex(),((User)o).getUserEmail(),((User)o).getUserPhone(),((User)o).getUserPass(),((User)o).getUserName(),
+                        ((User)o).getUserInfo(),((User)o).getCreatedAt(),((User)o).getUpdatedAt()});
+    }
+    public boolean insert(Community o){
+        return insert("COMMUNITY",
+                new String[]{"UserName", "Likes","Video","RoomId","Email","createdAT","updatedAt"},
+                new String[]{((Community)o).getUserName(),((Community)o).getLikes()+"",((Community)o).getVideo(),((Community)o).getRoomId(),
+                        ((Community)o).getEmail(),((Community)o).getCreatedAt(),((Community)o).getUpdatedAt()});
+    }
+    public boolean insert(Message o){
+        return insert("MESSAGE",
+                new String[]{"UserName", "RoomId","MessageContent","createdAT","updatedAt"},
+                new String[]{((Message)o).getUserName(),((Message)o).getRoomId()+"",((Message)o).getMessageContent(),
+                        ((Message)o).getCreatedAt(),((Message)o).getUpdatedAt()});
+    }
+    public boolean insert(Room o){
+        return insert("ROOM",
+                new String[]{"ActivityTime", "ActivityPosition","RoomMaxPeople","RoomType","RoomDescription",
+                        "RoomCreator","RoomName","RoomId","createdAt","updateAt"},
+                new String[]{((Room)o).getActivityTime() + "",((Room)o).getActivityPosition()+"",((Room)o).getRoomMaxPeople()+ "", ((Room)o).getRoomType(),
+                        ((Room)o).getRoomDescription(),((Room)o).getRoomCreator(),((Room)o).getRoomName()+"",((Room)o).getRoomId(),
+                        ((Room)o).getCreatedAt(),((Room)o).getUpdatedAt()});
+    }
+
 
     /**
      * @param tablename the name of table
-     * @param field the field you want to set
+     * @param field the field you want to set,if null delete all
      * @param fieldvalue the value of each field
      */
     public void delete(String tablename,String[] field,String[] fieldvalue){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+        if (field == null){
+            db.delete(tablename,null, null);
+            return;
+        }
         String whereClause = "";
         for (int i = 0;i < field.length;i++){
             if (i == field.length - 1){
@@ -119,6 +159,41 @@ public class DbManager {
 
         db.update(tablename,values,whereClause,selectfieldvalue);
         db.close();
+    }
+
+    public void update(User o){
+        update("USER",
+                new String[]{"UserSex", "UserEmail","UserPhone","UserPass","UserName","UserInfo","createdAt","updatedAt"},
+                new String[]{((User)o).getUserSex(),((User)o).getUserEmail(),((User)o).getUserPhone(),((User)o).getUserPass(),((User)o).getUserName(),
+                        ((User)o).getUserInfo(),((User)o).getCreatedAt(),((User)o).getUpdatedAt()},
+                new String[]{"UserName"},
+                new String[]{((User)o).getUserName()});
+    }
+    public void update(Message o){
+        update("MESSAGE",
+                new String[]{"UserName", "RoomId","MessageContent","createdAT","updatedAt"},
+                new String[]{((Message)o).getUserName(),((Message)o).getRoomId()+"",((Message)o).getMessageContent(),
+                        ((Message)o).getCreatedAt(),((Message)o).getUpdatedAt()},
+                new String[]{"UserName","RoomId","createdAT"},
+                new String[]{((Message)o).getUserName(),((Message)o).getRoomId(),((Message)o).getCreatedAt()});
+    }
+    public void update(Room o){
+        update("ROOM",
+                new String[]{"ActivityTime", "ActivityPosition","RoomMaxPeople","RoomType","RoomDescription",
+                        "RoomCreator","RoomName","RoomId","createdAt","updateAt"},
+                new String[]{((Room)o).getActivityTime() + "",((Room)o).getActivityPosition()+"",((Room)o).getRoomMaxPeople()+ "", ((Room)o).getRoomType(),
+                        ((Room)o).getRoomDescription(),((Room)o).getRoomCreator(),((Room)o).getRoomName()+"",((Room)o).getRoomId(),
+                        ((Room)o).getCreatedAt(),((Room)o).getUpdatedAt()},
+                new String[]{"RoomId"},
+                new String[]{((Room)o).getRoomId()});
+    }
+    public void update(Community o){
+        update("COMMUNITY",
+                new String[]{"UserName", "Likes","Video","RoomId","Email","createdAT","updatedAt"},
+                new String[]{((Community)o).getUserName(),((Community)o).getLikes()+"",((Community)o).getVideo(),((Community)o).getRoomId(),
+                        ((Community)o).getEmail(),((Community)o).getCreatedAt(),((Community)o).getUpdatedAt()},
+                new String[]{"UserName","RoomId","createdAT"},
+                new String[]{((Community)o).getUserName(),((Community)o).getRoomId(),((Community)o).getCreatedAt()});
     }
 
     /**

@@ -18,11 +18,11 @@ public class User extends BmobObject {
     private Date createdAt;
     private Date updatedAt;
 
-    public User(String name,String phone,String pass){
+    public User(String name,String pass){
         UserName = name;
-        UserPhone = phone;
         UserPhone = pass;
     }
+
     public User(){}
 
     public String getUserName() {
