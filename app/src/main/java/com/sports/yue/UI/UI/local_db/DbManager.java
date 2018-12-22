@@ -61,7 +61,7 @@ public class DbManager {
         db5.execSQL(sql);
         db5.close();
 
-        List<String[]> se = select(null,new String[]{"CURRENTUSER"},null,null);
+        List<String[]> se = select(new String[]{"UserName"},new String[]{"CURRENTUSER"},null,null);
         if (se.size() == 0){
             insert("CURRENTUSER",new String[]{"UserName","Password"},new String[]{"-1","-1"});
         }
@@ -162,6 +162,7 @@ public class DbManager {
         }
         if (selectfield == null){
             db.update(tablename,values,null,null);
+            return;
         }
         String whereClause = "";
         for (int i = 0;i < selectfield.length;i++){

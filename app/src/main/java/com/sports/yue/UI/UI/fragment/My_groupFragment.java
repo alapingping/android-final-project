@@ -31,7 +31,7 @@ public class My_groupFragment extends Fragment {
         // Inflate the layout for this fragment
 
         //获取当前View
-        View view = inflater.inflate(R.layout.main,container,false);
+        View view = inflater.inflate(R.layout.group_main,container,false);
         initData();
 
         elv = (ExpandableListView) view.findViewById(R.id.elv);

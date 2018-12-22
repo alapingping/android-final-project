@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
 //        while (!isInternet.isNetworkAvalible(getApplicationContext())){
 //
 //        }
-        if (CurrentUser.getInstance(getApplicationContext()).getUserName()=="-1" && CurrentUser.getInstance(getApplicationContext()).getUserPass() == "-1") {
+        if (CurrentUser.getInstance(getApplicationContext()).getUserName().equalsIgnoreCase("-1") && CurrentUser.getInstance(getApplicationContext()).getUserPass().equalsIgnoreCase("-1")) {
             //设置下划线
             TextView forget_text = findViewById(R.id.forget_text);
             forget_text.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
@@ -147,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
         CurrentUser.getInstance(getApplicationContext()).setCurrentUser(getApplicationContext(),username,password);
 
         JSONObject obj = new JSONObject();
-        obj.put("UserPhone","135");
+        obj.put("UserName",username);
         //使用retrofit实现登录请求
         BmobService service = Client.retrofit.create(BmobService.class);
         Call<ResponseBody> call = service.getUser(obj);
