@@ -130,11 +130,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         }else {
-            try {
-                jump2main(new JSONObject(CurrentUser.getInstance(getApplicationContext()).getUserName()));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            jump2main(CurrentUser.getInstance(getApplicationContext()).getUserName(),
+                    CurrentUser.getInstance(getApplicationContext()).getUserPass());
         }
     }
 
@@ -166,6 +163,10 @@ public class LoginActivity extends AppCompatActivity {
                         JSONArray jsonArray = jsonObject.getJSONArray("results");
                         if(password.equals(jsonArray.getJSONObject(0).getString("UserPass")))
                             showmsg("登陆成功");
+                        else{
+                            showmsg("用户名或密码错误");
+                            return ;
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -183,7 +184,7 @@ public class LoginActivity extends AppCompatActivity {
                             ActivityCompat.requestPermissions(LoginActivity.this,
                                     PERMISSIONS_STORAGE, 222);
                         } else {
-                            jump2main(jsonObject);
+                            jump2main(username, password);
                         }
                     }
                 }
@@ -206,15 +207,12 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_LONG).show();
     }
     //跳转至主界面
-    public void jump2main(JSONObject jsonObject){
+    public void jump2main(String username, String userpass){
 
 
-        try {
-            CurrentUser.getInstance(getApplicationContext()).setUserName(jsonObject.getString("UserName"));
-            CurrentUser.getInstance(getApplicationContext()).setUserName(jsonObject.getString("UserPass"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
+        CurrentUser.getInstance(getApplicationContext()).setUserName(username);
+        CurrentUser.getInstance(getApplicationContext()).setUserName(userpass);
 
 
 
