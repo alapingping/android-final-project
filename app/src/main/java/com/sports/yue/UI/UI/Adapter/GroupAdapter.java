@@ -12,7 +12,8 @@ import java.util.List;
 
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.models.Group;
-import com.sports.yue.UI.UI.models.Users;
+import com.sports.yue.UI.UI.models.Room;
+import com.sports.yue.UI.UI.models.RoomUser;
 
 public class GroupAdapter extends BaseExpandableListAdapter {
 
@@ -39,8 +40,8 @@ public class GroupAdapter extends BaseExpandableListAdapter {
         //设置数据
         Group group = getGroup(groupPosition);
         holder.groupName.setText(group.groupName);
-        String settext = group.getOnlineCount()+"/"+getChildrenCount(groupPosition);
-        holder.groupOnline.setText(settext);
+//        String settext = group.getOnlineCount()+"/"+getChildrenCount(groupPosition);
+//        holder.groupOnline.setText(settext);
 
         return convertView;
     }
@@ -58,12 +59,13 @@ public class GroupAdapter extends BaseExpandableListAdapter {
             holder = (ChildHolder) convertView.getTag();
         }
 ////        //设置数据
-        Users user = getGroup(groupPosition).getChild(childPosition);
-        holder.img.setImageResource(user.getImgId());
+        Room user = getGroup(groupPosition).getChild(childPosition);
+        holder.Roomid.setText(user.getRoomId());
+        holder.img.setImageResource(R.drawable.banner_gym);
         holder.RoomName.setText(user.getRoomName());
-        holder.Type.setText(user.getType());
-        holder.Member.setText(user.getMember());
-        holder.Location.setText(user.getLocation());
+        holder.Type.setText(user.getRoomType());
+        holder.Member.setText((user.getRoomMaxPeople()+""));
+        holder.Location.setText(user.getActivityPosition());
         return convertView;
     }
 
@@ -73,22 +75,25 @@ public class GroupAdapter extends BaseExpandableListAdapter {
 
         private GroupHolder(View convertView){
             groupName = (TextView) convertView.findViewById(R.id.groupName);
-            groupOnline = (TextView) convertView.findViewById(R.id.groupOnline);
+//            groupOnline = (TextView) convertView.findViewById(R.id.groupOnline);
         }
     }
     class ChildHolder {
+        TextView Roomid;
         ImageView img;
         TextView RoomName;
         TextView Type;
         TextView Member;
         TextView Location;
 
+
         private ChildHolder(View convertView) {
-            img = (ImageView) convertView.findViewById(R.id.img);
-            RoomName = (TextView) convertView.findViewById(R.id.RoomName);
-            Type = (TextView) convertView.findViewById(R.id.Type);
-            Member = (TextView) convertView.findViewById(R.id.Member);
-            Location = (TextView) convertView.findViewById(R.id.Location);
+            Roomid = (TextView) convertView.findViewById(R.id.roomid);
+            img = (ImageView) convertView.findViewById(R.id.room_photo_image);
+            RoomName = (TextView) convertView.findViewById(R.id.room_name_text);
+            Type = (TextView) convertView.findViewById(R.id.activity_type_text);
+            Member = (TextView) convertView.findViewById(R.id.num_people);
+            Location = (TextView) convertView.findViewById(R.id.location);
         }
     }
 
@@ -96,6 +101,11 @@ public class GroupAdapter extends BaseExpandableListAdapter {
     public int getGroupCount() {
         return list.size();
     }
+
+//    @Override
+//    public int getChildrenCount(int groupPosition) {
+//        return 0;
+//    }
 
     @Override
     public int getChildrenCount(int groupPosition) {
@@ -108,7 +118,7 @@ public class GroupAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public Users getChild(int groupPosition, int childPosition) {
+    public Room getChild(int groupPosition, int childPosition) {
         return list.get(groupPosition).getChild(childPosition);
     }
 

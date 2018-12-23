@@ -20,6 +20,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sports.yue.UI.UI.Database_operation.Db_operation;
+import com.sports.yue.UI.UI.fragment.CreateRoomFragment;
+
 import com.sports.yue.UI.UI.fragment.CommunityFragment;
 import com.sports.yue.UI.UI.fragment.FavoriteFragment;
 import com.sports.yue.UI.UI.fragment.MeFragment;
@@ -118,27 +121,27 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         int position = -1;
         Fragment fragment = null;
-//        if (id == R.id.nav_home) {
-//            // Handle the home action
-//            fragment = new HomeFragment();
-//            position = 0;
-//        } else if (id == R.id.nav_favorite) {
-//           fragment = new FavoriteFragment();
-//            position = 1;
-//        } else if (id == R.id.nav_schedule) {
-//            fragment = new ScheduleFragment();
-//            position = 2;
-//        } else if (id == R.id.nav_share) {
-//            Toast.makeText(MainActivity.this,"该功能未开放",Toast.LENGTH_LONG).show();
-//            DrawerLayout drawer = findViewById(R.id.drawer_layout);
-//            drawer.closeDrawer(GravityCompat.START);
-//            return true;
-//        } else if (id == R.id.nav_send) {
-//            Toast.makeText(MainActivity.this,"该功能未开放",Toast.LENGTH_LONG).show();
-//            DrawerLayout drawer = findViewById(R.id.drawer_layout);
-//            drawer.closeDrawer(GravityCompat.START);
-//            return true;
-//        }
+        if (id == R.id.nav_home) {
+            // Handle the home action
+            fragment = new HomeFragment();
+            position = 0;
+        } else if (id == R.id.nav_favorite) {
+           fragment = new FavoriteFragment();
+            position = 1;
+        } else if (id == R.id.nav_schedule) {
+            fragment = new ScheduleFragment();
+            position = 2;
+        } else if (id == R.id.nav_share) {
+            Toast.makeText(MainActivity.this,"该功能未开放",Toast.LENGTH_LONG).show();
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+            return true;
+        } else if (id == R.id.nav_send) {
+            Toast.makeText(MainActivity.this,"该功能未开放",Toast.LENGTH_LONG).show();
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+            return true;
+        }
 
         changeFragment(R.id.frame_content,fragment);
         setActionBarTitle(position,1);
@@ -160,7 +163,7 @@ public class MainActivity extends AppCompatActivity
                         return true;
                     case R.id.navigation_dashboard:
                         //禁用侧滑功能
-                        changeFragment(R.id.frame_content,new GroupFragment());
+                        changeFragment(R.id.frame_content,new My_groupFragment());
                         setActionBarTitle(-1,2);
                         return true;
                     case R.id.navigation_coaches:
@@ -168,11 +171,11 @@ public class MainActivity extends AppCompatActivity
                         changeFragment(R.id.frame_content,new CommunityFragment());
                         setActionBarTitle(-1,3);
                         return true;
-                    case R.id.navigation_group:
-                        //禁用侧滑功能
-                        changeFragment(R.id.frame_content,new My_groupFragment());
-                        setActionBarTitle(-1,4);
-                        return true;
+//                    case R.id.navigation_group:
+//                        //禁用侧滑功能
+//                        changeFragment(R.id.frame_content,new My());
+//                        setActionBarTitle(-1,4);
+//                        return true;
                 }
                 return false;
             };
@@ -235,6 +238,11 @@ public class MainActivity extends AppCompatActivity
       public void handleMessage(Message msg){
           isExist = false;
       }
+    }
+
+    public void onClickCreateRoom(View view){
+        changeFragment(R.id.frame_content,new CreateRoomFragment());
+        setActionBarTitle(-1,2);
     }
 
 

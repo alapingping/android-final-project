@@ -67,5 +67,10 @@
     <string name="switches">Switch</string>
     <string name="mapmode">Map mode</string>
     <string name="hotmap">hotmap</string>
+    <string name="create_room_button">Create Room</string>
+    <string name="title_activity_test_navigation">test_navigation</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
 
 </resources>

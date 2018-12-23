@@ -20,6 +20,7 @@ import com.sports.yue.R;
 import com.sports.yue.UI.UI.api.BmobService;
 import com.sports.yue.UI.UI.api.Client;
 import com.sports.yue.UI.UI.models.CurrentUser;
+import com.sports.yue.UI.UI.models.RoomUser;
 import com.sports.yue.UI.UI.models.User;
 
 import com.sports.yue.UI.UI.Database_operation.Db_operation;
@@ -68,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         DbManager.getDb_M(getApplicationContext()).delete("ROOM",null,null);
         DbManager.getDb_M(getApplicationContext()).delete("COMMUNITY",null,null);
         DbManager.getDb_M(getApplicationContext()).delete("MESSAGE",null,null);
+        DbManager.getDb_M(getApplicationContext()).delete("ROOMUSER",null,null);
         if (isInternet.isNetworkAvalible(getApplicationContext())){
             User[] us = Db_operation.getDb_op().searchUser(null);
             for (User u : us){
@@ -83,7 +85,9 @@ public class LoginActivity extends AppCompatActivity {
                 if (DbManager.getDb_M(getApplicationContext()).select(new String[]{"RoomId"},new String[]{"ROOM"},null,null).size() > 0){
                     DbManager.getDb_M(getApplicationContext()).update(u);
                 }else {
-                    DbManager.getDb_M(getApplicationContext()).insert(u);
+                    if (u != null) {
+                        DbManager.getDb_M(getApplicationContext()).insert(u);
+                    }
                 }
             }
 
@@ -105,6 +109,11 @@ public class LoginActivity extends AppCompatActivity {
                     DbManager.getDb_M(getApplicationContext()).insert(u);
                 }
             }
+            RoomUser[] ro = Db_operation.getDb_op().searchRoomUser(null,null);
+            for (RoomUser u : ro){
+                DbManager.getDb_M(getApplicationContext()).insert(u);
+            }
+
         }
 //        while (!isInternet.isNetworkAvalible(getApplicationContext())){
 //

@@ -20,62 +20,61 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_navigation"
-        app:menu="@menu/activity_navigation_drawer">
+        app:menu="@menu/activity_navigation_drawer"
+        >
+        <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_height="70dp"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_height="70dp"
-            android:orientation="horizontal">
+        android:layout_width="30dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="20dp"
+        android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="30dp"
-                android:layout_height="50dp"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="10dp"
-                android:layout_marginStart="20dp"
-                android:orientation="vertical">
+        <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:src="@drawable/set_up" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/set_up" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/setting" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/logout_layout"
-                android:layout_width="30dp"
-                android:layout_height="50dp"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="10dp"
-                android:layout_marginStart="20dp"
-                android:onClick="onClickLogout"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/logout" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/logout" />
-
-            </LinearLayout>
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/setting" />
 
         </LinearLayout>
 
+        <LinearLayout
+        android:id="@+id/logout_layout"
+        android:layout_width="30dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="20dp"
+        android:onClick="onClickLogout"
+        android:orientation="vertical">
+
+        <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:src="@drawable/logout" />
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/logout" />
+
+        </LinearLayout>
+
+        </LinearLayout>
     </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

@@ -10,14 +10,14 @@ public class Group {
     //分组名
     public String groupName;
     //有很多User
-    public List<Users> list;
+    public List<Room> list;
 
     public Group(String groupName){
         this.groupName = groupName;
-        list = new ArrayList<Users>();
+        list = new ArrayList<Room>();
     }
     //添加User
-    public void addUser(Users user){
+    public void addRoom(Room user){
         list.add(user);
     }
 
@@ -26,11 +26,11 @@ public class Group {
         return list.size();
     }
     //获取某个分组中User在线的数量
-    public int getOnlineCount(){
-        return list.size();
-    }
+//    public int getOnlineCount(){
+//        return list.size();
+//    }
     //获取分组中某个孩子
-    public Users getChild(int childPosition) {
+    public Room getChild(int childPosition) {
         return list.get(childPosition);
     }
 

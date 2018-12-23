@@ -1,8 +1,10 @@
 package com.sports.yue.UI.UI.Database_operation;
 
+import com.sports.yue.UI.UI.Adapter.GroupAdapter;
 import com.sports.yue.UI.UI.models.Community;
 import com.sports.yue.UI.UI.models.Message;
 import com.sports.yue.UI.UI.models.Room;
+import com.sports.yue.UI.UI.models.RoomUser;
 import com.sports.yue.UI.UI.models.User;
 
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Handler;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
@@ -20,9 +23,13 @@ import cn.bmob.v3.listener.UpdateListener;
 
 public class Db_operation {
 
+    private Room[] rooms;
+    private RoomUser[] roomuser;
     private static Db_operation Db_op = null;
 
     private Db_operation(){
+        rooms = new Room[0];
+        roomuser = new RoomUser[0];
     }
 
     public static Db_operation getDb_op() {
@@ -69,58 +76,48 @@ public class Db_operation {
      */
     public Room[] searchRoom(String roomid){
         //查
-        int[] sizes = new int[1];
-        BmobQuery<Room> room = new BmobQuery<Room>();
-        room.findObjects(new FindListener<Room>() {  //按行查询，查到的数据放到List<Goods>的集合
-//
-//            @Override
-//            public void onSuccess(JSONArray jsonArray) {                //注意：查询结果是JSONArray
-////                showToast("查询成功：" + jsonArray.length());
-////                Toast.makeText(HomeFragment.this,"该功能未开放",Toast.LENGTH_LONG).show();
-//
-//            }
-
+        rooms = new Room[0];
+        int[] na = new int[1];
+        na[0]=0;
+        BmobQuery<Room> newroom = new BmobQuery<Room>();
+        newroom.findObjects(new FindListener<Room>() {
             @Override
             public void done(List<Room> list, BmobException e) {
-                if (e == null){
-                    if (e == null) {
-                        sizes[0] = list.size();
-                        //  textView.setText(str);
-                    } else {
-                        System.out.println(e.getErrorCode());
-                    }
-
-                }
-            }
-        });
-
-        Room[] lists = new Room[sizes[0]];
-        BmobQuery<Room> rooms = new BmobQuery<Room>();
-        rooms.findObjects(new FindListener<Room>() {
-            @Override
-            public void done(List<Room> list, BmobException e) {
+                na[0] = 1;
                 if (e == null){
                     if (e == null) {
                         int n = list.size();
+                        rooms = new Room[n];
                         for (int i = 0; i < n; i++) {
-                            if (roomid == null || list.get(i).getRoomId().equalsIgnoreCase(roomid)) {
-                                lists[i] = list.get(i);
-                            }
+                            rooms[i] = list.get(i);
                         }
-                        Arrays.sort(lists, 0, n);		// 新加了一个排序函数
+                        Arrays.sort(rooms, 0, n);		// 新加了一个排序函数
                         String str = "";
                         for (int i = 0; i < n; i++) {
-                            str = str + lists[i].getRoomName() + " " + lists[i].getRoomId() + "\n";
-                            System.out.println(lists[i].getRoomName() + "," + lists[i].getRoomId() + "");
+                            str = str + rooms[i].getRoomName() + " " + rooms[i].getRoomId() + "\n";
+                            System.out.println(rooms[i].getRoomName() + "," + rooms[i].getRoomId() + "");
                         }                  //  textView.setText(str);
                     } else {
                         System.out.println(e.getErrorCode());
                     }
-
                 }
             }
         });
-        return lists;
+
+
+        Room[] ro = new Room[rooms.length];
+        int size = 0;
+        for (int i = 0;i < rooms.length;i++){
+            if (roomid == null || rooms[i].getRoomId().equalsIgnoreCase(roomid)){
+                ro[size] = rooms[i];
+                size++;
+            }
+        }
+        rooms = new Room[size];
+        for (int i = 0;i < size;i++){
+            rooms[i] = ro[i];
+        }
+        return rooms;
     }
     /**
      *
@@ -584,6 +581,56 @@ public class Db_operation {
         return lists;
     }
 
+    public RoomUser[] searchRoomUser(String username, String roomid){
+        //查
+        roomuser = new RoomUser[0];
+        int[] na = new int[1];
+        na[0] = 0;
+        BmobQuery<RoomUser> rooms = new BmobQuery<RoomUser>();
+        rooms.findObjects(new FindListener<RoomUser>() {
+            @Override
+            public void done(List<RoomUser> list, BmobException e) {
+                na[0] = 1;
+                if (e == null){
+                    if (e == null) {
+                        int n = list.size();
+
+                        for (int i = 0; i < n; i++) {
+                            roomuser[i] = list.get(i);
+                        }
+
+                        Arrays.sort(roomuser, 0, n);		// 新加了一个排序函数
+                        String str = "";
+                        for (int i = 0; i < n; i++) {
+                            str = str + roomuser[i].getRoomId() + " " + roomuser[i].getUserName() +
+                                    " " + roomuser[i].getObjectId() + "\n";
+                            System.out.println(roomuser[i].getRoomId() + "," + roomuser[i].getUserName() +
+                                    "," + roomuser[i].getObjectId() + "");
+                        }                  //  textView.setText(str);
+                    } else {
+                        System.out.println(e.getErrorCode());
+                    }
+
+                }
+            }
+        });
+        RoomUser[] ro = new RoomUser[roomuser.length];
+        int size = 0;
+        for (int i = 0;i < roomuser.length;i++){
+            if (roomid == null || roomuser[i].getRoomId().equalsIgnoreCase(roomid)){
+                if (username == null || roomuser[i].getUserName().equalsIgnoreCase(username)) {
+                    ro[size] = roomuser[i];
+                    size++;
+                }
+            }
+        }
+        roomuser = new RoomUser[size];
+        for (int i = 0;i < size;i++){
+            roomuser[i] = ro[i];
+        }
+        return roomuser;
+    }
+
     //增
     /**
      *
@@ -596,8 +643,11 @@ public class Db_operation {
                 if (e == null) {
 //                            tv_show.setText("添加数据成功，返回objectId为：" + objectId);
 //                            temp_objectId = objectId;
+//                    System.out.print(e.getMessage());
+                    System.out.print("成功");
                 } else {
-//                            tv_show.setText("创建数据失败：" + e.getMessage());
+//                            S
+                    System.out.print(e.getMessage());
                 }
             }
         });
@@ -642,6 +692,22 @@ public class Db_operation {
      */
     public void add(User user){
         user.save(new SaveListener<String>() {
+            @Override
+            public void done(String objectId, BmobException e) {
+                if (e == null) {
+                    System.out.print("a");
+//                            tv_show.setText("添加数据成功，返回objectId为：" + objectId);
+//                            temp_objectId = objectId; result[0] = true;
+                } else {
+                    System.out.print("b");
+//                    result[0] = true;
+//                            tv_show.setText("创建数据失败：" + e.getMessage());
+                }
+            }
+        });
+    }
+    public void add(RoomUser roomuser){
+        roomuser.save(new SaveListener<String>() {
             @Override
             public void done(String objectId, BmobException e) {
                 if (e == null) {
@@ -736,6 +802,23 @@ public class Db_operation {
         List<String> id = getUserId(username);
         for (String ida : id) {
             final User book = new User();
+            book.setObjectId(ida);
+            book.delete(new UpdateListener() {
+                @Override
+                public void done(BmobException e) {
+                    if (e == null) {
+//                                  tv_show.setText("数据删除成功 " + book.getUpdatedAt());
+                    } else {
+//                                   tv_show.setText("数据删除失败 " + e.getMessage());
+                    }
+                }
+            });
+        }
+    }
+    public void deleteRoomUser(String username,String roomid){
+        List<String> id = getRoomUserId(username,roomid);
+        for (String ida : id){
+            final Message book = new Message();
             book.setObjectId(ida);
             book.delete(new UpdateListener() {
                 @Override
@@ -940,6 +1023,17 @@ public class Db_operation {
         List<String> objid = new ArrayList<String >();
         for (User c : ci){
             if (username == null || c.getUserName().equalsIgnoreCase(username)){
+                objid.add(c.getObjectId());
+            }
+        }
+        return objid;
+    }
+    private List<String> getRoomUserId(String username, String roomid){
+        RoomUser[] ci = searchRoomUser(username,roomid);
+        List<String> objid = new ArrayList<String>();
+        for (RoomUser c : ci){
+            if ((username == null || c.getUserName().equalsIgnoreCase(username)) &&
+                    (roomid == null || c.getRoomId().equalsIgnoreCase(roomid))){
                 objid.add(c.getObjectId());
             }
         }

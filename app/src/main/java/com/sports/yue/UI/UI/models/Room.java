@@ -6,7 +6,7 @@ import java.util.Date;
  * 房间
  */
 public class Room extends BmobObject {
-    private Date ActivityTime;
+    private String ActivityTime;
     private String ActivityPosition;
     private Number RoomMaxPeople;
     private String RoomType;
@@ -22,7 +22,7 @@ public class Room extends BmobObject {
     }
     public Room(){}
 
-    public Date getActivityTime() {
+    public String getActivityTime() {
         return ActivityTime;
     }
 
@@ -50,7 +50,7 @@ public class Room extends BmobObject {
         ActivityPosition = activityPosition;
     }
 
-    public void setActivityTime(Date activityTime) {
+    public void setActivityTime(String activityTime) {
         ActivityTime = activityTime;
     }
 

@@ -9,6 +9,7 @@ import com.sports.yue.R;
 import com.sports.yue.UI.UI.models.Community;
 import com.sports.yue.UI.UI.models.Message;
 import com.sports.yue.UI.UI.models.Room;
+import com.sports.yue.UI.UI.models.RoomUser;
 import com.sports.yue.UI.UI.models.User;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class DbManager {
 
         //这里创建Room表
         sql = "CREATE TABLE IF NOT EXISTS ROOM ("
-                + "ActivityTime datetime, ActivityPosition varchar,RoomMaxPeople number,RoomType varchar,"
+                + "ActivityTime varcahr, ActivityPosition varchar,RoomMaxPeople number,RoomType varchar,"
                 + "RoomDescription varchar,RoomCreator varchar,RoomName varchar,RoomId varchar PRIMARY KEY,"
                 + "createdAt datetime,updateAt datetime)";
         SQLiteDatabase db2 = dbHelper.getWritableDatabase();
@@ -65,6 +66,12 @@ public class DbManager {
         if (se.size() == 0){
             insert("CURRENTUSER",new String[]{"UserName","Password"},new String[]{"-1","-1"});
         }
+
+        sql = "CREATE TABLE IF NOT EXISTS ROOMUSER ("
+                + "RoomId varchar,UserName varchar,PRIMARY KEY (RoomId,UserName))";
+        SQLiteDatabase db6 = dbHelper.getWritableDatabase();
+        db6.execSQL(sql);
+        db6.close();
     }
 
     public static DbManager getDb_M(Context context){
@@ -121,6 +128,12 @@ public class DbManager {
                 new String[]{((Room)o).getActivityTime() + "",((Room)o).getActivityPosition()+"",((Room)o).getRoomMaxPeople()+ "", ((Room)o).getRoomType(),
                         ((Room)o).getRoomDescription(),((Room)o).getRoomCreator(),((Room)o).getRoomName()+"",((Room)o).getRoomId(),
                         ((Room)o).getCreatedAt(),((Room)o).getUpdatedAt()});
+    }
+
+    public boolean insert(RoomUser o){
+        return insert("ROOMUSER",
+                new String[]{"RoomId", "UserName"},
+                new String[]{((RoomUser)o).getRoomId(),((RoomUser)o).getUserName()});
     }
 
 
