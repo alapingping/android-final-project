@@ -124,10 +124,16 @@ public class CommunityFragment extends Fragment {
     private void initDatas() {
         datas = new ArrayList<>();
         string_data = new ArrayList<>();
-//        for (int i = 0; i < 20; i++) {
-//
-//            datas.add(videoUrl);
-//        }
+//        f String[] name = new String[]{"Sun Yang","Zhu ","Zhu Y","Zhu Ya","Zhu Yan"};
+////        for (int i = 0; i < 5; i++) {
+////            Map<String, Object> map = new HashMap<String, Object>();
+////            map.put("video_url", videoUrl);
+////            map.put("author_photo", R.drawable.position);
+////            map.put("author_name", name[i]);
+////            map.put("image_url", imageUrl);
+////            string_data.add(videoUrl);
+////            datas.add(map);
+////        }
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("video_url", videoUrl);

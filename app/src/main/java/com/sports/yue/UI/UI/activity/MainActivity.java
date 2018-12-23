@@ -175,11 +175,11 @@ public class MainActivity extends AppCompatActivity
                         changeFragment(R.id.frame_content,new CommunityFragment());
                         setActionBarTitle(-1,3);
                         return true;
-//                    case R.id.navigation_group:
-//                        //禁用侧滑功能
-//                        changeFragment(R.id.frame_content,new My());
-//                        setActionBarTitle(-1,4);
-//                        return true;
+                    case R.id.navigation_group:
+                        //禁用侧滑功能
+                        changeFragment(R.id.frame_content,new MeFragment());
+                        setActionBarTitle(-1,4);
+                        return true;
                 }
                 return false;
             };
