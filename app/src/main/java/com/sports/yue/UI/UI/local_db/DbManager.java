@@ -13,6 +13,7 @@ import com.sports.yue.UI.UI.models.RoomUser;
 import com.sports.yue.UI.UI.models.User;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DbManager {
@@ -249,6 +250,109 @@ public class DbManager {
                     selectQuery += "," + wherelist[i] + "=?";
                 }
             }
+        }
+
+        ArrayList<String[]> ResultSet=new ArrayList<String[]>();
+        Cursor cursor=db.rawQuery(selectQuery,wherelistvalue);
+
+        if (selectlist == null){
+            if(cursor.moveToFirst()){
+                do{
+                    String[] message=new String[cursor.getColumnCount()];
+                    for (int i = 0;i < cursor.getColumnCount();i++){
+                        message[i] = cursor.getString(i);
+                    }
+                    ResultSet.add(message);
+                }while(cursor.moveToNext());
+            }
+        }else {
+            if(cursor.moveToFirst()){
+                do{
+                    String[] message=new String[selectlist.length];
+                    for (int i = 0;i < selectlist.length;i++){
+                        message[i] = cursor.getString(cursor.getColumnIndex(selectlist[i]));
+                    }
+                    ResultSet.add(message);
+                }while(cursor.moveToNext());
+            }
+        }
+        cursor.close();
+        db.close();
+        return ResultSet;
+    }
+
+    public Room[] selectRoom(String roomid){
+
+        String[] where = null;
+        String[] value = null;
+        if (roomid != null){
+            where = new String[]{"RoomId"};
+            value = new String[]{roomid};
+        }
+        List<String[]> ro = select(null,new String[]{"ROOM"},where,value);
+        Room[] rooms = new Room[ro.size()];
+        for (int i = 0;i < ro.size();i++){
+            rooms[i] = new Room();
+            rooms[i].setActivityTime(ro.get(i)[0]);
+            rooms[i].setActivityPosition(ro.get(i)[1]);
+            rooms[i].setRoomMaxPeople(Integer.valueOf(ro.get(i)[2]));
+            rooms[i].setRoomType(ro.get(i)[3]);
+            rooms[i].setRoomDescription(ro.get(i)[4]);
+            rooms[i].setRoomCreator(ro.get(i)[5]);
+            rooms[i].setRoomName(ro.get(i)[6]);
+            rooms[i].setRoomId(ro.get(i)[7]);
+            rooms[i].setCreateAt(new Date(ro.get(i)[8]));
+            rooms[i].setUpdatedAt(ro.get(i)[9]);
+        }
+        return rooms;
+    }
+
+    public RoomUser[] selectRoomUser(String roomid,String username){
+
+        String[] where = null;
+        String[] value = null;
+        if (roomid != null){
+            where = new String[]{"RoomId"};
+            value = new String[]{roomid};
+            if (username != null){
+                where = new String[]{"RoomId","UserName"};
+                value = new String[]{roomid,username};
+            }
+        }else if (username != null){
+            where = new String[]{"UserName"};
+            value = new String[]{username};
+        }
+        List<String[]> ro = select(null,new String[]{"ROOMUSER"},where,value);
+        RoomUser[] rooms = new RoomUser[ro.size()];
+        for (int i = 0;i < ro.size();i++){
+            rooms[i] = new RoomUser();
+            rooms[i].setUserName(ro.get(i)[1]);
+            rooms[i].setRoomId(ro.get(i)[0]);
+        }
+        return rooms;
+    }
+    public ArrayList<String[]> select(String[] selectlist, String[] formlist, String[] wherelist, String[] wherelistvalue,String orderby){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String selectQuery="SELECT * ";
+        for (int i = 0;i < formlist.length;i++){
+            if (i == 0){
+                selectQuery += "FROM " + formlist[i];
+            }else {
+                selectQuery += "," + formlist[i];
+            }
+        }
+        if (wherelist != null) {
+            for (int i = 0; i < wherelist.length; i++) {
+                if (i == 0) {
+                    selectQuery += " WHERE " + wherelist[i] + "=?";
+                } else {
+                    selectQuery += "," + wherelist[i] + "=?";
+                }
+            }
+        }
+
+        if (orderby != null){
+            selectQuery += " ORDER BY " + orderby;
         }
 
         ArrayList<String[]> ResultSet=new ArrayList<String[]>();

@@ -30,29 +30,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:textSize="24sp"
-                android:text="Details"
-                android:background="@drawable/shape"/>
+                android:background="@drawable/shape"
+                android:text="Description"
+                android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/details_box"
+                android:id="@+id/decription_box"
                 android:layout_width="match_parent"
                 android:layout_height="118dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="1dp"
-                android:scrollbars="vertical"
-                android:textSize="24sp"
                 android:background="@drawable/box_shape"
-                android:textColor="@color/cardview_light_background"/>
+                android:scrollbars="vertical"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="24sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:textSize="24sp"
+                android:background="@drawable/shape"
                 android:text="Messages"
-                android:background="@drawable/shape"/>
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/message_box"
@@ -61,45 +61,73 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="1dp"
-                android:textSize="24sp"
                 android:background="@drawable/box_shape"
-                android:textColor="@color/cardview_light_background" />
+                android:scrollbars="vertical"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="24sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="right"
+                android:orientation="vertical">
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/Room_MessageSend_Input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:hint="What tou want to send"
+                        android:textSize="24dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <Button
+                    android:id="@+id/message_send"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:background="@drawable/shape"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:text="Send"
+                    android:textSize="14dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp">
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Like"
-                    android:background="@drawable/shape"/>
-
+                    android:background="@drawable/shape"
+                    android:text="Like" />
                 <Button
                     android:id="@+id/quit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Quit"
                     android:layout_marginLeft="20dp"
-                    android:background="@drawable/shape"/>
-
+                    android:background="@drawable/shape"
+                    android:text="Quit" />
                 <Button
                     android:id="@+id/join"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Join"
                     android:layout_marginLeft="20dp"
-                    android:background="@drawable/shape"/>
-
+                    android:background="@drawable/shape"
+                    android:text="Join" />
             </LinearLayout>
-
         </LinearLayout>
-
     </ScrollView>
-
-
 </FrameLayout>

@@ -14,6 +14,7 @@ public class Room extends BmobObject {
     private String RoomCreator;
     private String RoomName;
     private String RoomId;//PK
+    private Date createAt;
 
 
     public Room(String id,String name){
@@ -89,5 +90,9 @@ public class Room extends BmobObject {
     @Override
     public String toString() {
         return "RoomId: " + RoomId + "\r\nRoomName: " + RoomName;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
     }
 }
