@@ -17,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import com.sports.yue.UI.UI.fragment.HomeFragment;
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.fragment.GroupFragment;
 import com.sports.yue.UI.UI.fragment.My_groupFragment;
+import com.sports.yue.UI.UI.fragment.RoomFragment;
 import com.sports.yue.UI.UI.fragment.ScheduleFragment;
 import com.sports.yue.UI.UI.local_db.DbManager;
 import com.sports.yue.UI.UI.models.CurrentUser;
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity
 
         View headerLayout = navigationView.getHeaderView(0);
 
-        String username = getIntent().getStringExtra("username");
+        String username = CurrentUser.getInstance(getApplicationContext()).getUserName();
         TextView nav_username = headerLayout.findViewById(R.id.nav_username);
         nav_username.setText(username);
 
@@ -245,5 +247,12 @@ public class MainActivity extends AppCompatActivity
         setActionBarTitle(-1,2);
     }
 
+    public void onClickRoom(View view){
+        Fragment targetfragment = new RoomFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("roomid",((TextView) view.findViewById(R.id.roomid)).getText().toString());
+        targetfragment.setArguments(bundle);
+        changeFragment(R.id.frame_content,targetfragment);
+    }
 
 }

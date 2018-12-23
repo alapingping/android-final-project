@@ -65,55 +65,18 @@ public class LoginActivity extends AppCompatActivity {
 
         Bmob.initialize(this, "5fad9f2543ffa83e56155a46398d6ede");
 
-        DbManager.getDb_M(getApplicationContext()).delete("USER",null,null);
-        DbManager.getDb_M(getApplicationContext()).delete("ROOM",null,null);
-        DbManager.getDb_M(getApplicationContext()).delete("COMMUNITY",null,null);
-        DbManager.getDb_M(getApplicationContext()).delete("MESSAGE",null,null);
-        DbManager.getDb_M(getApplicationContext()).delete("ROOMUSER",null,null);
+
         if (isInternet.isNetworkAvalible(getApplicationContext())){
-            User[] us = Db_operation.getDb_op().searchUser(null);
-            for (User u : us){
-                if (DbManager.getDb_M(getApplicationContext()).select(new String[]{"UserName"},new String[]{"USER"},null,null).size() > 0){
-                    DbManager.getDb_M(getApplicationContext()).update(u);
-                }else {
-                    DbManager.getDb_M(getApplicationContext()).insert(u);
-                }
-            }
-
-            Room[] r = Db_operation.getDb_op().searchRoom(null);
-            for (Room u : r){
-                if (DbManager.getDb_M(getApplicationContext()).select(new String[]{"RoomId"},new String[]{"ROOM"},null,null).size() > 0){
-                    DbManager.getDb_M(getApplicationContext()).update(u);
-                }else {
-                    if (u != null) {
-                        DbManager.getDb_M(getApplicationContext()).insert(u);
-                    }
-                }
-            }
-
-            Message[] m = Db_operation.getDb_op().searchAllMessage();
-            for (Message u : m){
-                if (DbManager.getDb_M(getApplicationContext()).select(new String[]{"UserName","RoomId","createdAT"},
-                        new String[]{u.getUserName(),u.getRoomId(),u.getCreatedAt()},null,null).size() > 0){
-                    DbManager.getDb_M(getApplicationContext()).update(u);
-                }else {
-                    DbManager.getDb_M(getApplicationContext()).insert(u);
-                }
-            }
-            Community[] c = Db_operation.getDb_op().searchAllCommunity();
-            for (Community u : c){
-                if (DbManager.getDb_M(getApplicationContext()).select(new String[]{"UserName","RoomId","createdAT"},
-                        new String[]{u.getUserName(),u.getRoomId(),u.getCreatedAt()},null,null).size() > 0){
-                    DbManager.getDb_M(getApplicationContext()).update(u);
-                }else {
-                    DbManager.getDb_M(getApplicationContext()).insert(u);
-                }
-            }
-            RoomUser[] ro = Db_operation.getDb_op().searchRoomUser(null,null);
-            for (RoomUser u : ro){
-                DbManager.getDb_M(getApplicationContext()).insert(u);
-            }
-
+            DbManager.getDb_M(getApplicationContext()).delete("USER",null,null);
+            DbManager.getDb_M(getApplicationContext()).delete("ROOM",null,null);
+            DbManager.getDb_M(getApplicationContext()).delete("COMMUNITY",null,null);
+            DbManager.getDb_M(getApplicationContext()).delete("MESSAGE",null,null);
+            DbManager.getDb_M(getApplicationContext()).delete("ROOMUSER",null,null);
+            Db_operation.getDb_op().searchUser();
+            Db_operation.getDb_op().searchRoom();
+            Db_operation.getDb_op().searchMessage();
+            Db_operation.getDb_op().searchCommunity();
+            Db_operation.getDb_op().searchRoomUser();
         }
 //        while (!isInternet.isNetworkAvalible(getApplicationContext())){
 //
