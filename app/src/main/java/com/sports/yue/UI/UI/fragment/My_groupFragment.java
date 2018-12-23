@@ -26,14 +26,12 @@ import java.util.List;
 
 public class My_groupFragment extends Fragment {
 
-    ExpandableListView elv;
-    TextView textview;
-    LinearLayout room_item;
+    private ExpandableListView elv;
     private List<Group> list = new ArrayList<Group>();
     public My_groupFragment(){
 
     }
-    Room[] room;
+
 
 
     @Override
@@ -44,10 +42,11 @@ public class My_groupFragment extends Fragment {
         //获取当前View
         View view = inflater.inflate(R.layout.group_main,container,false);
 
+        list= new ArrayList<Group>();
         initData();
 
         elv = (ExpandableListView) view.findViewById(R.id.elv);
-        GroupAdapter adapter = new GroupAdapter(getContext(), list);
+        GroupAdapter adapter = new GroupAdapter(getContext(), list,this);
         elv.setAdapter(adapter);
         elv.expandGroup(1);
 
@@ -73,6 +72,7 @@ public class My_groupFragment extends Fragment {
     }
 
     private void initData() {
+        Room[] room;
 
         Group group1 = new Group("我创建的组");
         room = DbManager.getDbManager().selectRoom(null);

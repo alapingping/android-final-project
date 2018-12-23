@@ -40,7 +40,6 @@ public class CreateRoomFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_create_room, container, false);
-
         Button bu = (Button) view.findViewById(R.id.Room_Submit);
         Button qu = view.findViewById(R.id.Room_Quit);
 

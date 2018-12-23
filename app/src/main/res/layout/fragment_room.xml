@@ -57,14 +57,19 @@
             <TextView
                 android:id="@+id/message_box"
                 android:layout_width="match_parent"
-                android:layout_height="113dp"
+                android:layout_height="300dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="1dp"
                 android:background="@drawable/box_shape"
                 android:scrollbars="vertical"
+                android:fadeScrollbars="false"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:paddingLeft="10dp"
+                android:maxLines = "16"
                 android:textColor="@color/cardview_light_background"
-                android:textSize="24sp" />
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -112,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape"
-                    android:text="Like" />
+                    android:text="Share" />
                 <Button
                     android:id="@+id/quit"
                     android:layout_width="wrap_content"

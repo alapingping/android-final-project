@@ -246,13 +246,4 @@ public class MainActivity extends AppCompatActivity
         changeFragment(R.id.frame_content,new CreateRoomFragment());
         setActionBarTitle(-1,2);
     }
-
-    public void onClickRoom(View view){
-        Fragment targetfragment = new RoomFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("roomid",((TextView) view.findViewById(R.id.roomid)).getText().toString());
-        targetfragment.setArguments(bundle);
-        changeFragment(R.id.frame_content,targetfragment);
-    }
-
 }
