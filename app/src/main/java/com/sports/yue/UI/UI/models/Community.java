@@ -13,6 +13,7 @@ public class Community extends BmobObject {
     private String Video;
     private String RoomId;//PK
     private String Email;
+    private Date createAt;
 
 
     public Community(String Roonid,String Username){
@@ -52,4 +53,14 @@ public class Community extends BmobObject {
     public void setRoomId(String roomId) {
         RoomId = roomId;
     }
+
+    public Date getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
+    }
+
+
 }

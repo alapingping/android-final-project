@@ -15,6 +15,7 @@ public class User extends BmobObject {
     private String UserPass;
     private String UserName;//PK
     private String UserInfo;
+    private Date createAt;
 
 
     public User(String name,String pass){
@@ -70,5 +71,13 @@ public class User extends BmobObject {
 
     public void setUserSex(String userSex) {
         UserSex = userSex;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
+    }
+
+    public Date getCreateAt() {
+        return createAt;
     }
 }

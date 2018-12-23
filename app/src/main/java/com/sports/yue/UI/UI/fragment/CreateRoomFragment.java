@@ -18,6 +18,10 @@ import com.sports.yue.UI.UI.models.CurrentUser;
 import com.sports.yue.UI.UI.models.Room;
 import com.sports.yue.UI.UI.models.RoomUser;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class CreateRoomFragment extends Fragment {
     private ViewPager viewPager;
     TextView roomnames;
@@ -26,6 +30,7 @@ public class CreateRoomFragment extends Fragment {
     TextView maxpeople;
     TextView location;
     TextView activity_time;
+    DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public CreateRoomFragment() {
         // Required empty public constructor
     }
@@ -85,7 +90,7 @@ public class CreateRoomFragment extends Fragment {
 //        TextView location = (TextView) view.findViewById(R.id.Room_ActivityLocation_Input);
 //        TextView activity_time = (TextView) view.findViewById(R.id.Room_ActivityTime_Input);
 
-        Room[] all = Db_operation.getDb_op().searchRoom(null);
+        Room[] all = DbManager.getDbManager().selectRoom(null);
         String id = "";
         if (all.length>0) {
             id = all[all.length - 1].getRoomId();
@@ -106,9 +111,9 @@ public class CreateRoomFragment extends Fragment {
         room.setRoomType(activity_type.getText().toString());
 
         Db_operation.getDb_op().add(room);
-        DbManager.getDb_M(getActivity().getApplicationContext()).insert(room);
+        DbManager.getDbManager().insert(room,null);
         Db_operation.getDb_op().add(new RoomUser(roid+"",CurrentUser.getInstance(getActivity().getApplicationContext()).getUserName()));
-        DbManager.getDb_M(getActivity().getApplicationContext()).insert(new RoomUser(roid+"",CurrentUser.getInstance(getActivity().getApplicationContext()).getUserName()));
+        DbManager.getDbManager().insert(new RoomUser(roid+"",CurrentUser.getInstance(getActivity().getApplicationContext()).getUserName()),null);
 
         Toast.makeText(getActivity(), "创建成功", Toast.LENGTH_LONG).show();
 
