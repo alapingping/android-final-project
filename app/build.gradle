@@ -6,8 +6,9 @@ android {
             keyAlias 'key0'
             keyPassword '123456'
 //            storeFile file('C:/Users/CLANNAD/Desktop/android-final/yue.jks')
-            storeFile file('C:/Users/CLANNAD/Desktop/android-final/yue.jks')
+//            storeFile file('C:/Users/CLANNAD/Desktop/android-final/yue.jks')
             storePassword '123456'
+            storeFile file('F:/android_about/android-final-project/yue.jks')
         }
     }
     compileSdkVersion 26
