@@ -1,22 +1,29 @@
 package com.sports.yue.UI.UI.activity;
 
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.google.gson.Gson;
 import com.sports.yue.R;
+import com.sports.yue.UI.UI.Adapter.OnSwipeTouchListener;
 import com.sports.yue.UI.UI.api.BmobService;
 import com.sports.yue.UI.UI.api.Client;
 import com.sports.yue.UI.UI.models.CurrentUser;
@@ -61,6 +68,9 @@ public class LoginActivity extends AppCompatActivity {
     private UserInfo mInfo;
     public static Tencent mTencent;
     public static String mAppid="1106062414";
+    ImageView imageView;
+    TextView textView;
+    int count = 0;
 
     private void onClickLogin() {
         if (!mTencent.isSessionValid()) {
@@ -91,12 +101,20 @@ public class LoginActivity extends AppCompatActivity {
                 public void onError(UiError e) {
                 }
                 @Override
-                public void onComplete(final Object response) {
-                    android.os.Message msg = new android.os.Message();
+                public void onComplete(Object response) {
+//                    User user=new User();
+//
+//                    try {
+//                        user.setUserName(((JSONObject)response).getString("nickname"));
+//                        user.setUserSex(((JSONObject)response).getString("gender"));
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+                      android.os.Message msg = new android.os.Message();
                     msg.obj = response;
                     android.util.Log.i("tag", response.toString());
                     msg.what = 0;
-                    //mHandler.sendMessage(msg);
+                    mHandler.sendMessage(msg);
                 }
                 @Override
                 public void onCancel() {
@@ -107,13 +125,48 @@ public class LoginActivity extends AppCompatActivity {
 
         }
     }
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            if (msg.what == 0) {
+                JSONObject response = (JSONObject) msg.obj;
+
+                User user=new User();
+
+                try {
+                    user.setUserName(response.getString("nickname"));
+                    user.setUserSex(response.getString("gender"));
+                    if (DbManager.getDbManager().selectUser(user.getUserName()).length==0){
+                        DbManager.getDbManager().insert(user,null);
+                    }
+                    Db_operation.getDb_op().add(user);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+// if (response.has("nickname")) {
+//                    try {
+//                        Gson gson=new Gson();
+//                        User user=gson.fromJson(response.toString(),User.class);
+//                        if (user!=null) {
+////                            tv_name.setText("昵称："+user.getNickname()+"  性别:"+user.getGender()+"  地址："+user.getProvince()+user.getCity());
+////                            tv_content.setText("头像路径："+user.getFigureurl_qq_2());
+////                            Picasso.with(LoginActivity.this).load(response.getString("figureurl_qq_2")).into(imageView);
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+            }
+        }
+    };
     /**
      * 继承的到BaseUiListener得到doComplete()的方法信息
      */
     IUiListener loginListener = new BaseUiListener() {
         @Override
         protected void doComplete(JSONObject values) {//得到用户的ID  和签名等信息  用来得到用户信息
-            android.util.Log.i("lkei",values.toString());
+//            android.util.Log.i("lkei",values.toString());
             initOpenidAndToken(values);
             updateUserInfo();
         }
@@ -128,6 +181,7 @@ public class LoginActivity extends AppCompatActivity {
             Tencent.onActivityResultData(requestCode,resultCode,data,loginListener);
         }
         super.onActivityResult(requestCode, resultCode, data);
+
     }
     private class BaseUiListener implements IUiListener {
         @Override
@@ -141,14 +195,30 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "登录失败",Toast.LENGTH_LONG).show();
                 return;
             }
+
+
+            User user=new User();
+
+            try {
+                user.setUserName(((JSONObject)response).getString("nickname"));
+                user.setUserSex(((JSONObject)response).getString("gender"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
             Toast.makeText(LoginActivity.this, "登录成功",Toast.LENGTH_LONG).show();
-
-
-
             doComplete((JSONObject)response);
+
+
+
+
         }
 
         protected void doComplete(JSONObject values) {
+
+
+
+
 
         }
         @Override
@@ -174,8 +244,48 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+             // setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_login);
         //初始化bmob服务
+        imageView = findViewById(R.id.login_imageView);
+        textView = findViewById(R.id.login_textView);
+        imageView.setOnTouchListener(new OnSwipeTouchListener(getApplicationContext()) {
+            public void onSwipeTop() {
+            }
+
+            public void onSwipeRight() {
+                if (count == 0) {
+                    imageView.setImageResource(R.drawable.good_night_img);
+                    textView.setText("Night");
+                    count = 1;
+                } else {
+                    imageView.setImageResource(R.drawable.good_morning_img);
+                    textView.setText("Morning");
+                    count = 0;
+                }
+            }
+
+            public void onSwipeLeft() {
+                if (count == 0) {
+                    imageView.setImageResource(R.drawable.good_night_img);
+                    textView.setText("Night");
+                    count = 1;
+                } else {
+                    imageView.setImageResource(R.drawable.good_morning_img);
+                    textView.setText("Morning");
+                    count = 0;
+                }
+            }
+
+            public void onSwipeBottom() {
+            }
+
+        });
+
+
 
         findViewById(R.id.qq_login_btn).setOnClickListener(new View.OnClickListener() {
             @Override
