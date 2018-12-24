@@ -13,6 +13,7 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Message;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Video;
@@ -32,6 +33,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.sports.yue.R;
+import com.sports.yue.UI.UI.Data.locationData;
 import com.sports.yue.UI.UI.fragment.CommunityFragment;
 import com.sports.yue.UI.UI.fragment.HomeFragment;
 
@@ -40,7 +42,14 @@ import java.util.logging.Handler;
 public class SendCommunity extends AppCompatActivity {
 
     private TextView etContent;
-    private android.os.Handler mHandler = new android.os.Handler();
+    private android.os.Handler mHandler = new android.os.Handler(){
+      @Override
+      public void handleMessage(Message msg){
+          if(msg.what == 0){
+              location.setText((String)msg.obj);
+          }
+      }
+    };
     private ImageView addpic;
     private ImageView getlocation;
     private TextView location;
@@ -51,6 +60,7 @@ public class SendCommunity extends AppCompatActivity {
     private static final int CHOOSE_VIDEO = 598;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +68,7 @@ public class SendCommunity extends AppCompatActivity {
 
 
         etContent= (TextView) findViewById(R.id.community_add_message);
-
+        location = findViewById(R.id.tv);
         addpic = findViewById(R.id.community_add_pic);
         addpic.setDrawingCacheEnabled(true);
         addpic.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +86,18 @@ public class SendCommunity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //点击获取当前定位，并再location上显示
-
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        locationData location = new locationData();
+                        while(locationData.location == null);
+                        location.StopLocation();
+                        Message msg = new Message();
+                        msg.what = 0;
+                        msg.obj = locationData.location;
+                        mHandler.sendMessage(msg);
+                    }
+                }).start();
             }
         });
 
