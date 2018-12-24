@@ -15,6 +15,7 @@ import android.os.Handler;
 
 import com.baidu.mapapi.search.route.RoutePlanSearch;
 import com.sports.yue.R;
+import com.sports.yue.UI.UI.BroadCast.MyReceiver;
 import com.sports.yue.UI.UI.activity.LoginActivity;
 import com.sports.yue.UI.UI.api.BmobService;
 import com.sports.yue.UI.UI.api.Client;
@@ -46,6 +47,8 @@ public class MyIntentService extends IntentService {
     private Handler myHandler;
     private int RoomNum;
     private int LocalRoomNum;
+    private final int NotificationId = 11111111;
+
     public MyIntentService() {
         super("MyIntentService");
     }
@@ -53,6 +56,7 @@ public class MyIntentService extends IntentService {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
         myHandler = new Handler();
+        startQuery();
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -62,8 +66,6 @@ public class MyIntentService extends IntentService {
             if (intent != null) {
                 try{
                     wait(100);
-//                    getRomateRoomNum();
-                    startQuery();
                 } catch (InterruptedException e){
                     e.printStackTrace();
                 }
@@ -76,7 +78,7 @@ public class MyIntentService extends IntentService {
                 while (true){
                     LocalRoomNum = DbManager.getDbManager().selectRoom(null).length;
                     try{
-                        sleep(5000);
+                        sleep(10000);
                     } catch (InterruptedException e){
                         e.printStackTrace();
                     }
@@ -97,11 +99,13 @@ public class MyIntentService extends IntentService {
                     String result = response.body().string();
                     JSONObject jsonObject = new JSONObject(result);
                     RoomNum = jsonObject.getInt("count");
-                    if(RoomNum != LocalRoomNum)
+                    if (RoomNum != LocalRoomNum) {
+                        //远端数据与本地不一致
+                        //提示用户进行更新
                         myHandler.post(() ->
-                                Toast.makeText(getApplicationContext(),"数据不一致",Toast.LENGTH_LONG).show()
+                                Toast.makeText(getApplicationContext(), "数据不一致", Toast.LENGTH_LONG).show()
                         );
-                    else if(RoomNum == LocalRoomNum)
+                    } else if (RoomNum == LocalRoomNum)
                         CreateNotification();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -117,19 +121,25 @@ public class MyIntentService extends IntentService {
     }
 
     private void CreateNotification(){
+        Intent clickIntent = new Intent(getApplicationContext(), MyReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), NotificationId, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         Notification notification = new Notification.Builder(getApplicationContext())
                 .setAutoCancel(true)
                 .setContentTitle("Yue")
                 .setContentText("有人创建了新房间，快来看看吧~")
+                .setContentIntent(pendingIntent)
                 //不设置小图标通知栏显示通知（不确定）
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentIntent(PendingIntent.getService(getApplicationContext(),0,
-                        new Intent(this, MyIntentService.class), PendingIntent.FLAG_ONE_SHOT))
                 .build();
-        notification.flags = Notification.FLAG_INSISTENT;
+
+        notification.flags |= Notification.FLAG_INSISTENT;
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
         //利用 NotificationManager 类发出通知栏通知
         NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        nm.notify(1, notification);
+        nm.notify(NotificationId, notification);
     }
+
+
 
 }

@@ -74,7 +74,12 @@
 
         <service
             android:name=".UI.UI.Service.MyIntentService"
-            android:exported="false"></service>
+            android:exported="false" />
+
+        <receiver
+            android:name=".UI.UI.BroadCast.MyReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>

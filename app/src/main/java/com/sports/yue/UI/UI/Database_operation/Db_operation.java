@@ -60,7 +60,8 @@ public class Db_operation {
                 if (e == null){
                     if (e == null) {
                         for (Room room : list){
-                            DbManager.getDbManager().insert(room);
+                            if(DbManager.getDbManager().selectRoom(room.getRoomId()).length==0)
+                                DbManager.getDbManager().insert(room);
                         }                 //  textView.setText(str);
                     } else {
                         System.out.println(e.getErrorCode());

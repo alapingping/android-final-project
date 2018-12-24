@@ -1,5 +1,6 @@
 package com.sports.yue.UI.UI.activity;
 
+import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -77,6 +78,11 @@ public class MainActivity extends AppCompatActivity
         String username = CurrentUser.getInstance(getApplicationContext()).getUserName();
         TextView nav_username = headerLayout.findViewById(R.id.nav_username);
         nav_username.setText(username);
+
+        Intent service = new Intent(this, MyIntentService.class);
+        startService(service);
+
+
 
         //设置初始片段为HomeFragment
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -230,6 +236,8 @@ public class MainActivity extends AppCompatActivity
 
     public void onClickLogout(View view){
         CurrentUser.getInstance(getApplicationContext()).setCurrentUser(getApplicationContext(),"-1","-1");
+        Intent service = new Intent(this, MyIntentService.class);
+        stopService(service);
         BmobUser.logOut();
         Intent intent = new Intent(MainActivity.this,LoginActivity.class);
         startActivity(intent);
