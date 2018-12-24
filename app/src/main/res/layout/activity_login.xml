@@ -150,6 +150,17 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:layout_constraintVertical_bias="0.121" />
 
+    <Button
+        android:id="@+id/qq_login_btn"
+        android:layout_width="200px"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="QQ登录"
+        app:layout_constraintEnd_toEndOf="@+id/forget_text"
+        app:layout_constraintTop_toBottomOf="@+id/button"/>
+
+
+
     <TextView
         android:id="@+id/forget_text"
         android:layout_width="wrap_content"
