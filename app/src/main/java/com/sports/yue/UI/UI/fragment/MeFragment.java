@@ -53,6 +53,7 @@ public class MeFragment extends Fragment {
         //获取当前View
         View view = inflater.inflate(R.layout.fragment_me,container,false);
 
+
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setAdapter(new GridAdapter(this));
 

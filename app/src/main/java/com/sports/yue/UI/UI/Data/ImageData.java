@@ -8,14 +8,7 @@ public class ImageData {
 
     @DrawableRes
     public static int[] IMAGE_DRAWABLES = {
-            R.drawable.background1,
-            R.drawable.background1,
-            R.drawable.background1,
-            R.drawable.background1,
-            R.drawable.background1,
-            R.drawable.background1,
-            R.drawable.background1,
-            R.drawable.background1,
+//            R.drawable.background1,
+//            R.drawable.background1,
     };
-
 }

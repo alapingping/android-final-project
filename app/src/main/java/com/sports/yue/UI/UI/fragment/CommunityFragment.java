@@ -148,37 +148,37 @@ public class CommunityFragment extends Fragment {
         string_data.add(videoUrl);
         datas.add(map);
 
-        map = new HashMap<>();
-        map.put("video_url", videoUrl);
-        map.put("author_photo", R.drawable.position);
-        map.put("author_name", "Zhu ");
-        map.put("image_url", imageUrl);
-        string_data.add(videoUrl);
-        datas.add(map);
-
-        map = new HashMap<>();
-        map.put("video_url", videoUrl);
-        map.put("author_photo", R.drawable.position);
-        map.put("author_name", "Zhu Y");
-        map.put("image_url", imageUrl);
-        string_data.add(videoUrl);
-        datas.add(map);
-
-        map = new HashMap<>();
-        map.put("video_url", videoUrl);
-        map.put("author_photo", R.drawable.position);
-        map.put("author_name", "Zhu Ya");
-        map.put("image_url", imageUrl);
-        string_data.add(videoUrl);
-        datas.add(map);
-
-        map = new HashMap<>();
-        map.put("video_url", videoUrl);
-        map.put("author_photo", R.drawable.position);
-        map.put("author_name", "Zhu Yan");
-        map.put("image_url", imageUrl);
-        string_data.add(videoUrl);
-        datas.add(map);
+//        map = new HashMap<>();
+//        map.put("video_url", videoUrl);
+//        map.put("author_photo", R.drawable.position);
+//        map.put("author_name", "Zhu ");
+//        map.put("image_url", imageUrl);
+//        string_data.add(videoUrl);
+//        datas.add(map);
+//
+//        map = new HashMap<>();
+//        map.put("video_url", videoUrl);
+//        map.put("author_photo", R.drawable.position);
+//        map.put("author_name", "Zhu Y");
+//        map.put("image_url", imageUrl);
+//        string_data.add(videoUrl);
+//        datas.add(map);
+//
+//        map = new HashMap<>();
+//        map.put("video_url", videoUrl);
+//        map.put("author_photo", R.drawable.position);
+//        map.put("author_name", "Zhu Ya");
+//        map.put("image_url", imageUrl);
+//        string_data.add(videoUrl);
+//        datas.add(map);
+//
+//        map = new HashMap<>();
+//        map.put("video_url", videoUrl);
+//        map.put("author_photo", R.drawable.position);
+//        map.put("author_name", "Zhu Yan");
+//        map.put("image_url", imageUrl);
+//        string_data.add(videoUrl);
+//        datas.add(map);
 
 
         adapter = new VideoAdapter(getActivity(), string_data, R.layout.message_item, datas);
