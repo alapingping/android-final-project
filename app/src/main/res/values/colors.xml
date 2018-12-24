@@ -25,4 +25,5 @@
     <color name="colorBlack">#000000</color>
     <color name="colorHalfTransparentBlack">#40000000</color>
     <color name="colorHalfTransparentWhite">#40FFFFFF</color>
+    <color name="control_background">#cc4285f4</color>
 </resources>

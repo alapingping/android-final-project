@@ -45,8 +45,18 @@ import static java.lang.Thread.sleep;
 public class MyIntentService extends IntentService {
 
     private Handler myHandler;
+
+    //远端房间数量
     private int RoomNum;
+    //本地房间数量
     private int LocalRoomNum;
+
+    //远端房间内人数
+    private int RoomUserNum;
+    //本地房间内人数
+    private int LocalRoomUserNum;
+
+
     private final int NotificationId = 11111111;
 
     public MyIntentService() {
@@ -56,7 +66,9 @@ public class MyIntentService extends IntentService {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
         myHandler = new Handler();
-        startQuery();
+        //开启定时查询任务
+        startQueryRoom();
+//        startQueryRoomUser();
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -65,6 +77,7 @@ public class MyIntentService extends IntentService {
         synchronized (this){
             if (intent != null) {
                 try{
+                    //此段代码无意义
                     wait(100);
                 } catch (InterruptedException e){
                     e.printStackTrace();
@@ -73,7 +86,9 @@ public class MyIntentService extends IntentService {
         }
     }
 
-    private void startQuery(){
+    //开始查询房间数量任务
+    private void startQueryRoom(){
+        //开启新线程执行任务
             new Thread(() -> {
                 while (true){
                     LocalRoomNum = DbManager.getDbManager().selectRoom(null).length;
@@ -89,6 +104,23 @@ public class MyIntentService extends IntentService {
 
     }
 
+//    private void startQueryRoomUser(){
+//        new Thread(() -> {
+//            while (true){
+//                LocalRoomNum = DbManager.getDbManager().selectRoom(null).length;
+//                try{
+//                    sleep(10000);
+//                } catch (InterruptedException e){
+//                    e.printStackTrace();
+//                }
+//                new Thread(() -> getRomateRoomUserNum()).start();
+//            }
+//        }).start();
+//
+//
+//    }
+
+    //获取远端房间内人数
     private void getRomateRoomNum(){
         BmobService service = Client.retrofit.create(BmobService.class);
         Call<ResponseBody> call = service.getRoomNum(1,0);
@@ -120,6 +152,38 @@ public class MyIntentService extends IntentService {
         });
     }
 
+//    private void getRomateRoomUserNum(){
+//        BmobService service = Client.retrofit.create(BmobService.class);
+//        Call<ResponseBody> call = service.getRoomUserNum(1,0);
+//        call.enqueue(new Callback<ResponseBody>(){
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                try {
+//                    String result = response.body().string();
+//                    JSONObject jsonObject = new JSONObject(result);
+//                    RoomNum = jsonObject.getInt("count");
+//                    if (RoomUserNum != LocalRoomUserNum) {
+//                        //远端数据与本地不一致
+//                        //提示用户有用户加入
+//                        myHandler.post(() ->
+//                                Toast.makeText(getApplicationContext(), "数据不一致", Toast.LENGTH_LONG).show()
+//                        );
+//                    } else if (RoomUserNum == LocalRoomUserNum)
+//                        CreateNotification();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                System.out.print(1);
+//            }
+//        });
+//    }
+
+    //若有新房间被创建，则发出新房间出现通知
     private void CreateNotification(){
         Intent clickIntent = new Intent(getApplicationContext(), MyReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), NotificationId, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);

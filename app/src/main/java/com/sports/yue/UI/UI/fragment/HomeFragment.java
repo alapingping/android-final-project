@@ -18,6 +18,7 @@ import android.widget.Button;
 
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.Service.MyIntentService;
+import com.sports.yue.UI.UI.activity.CameraActivity;
 import com.sports.yue.UI.UI.local_db.DbManager;
 import com.sports.yue.UI.UI.models.Room;
 
@@ -66,6 +67,16 @@ public class HomeFragment extends Fragment {
                 ft.commit();
             }
         });
+
+        Button startserviceBtn = view.findViewById(R.id.startservice);
+        startserviceBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CameraActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+
 
         return view;
     }

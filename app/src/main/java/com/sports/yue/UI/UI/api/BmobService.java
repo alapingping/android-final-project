@@ -29,4 +29,11 @@ public interface BmobService {
             "Content-Type: application/json"})
     @GET("/1/classes/Room")
     Call<ResponseBody> getRoomNum(@Query("count") int Count,@Query("limit") int Limit);
+
+    @Headers({"X-Bmob-Application-Id: 5fad9f2543ffa83e56155a46398d6ede",
+            "X-Bmob-REST-API-Key: 918a3c131997a216e99fd565230832f5",
+            "Content-Type: application/json"})
+    @GET("/1/classes/RoomUser")
+    Call<ResponseBody> getRoomUserNum(@Query("count") int Count,@Query("limit") int Limit);
+
 }
