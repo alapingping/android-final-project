@@ -1,5 +1,6 @@
 package com.sports.yue.UI.UI.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.Database_operation.Db_operation;
 import com.sports.yue.UI.UI.activity.MainActivity;
+import com.sports.yue.UI.UI.activity.mapActivity;
 import com.sports.yue.UI.UI.local_db.DbManager;
 import com.sports.yue.UI.UI.models.CurrentUser;
 import com.sports.yue.UI.UI.models.Message;
@@ -30,6 +32,8 @@ import java.util.List;
 public class RoomFragment extends Fragment {
 
     ImageView photo;
+    TextView roomlocation;
+    ImageView toActivityLocation;
     TextView descriptionbox;
     TextView messagebox;
     TextView Room_MessageSend;
@@ -37,6 +41,11 @@ public class RoomFragment extends Fragment {
     Button like;
     Button quit;
     Button join;
+    TextView Room_Activity_Location;
+    TextView Room_MaxPeople;
+    TextView Room_Creator;
+    TextView Room_Activity_Time;
+    TextView Room_type;
 
 
     public RoomFragment() {
@@ -72,11 +81,28 @@ public class RoomFragment extends Fragment {
             }
         });
         Room_MessageSend = view.findViewById(R.id.Room_MessageSend_Input);
+
+        Room_Activity_Location = view.findViewById(R.id.Room_Activity_Location);
+        Room_MaxPeople = view.findViewById(R.id.Room_MaxPeople);
+        Room_Creator = view.findViewById(R.id.Room_Creator);
+        Room_Activity_Time = view.findViewById(R.id.Room_Activity_Time);
+        Room_type = view.findViewById(R.id.Room_type);
+
         Send = view.findViewById(R.id.message_send);
         like = view.findViewById(R.id.like);
         quit = view.findViewById(R.id.quit);
         join = view.findViewById(R.id.join);
 
+        roomlocation = view.findViewById(R.id.Room_Activity_Location);
+        toActivityLocation = view.findViewById(R.id.Room_get_Activity_Location);
+        toActivityLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),mapActivity.class);
+                intent.putExtra("location",roomlocation.getText().toString());
+                startActivity(intent);
+            }
+        });
 
         Bundle bundle = new Bundle();
         bundle = getArguments();
@@ -170,8 +196,17 @@ public class RoomFragment extends Fragment {
 
         messagebox.setText("");
         List<String[]> list =  DbManager.getDb_M(getActivity().getApplicationContext()).select(
-                new String[]{"RoomDescription"},new String[]{"ROOM"},new String[]{"RoomId"},new String[]{roomid});
+                new String[]{"RoomDescription","ActivityPosition","RoomMaxPeople","RoomCreator","ActivityTime","RoomType"}
+                ,new String[]{"ROOM"},new String[]{"RoomId"},new String[]{roomid});
+        List<String[]> roomusernum =  DbManager.getDb_M(getActivity().getApplicationContext()).select(
+                new String[]{"UserName"}
+                ,new String[]{"ROOMUSER"},new String[]{"RoomId"},new String[]{roomid});
         descriptionbox.setText(list.get(0)[0]);
+        Room_Activity_Location.setText(list.get(0)[1]);
+        Room_MaxPeople.setText(roomusernum.size() + "/" + list.get(0)[2]);
+        Room_Creator.setText(list.get(0)[3]);
+        Room_Activity_Time.setText(list.get(0)[4]);
+        Room_type.setText(list.get(0)[5]);
         list =  DbManager.getDb_M(getActivity().getApplicationContext()).select(
                 new String[]{"MessageContent","UserName","createdAt"},new String[]{"MESSAGE"},new String[]{"RoomId"},new String[]{roomid},"createdAt");
         for (String[] str : list){

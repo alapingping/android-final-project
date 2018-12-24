@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -63,6 +64,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class mapActivity extends AppCompatActivity {
+
+    public static String Currentlocation = "百度科技园";
+    private String targetLocation = "北京交通大学";
+    TextView map_location;
 
     //baiduMap的View
     private MapView mMapView;
@@ -128,60 +133,68 @@ public class mapActivity extends AppCompatActivity {
         // Inflate the layout for this fragment
         super.onCreate(savedInstanceState);
 
+        mapActivity.Currentlocation = "";
+
+
+
 
         setContentView(R.layout.activity_map);
-        EditText position_text = findViewById(R.id.target);
+//        EditText position_text = findViewById(R.id.target);
 
+        targetLocation = getIntent().getStringExtra("location");
+
+        TextView endpoint = findViewById(R.id.endpoint);
+        endpoint.setText(targetLocation);
+        map_location = findViewById(R.id.map_location);
         Button searchBtn = findViewById(R.id.buttonserach);
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mPoiSearch = PoiSearch.newInstance();
-                position = position_text.getText().toString();
+                position = targetLocation;
                 mPoiSearch.setOnGetPoiSearchResultListener(poiListener);
                 mPoiSearch.searchInCity((new PoiCitySearchOption())
                         .city("北京")
                         .keyword(position)
-                        .pageNum(10));
+                        .pageNum(2));
             }
         });
         Button routeBtn = findViewById(R.id.buttonroute);
         routeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String start = "西二旗地铁站";
-                String end = "百度科技园";
+                String start = "北京交通大学北门";
+                String end = targetLocation;
                 String city = "北京";
                 if (city == null || city.equals("")) {
                     city = "北京";
                 }
                 routePlan(start, end, city);
-
             }
         });
 
-        autoCompleteTextView = findViewById(R.id.endpoint);
-        autoCompleteTextView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String endPoint = autoCompleteTextView.getText().toString();
-                mSuggestionSearch = SuggestionSearch.newInstance();
-                mSuggestionSearch.setOnGetSuggestionResultListener(suglistener);
-                mSuggestionSearch.requestSuggestion((new SuggestionSearchOption())
-                        .keyword(endPoint)
-                        .city("北京"));
-            }
-        });
+//        autoCompleteTextView = findViewById(R.id.endpoint);
+//        autoCompleteTextView.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                String endPoint = autoCompleteTextView.getText().toString();
+//                mSuggestionSearch = SuggestionSearch.newInstance();
+//                mSuggestionSearch.setOnGetSuggestionResultListener(suglistener);
+//                mSuggestionSearch.requestSuggestion((new SuggestionSearchOption())
+//                        .keyword(endPoint)
+//                        .city("北京"));
+//            }
+//        });
 
 
         mMapView = findViewById(R.id.mmap);
@@ -233,16 +246,16 @@ public class mapActivity extends AppCompatActivity {
             dialog.show();
         });
 
-        Button hotmapBtn = findViewById(R.id.button_hot_map);
-        hotmapBtn.setOnClickListener(v -> {
-            if (Hot_Map_Open) {
-                Hot_Map_Open = false;
-                mBaiduMap.setTrafficEnabled(false);
-            } else {
-                Hot_Map_Open = true;
-                mBaiduMap.setTrafficEnabled(true);
-            }
-        });
+//        Button hotmapBtn = findViewById(R.id.button_hot_map);
+//        hotmapBtn.setOnClickListener(v -> {
+//            if (Hot_Map_Open) {
+//                Hot_Map_Open = false;
+//                mBaiduMap.setTrafficEnabled(false);
+//            } else {
+//                Hot_Map_Open = true;
+//                mBaiduMap.setTrafficEnabled(true);
+//            }
+//        });
 
     }
 
@@ -515,6 +528,7 @@ public class mapActivity extends AppCompatActivity {
                 sb.append("\naddr : ");
                 sb.append(location.getAddrStr());    //获取地址信息
 
+
                 sb.append("\ndescribe : ");
                 sb.append("gps定位成功");
 
@@ -555,6 +569,12 @@ public class mapActivity extends AppCompatActivity {
             }
             sb.append("\nlocationdescribe : ");
             sb.append(location.getLocationDescribe());    //位置语义化信息
+
+            if (!mapActivity.Currentlocation.equalsIgnoreCase(location.getAddrStr() + "\r\n" + location.getLocationDescribe())){
+                mapActivity.Currentlocation = location.getAddrStr() + "\r\n" + location.getLocationDescribe();
+                map_location.setText(mapActivity.Currentlocation);
+            }
+
             List<Poi> list = location.getPoiList();    // POI数据
             if (list != null) {
                 sb.append("\npoilist size = : ");
