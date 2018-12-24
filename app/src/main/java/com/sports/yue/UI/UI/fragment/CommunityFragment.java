@@ -2,6 +2,7 @@ package com.sports.yue.UI.UI.fragment;
 
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.Adapter.VideoAdapter;
+import com.sports.yue.UI.UI.Database_operation.Db_operation;
 import com.sports.yue.UI.UI.activity.LoginActivity;
 import com.sports.yue.UI.UI.activity.MainActivity;
 import com.sports.yue.UI.UI.activity.SendCommunity;
@@ -33,6 +35,7 @@ import java.util.Map;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
+import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
 //import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 //import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
@@ -56,14 +59,43 @@ public class CommunityFragment extends Fragment {
     private VideoAdapter adapter;
     private AbsListView.OnScrollListener onScrollListener;
     JCVideoPlayerStandard jcVideoPlayerStandard;
+    private WaveSwipeRefreshLayout mWaveSwipeRefreshLayout;
+
+    private class Task extends AsyncTask<Void, Void, String[]> {
+        @Override
+        protected String[] doInBackground(Void... voids) {
+            return new String[0];
+        }
+
+        @Override
+        protected void onPostExecute(String[] result) {
+            // Call setRefreshing(false) when the list has been refreshed.
+            mWaveSwipeRefreshLayout.setRefreshing(false);
+            super.onPostExecute(result);
+        }
+    }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         View view = inflater.inflate(R.layout.fragment_community, container, false);
+
+        // Inflate the layout for this fragment
+        mWaveSwipeRefreshLayout = (WaveSwipeRefreshLayout)view.findViewById(R.id.main_swipe);
+        mWaveSwipeRefreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
+            @Override public void onRefresh() {
+                // Do work to refresh the list here.
+                Db_operation.getDb_op().searchCommunity();
+                Toast.makeText(getActivity(), "更新完成",Toast.LENGTH_LONG).show();
+                new Task().execute();
+            }
+        });
+
+
+
+
+
         Button findButton = view.findViewById(R.id.add_community);
         findButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +120,7 @@ public class CommunityFragment extends Fragment {
 
         return view;
     }
+
 
     @Override
     public void onPause() {

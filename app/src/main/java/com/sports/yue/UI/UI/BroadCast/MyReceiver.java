@@ -13,6 +13,8 @@ public class MyReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+
+
         Db_operation.getDb_op().searchRoom();
         Intent newintent = new Intent(context, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(newintent);

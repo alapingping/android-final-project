@@ -5,6 +5,14 @@
     tools:context="com.sports.yue.UI.UI.fragment.CommunityFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/main_swipe"
+        >
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,9 +24,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add Community"/>
+
+
         <ListView
             android:id="@+id/message_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+
     </LinearLayout>
+
+    </jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout>
+
+
+
 </FrameLayout>
