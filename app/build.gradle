@@ -8,8 +8,8 @@ android {
 //            storeFile file('C:/Users/CLANNAD/Desktop/android-final/yue.jks')
 //            storeFile file('C:/Users/CLANNAD/Desktop/android-final/yue.jks')
             storePassword '123456'
-            storeFile file('F:/android_about/android-final-project/yue.jks')
-//            storeFile file('D:/GitHub/android-final-project/yue.jks')
+           // storeFile file('F:/android_about/android-final-project/yue.jks')
+            storeFile file('D:/GitHub/android-final-project/yue.jks')
 
 
         }
@@ -94,5 +94,4 @@ dependencies {
     compile 'fm.jiecao:jiecaovideoplayer:5.5'
     //    compile project(path: ':jcvideoplayer-lib')
     implementation files('libs/mta-sdk-1.6.2.jar')
-    compile files('libs/open_sdk_r5509.jar')
 }
