@@ -128,7 +128,6 @@ public class mapActivity extends AppCompatActivity {
         // Inflate the layout for this fragment
         super.onCreate(savedInstanceState);
 
-        SDKInitializer.initialize(getApplicationContext());
 
         setContentView(R.layout.activity_map);
         EditText position_text = findViewById(R.id.target);
@@ -608,66 +607,6 @@ public class mapActivity extends AppCompatActivity {
             return true;
         }
     }
-
-//    private class MyWalkingRouteOverlay extends WalkingRouteOverlay {
-//        public MyWalkingRouteOverlay(BaiduMap baiduMap) {
-//            super(baiduMap);
-//        }
-//        @Override
-//        public BitmapDescriptor getStartMarker() {
-//            if (true) {
-//                return BitmapDescriptorFactory.fromResource(R.drawable.position2);
-//            }
-//            return null;
-//        }
-//        @Override
-//        public BitmapDescriptor getTerminalMarker() {
-//            if (true) {
-//                return BitmapDescriptorFactory.fromResource(R.drawable.position2);
-//            }
-//            return null;
-//        }
-//    }
-//
-//    private class MyBikingRouteOverlay extends BikingRouteOverlay {
-//        public MyBikingRouteOverlay(BaiduMap baiduMap) {
-//            super(baiduMap);
-//        }
-//        @Override
-//        public BitmapDescriptor getStartMarker() {
-//            if (true) {
-//                return BitmapDescriptorFactory.fromResource(R.drawable.position2);
-//            }
-//            return null;
-//        }
-//        @Override
-//        public BitmapDescriptor getTerminalMarker() {
-//            if (true) {
-//                return BitmapDescriptorFactory.fromResource(R.drawable.position2);
-//            }
-//            return null;
-//        }
-//    }
-//
-//    private class MyDrivingRouteOverlay extends DrivingRouteOverlay {
-//        public MyDrivingRouteOverlay(BaiduMap baiduMap) {
-//            super(baiduMap);
-//        }
-//        @Override
-//        public BitmapDescriptor getStartMarker() {
-//            if (true) {
-//                return BitmapDescriptorFactory.fromResource(R.drawable.position2);
-//            }
-//            return null;
-//        }
-//        @Override
-//        public BitmapDescriptor getTerminalMarker() {
-//            if (true) {
-//                return BitmapDescriptorFactory.fromResource(R.drawable.position2);
-//            }
-//            return null;
-//        }
-//    }
 
     public void routePlan(String start, String end, String city) {
         mSearch = RoutePlanSearch.newInstance();
