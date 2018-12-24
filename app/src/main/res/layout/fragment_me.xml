@@ -15,7 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            >
 
             <!--<TextView-->
                 <!--android:layout_width="match_parent"-->
@@ -270,14 +269,14 @@
             <!-- End 2nd Row-->
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbarStyle="outsideOverlay"
-            app:layoutManager="GridLayoutManager"
-            app:spanCount="3">
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbarStyle="outsideOverlay"
+                app:layoutManager="GridLayoutManager"
+                app:spanCount="3">
+            </android.support.v7.widget.RecyclerView>
         </LinearLayout>
 
     </ScrollView>

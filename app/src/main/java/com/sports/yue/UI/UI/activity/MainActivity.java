@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.sports.yue.UI.UI.Database_operation.Db_operation;
 import com.sports.yue.UI.UI.Service.MyIntentService;
 import com.sports.yue.UI.UI.fragment.CreateRoomFragment;
@@ -63,6 +64,9 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        SDKInitializer.initialize(getApplicationContext());
 
 
         //设置滑动监听，利用DrawLayout以及ActionBarDrawerToggle

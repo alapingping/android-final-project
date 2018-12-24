@@ -79,6 +79,18 @@
                 <!--应用的AppId要相同-->
             </intent-filter>
         </activity>
+        <activity android:name=".UI.UI.activity.mapActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".UI.UI.activity.SendCommunity">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="ulBZkSZ9RGzN8kBFtLYR1xw9PgcX3A5d" />

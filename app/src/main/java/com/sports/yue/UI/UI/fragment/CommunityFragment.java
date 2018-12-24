@@ -1,6 +1,7 @@
 package com.sports.yue.UI.UI.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -21,6 +22,9 @@ import android.widget.Toast;
 
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.Adapter.VideoAdapter;
+import com.sports.yue.UI.UI.activity.LoginActivity;
+import com.sports.yue.UI.UI.activity.MainActivity;
+import com.sports.yue.UI.UI.activity.SendCommunity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,14 +64,15 @@ public class CommunityFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_community, container, false);
-//        Button findButton = view.findViewById(R.id.find_button);
-//        findButton.setOnClickListener(v -> {
-//            Fragment fragment = new HomeFragment();
-//            FragmentTransaction ft = getFragmentManager().beginTransaction();
-//            ft.replace(R.id.frame_content,fragment);
-//            ft.addToBackStack(null);
-//            ft.commit();
-//        });
+        Button findButton = view.findViewById(R.id.add_community);
+        findButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),SendCommunity.class);
+                startActivity(intent);
+            }
+        });
+
 
         videoList = view.findViewById(R.id.message_list);
 
@@ -99,24 +104,24 @@ public class CommunityFragment extends Fragment {
         map.put("author_name", "Sun Yang");
         map.put("coach_introduction", "champion coach");
         list.add(map);
-
-        map = new HashMap<String, Object>();
-        map.put("author_photo", R.drawable.position);
-        map.put("author_name", "Zhang Yongping");
-        map.put("coach_introduction", "beauty coach");
-        list.add(map);
-
-        map = new HashMap<String, Object>();
-        map.put("author_photo", R.drawable.position);
-        map.put("author_name", "Li Xingyuan");
-        map.put("coach_introduction", "exercise coach");
-        list.add(map);
-
-        map = new HashMap<String, Object>();
-        map.put("author_photo", R.drawable.position);
-        map.put("author_name", "He Yalun");
-        map.put("coach_introduction", "basketball coach");
-        list.add(map);
+//
+//        map = new HashMap<String, Object>();
+//        map.put("author_photo", R.drawable.position);
+//        map.put("author_name", "Zhang Yongping");
+//        map.put("coach_introduction", "beauty coach");
+//        list.add(map);
+//
+//        map = new HashMap<String, Object>();
+//        map.put("author_photo", R.drawable.position);
+//        map.put("author_name", "Li Xingyuan");
+//        map.put("coach_introduction", "exercise coach");
+//        list.add(map);
+//
+//        map = new HashMap<String, Object>();
+//        map.put("author_photo", R.drawable.position);
+//        map.put("author_name", "He Yalun");
+//        map.put("coach_introduction", "basketball coach");
+//        list.add(map);
 
         return list;
     }
@@ -143,37 +148,37 @@ public class CommunityFragment extends Fragment {
         string_data.add(videoUrl);
         datas.add(map);
 
-        map = new HashMap<>();
-        map.put("video_url", videoUrl);
-        map.put("author_photo", R.drawable.position);
-        map.put("author_name", "Zhu ");
-        map.put("image_url", imageUrl);
-        string_data.add(videoUrl);
-        datas.add(map);
-
-        map = new HashMap<>();
-        map.put("video_url", videoUrl);
-        map.put("author_photo", R.drawable.position);
-        map.put("author_name", "Zhu Y");
-        map.put("image_url", imageUrl);
-        string_data.add(videoUrl);
-        datas.add(map);
-
-        map = new HashMap<>();
-        map.put("video_url", videoUrl);
-        map.put("author_photo", R.drawable.position);
-        map.put("author_name", "Zhu Ya");
-        map.put("image_url", imageUrl);
-        string_data.add(videoUrl);
-        datas.add(map);
-
-        map = new HashMap<>();
-        map.put("video_url", videoUrl);
-        map.put("author_photo", R.drawable.position);
-        map.put("author_name", "Zhu Yan");
-        map.put("image_url", imageUrl);
-        string_data.add(videoUrl);
-        datas.add(map);
+//        map = new HashMap<>();
+//        map.put("video_url", videoUrl);
+//        map.put("author_photo", R.drawable.position);
+//        map.put("author_name", "Zhu ");
+//        map.put("image_url", imageUrl);
+//        string_data.add(videoUrl);
+//        datas.add(map);
+//
+//        map = new HashMap<>();
+//        map.put("video_url", videoUrl);
+//        map.put("author_photo", R.drawable.position);
+//        map.put("author_name", "Zhu Y");
+//        map.put("image_url", imageUrl);
+//        string_data.add(videoUrl);
+//        datas.add(map);
+//
+//        map = new HashMap<>();
+//        map.put("video_url", videoUrl);
+//        map.put("author_photo", R.drawable.position);
+//        map.put("author_name", "Zhu Ya");
+//        map.put("image_url", imageUrl);
+//        string_data.add(videoUrl);
+//        datas.add(map);
+//
+//        map = new HashMap<>();
+//        map.put("video_url", videoUrl);
+//        map.put("author_photo", R.drawable.position);
+//        map.put("author_name", "Zhu Yan");
+//        map.put("image_url", imageUrl);
+//        string_data.add(videoUrl);
+//        datas.add(map);
 
 
         adapter = new VideoAdapter(getActivity(), string_data, R.layout.message_item, datas);
