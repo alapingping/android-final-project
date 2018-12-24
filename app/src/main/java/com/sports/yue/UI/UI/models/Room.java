@@ -14,6 +14,7 @@ public class Room extends BmobObject {
     private String RoomCreator;
     private String RoomName;
     private String RoomId;//PK
+    private String CurrentUserNum;
     private Date createAt;
 
 
@@ -94,5 +95,13 @@ public class Room extends BmobObject {
 
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
+    }
+
+    public String getCurrentUserNum() {
+        return CurrentUserNum;
+    }
+
+    public void setCurrentUserNum(String currentUserNum) {
+        CurrentUserNum = currentUserNum;
     }
 }

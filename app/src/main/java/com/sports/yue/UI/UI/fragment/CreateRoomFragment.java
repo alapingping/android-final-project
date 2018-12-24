@@ -108,6 +108,7 @@ public class CreateRoomFragment extends Fragment {
         room.setRoomMaxPeople(Integer.valueOf(maxpeople.getText().toString()));
         room.setRoomName(roomnames.getText().toString());
         room.setRoomType(activity_type.getText().toString());
+        room.setCurrentUserNum("1");
 
         Db_operation.getDb_op().add(room);
         DbManager.getDbManager().insert(room,null);

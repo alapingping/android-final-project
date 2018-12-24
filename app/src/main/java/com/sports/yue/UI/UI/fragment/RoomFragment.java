@@ -135,6 +135,7 @@ public class RoomFragment extends Fragment {
             public void onClick(View v) {
                 //加入
 
+
                 RoomUser[] ru = DbManager.getDbManager().selectRoomUser(roomid,null);
                 Room[] rooms = DbManager.getDbManager().selectRoom(roomid);
 
@@ -149,6 +150,9 @@ public class RoomFragment extends Fragment {
                     }
                 }
 
+                rooms[0].setCurrentUserNum((Integer.valueOf(rooms[0].getCurrentUserNum()) + 1)+"");
+                Db_operation.getDb_op().updata(rooms[0]);
+                DbManager.getDbManager().update(rooms[0]);
                 Db_operation.getDb_op().add(new RoomUser(roomid,CurrentUser.getInstance(getActivity().getApplicationContext()).getUserName()));
                 DbManager.getDbManager().insert(new RoomUser(roomid,CurrentUser.getInstance(getActivity().getApplicationContext()).getUserName()),null);
 

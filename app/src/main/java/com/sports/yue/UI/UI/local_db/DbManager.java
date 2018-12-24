@@ -40,7 +40,7 @@ public class DbManager {
         //这里创建Room表
         sql = "CREATE TABLE IF NOT EXISTS ROOM ("
                 + "ActivityTime varcahr DEFAULT '', ActivityPosition varchar DEFAULT '',RoomMaxPeople number DEFAULT 0,RoomType varchar DEFAULT '',"
-                + "RoomDescription varchar DEFAULT '',RoomCreator varchar DEFAULT '',RoomName varchar DEFAULT '',RoomId varchar PRIMARY KEY,"
+                + "RoomDescription varchar DEFAULT '',RoomCreator varchar DEFAULT '',RoomName varchar DEFAULT '',RoomId varchar PRIMARY KEY,CurrentUserNum number DEFAULT '',"
                 + "createdAt datetime DEFAULT (datetime(CURRENT_TIMESTAMP,'localtime')),updateAt datetime DEFAULT (datetime(CURRENT_TIMESTAMP,'localtime')))";
         SQLiteDatabase db2 = dbHelper.getWritableDatabase();
         db2.execSQL(sql);
@@ -136,9 +136,9 @@ public class DbManager {
     public boolean insert(Room o){
         return insert("ROOM",
                 new String[]{"ActivityTime", "ActivityPosition","RoomMaxPeople","RoomType","RoomDescription",
-                        "RoomCreator","RoomName","RoomId","createdAt","updateAt"},
+                        "RoomCreator","RoomName","RoomId","CurrentUserNum","createdAt","updateAt"},
                 new String[]{((Room)o).getActivityTime() + "",((Room)o).getActivityPosition()+"",((Room)o).getRoomMaxPeople()+ "", ((Room)o).getRoomType(),
-                        ((Room)o).getRoomDescription(),((Room)o).getRoomCreator(),((Room)o).getRoomName()+"",((Room)o).getRoomId(),
+                        ((Room)o).getRoomDescription(),((Room)o).getRoomCreator(),((Room)o).getRoomName()+"",((Room)o).getRoomId(),((Room)o).getCurrentUserNum(),
                         ((Room)o).getCreatedAt(),((Room)o).getUpdatedAt()});
     }
     public boolean insert(RoomUser o){
@@ -167,9 +167,9 @@ public class DbManager {
     public boolean insert(Room o,String s){
         return insert("ROOM",
                 new String[]{"ActivityTime", "ActivityPosition","RoomMaxPeople","RoomType","RoomDescription",
-                        "RoomCreator","RoomName","RoomId"},
+                        "RoomCreator","RoomName","RoomId","CurrentUserNum"},
                 new String[]{((Room)o).getActivityTime() + "",((Room)o).getActivityPosition()+"",((Room)o).getRoomMaxPeople()+ "", ((Room)o).getRoomType(),
-                        ((Room)o).getRoomDescription(),((Room)o).getRoomCreator(),((Room)o).getRoomName()+"",((Room)o).getRoomId()});
+                        ((Room)o).getRoomDescription(),((Room)o).getRoomCreator(),((Room)o).getRoomName()+"",((Room)o).getRoomId(),((Room)o).getCurrentUserNum()});
     }
     public boolean insert(RoomUser o,String s){
         return insert("ROOMUSER",
@@ -250,9 +250,9 @@ public class DbManager {
     public void update(Room o){
         update("ROOM",
                 new String[]{"ActivityTime", "ActivityPosition","RoomMaxPeople","RoomType","RoomDescription",
-                        "RoomCreator","RoomName","RoomId","createdAt","updateAt"},
+                        "RoomCreator","RoomName","RoomId","CurrentUserNum","createdAt","updateAt"},
                 new String[]{((Room)o).getActivityTime() + "",((Room)o).getActivityPosition()+"",((Room)o).getRoomMaxPeople()+ "", ((Room)o).getRoomType(),
-                        ((Room)o).getRoomDescription(),((Room)o).getRoomCreator(),((Room)o).getRoomName()+"",((Room)o).getRoomId(),
+                        ((Room)o).getRoomDescription(),((Room)o).getRoomCreator(),((Room)o).getRoomName()+"",((Room)o).getRoomId(),((Room)o).getCurrentUserNum(),
                         ((Room)o).getCreatedAt(),((Room)o).getUpdatedAt()},
                 new String[]{"RoomId"},
                 new String[]{((Room)o).getRoomId()});
@@ -342,12 +342,13 @@ public class DbManager {
             rooms[i].setRoomCreator(ro.get(i)[5]);
             rooms[i].setRoomName(ro.get(i)[6]);
             rooms[i].setRoomId(ro.get(i)[7]);
+            rooms[i].setCurrentUserNum(ro.get(i)[8]);
             try {
-                rooms[i].setCreateAt(format.parse(ro.get(i)[8]));
+                rooms[i].setCreateAt(format.parse(ro.get(i)[9]));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            rooms[i].setUpdatedAt(ro.get(i)[9]);
+            rooms[i].setUpdatedAt(ro.get(i)[10]);
         }
         return rooms;
     }

@@ -254,6 +254,7 @@ public class Db_operation {
         });
     }
     public void add(RoomUser roomuser){
+
         roomuser.save(new SaveListener<String>() {
             @Override
             public void done(String objectId, BmobException e) {
@@ -482,7 +483,7 @@ public class Db_operation {
             Map<String,String> map= new HashMap<String, String>();
             for (int i = 0; i < li.length; i++) {
                 if (id.equalsIgnoreCase(li[i].getRoomId())) {
-                    map.put("Room", li[i].getRoomId());
+                    map.put("Room", li[i].getObjectId());
                 }
             }
             objId.add(map);
@@ -491,7 +492,7 @@ public class Db_operation {
             Map<String, String> map = new HashMap<String, String>();
             for (int i = 0; i < ci.length; i++) {
                 if (id.equalsIgnoreCase(ci[i].getRoomId())) {
-                    map.put("Community", ci[i].getRoomId());
+                    map.put("Community", ci[i].getObjectId());
                 }
             }
             objId.add(map);
@@ -500,7 +501,7 @@ public class Db_operation {
             Map<String, String> map = new HashMap<String, String>();
             for (int i = 0; i < mi.length; i++) {
                 if (id.equalsIgnoreCase(mi[i].getRoomId())) {
-                    map.put("Message", mi[i].getRoomId());
+                    map.put("Message", mi[i].getObjectId());
                 }
             }
             objId.add(map);
@@ -512,7 +513,7 @@ public class Db_operation {
         List<String> ll = new ArrayList<String>();
         for (int i = 0; i < li.length; i++) {
             if (id == null || id.equalsIgnoreCase(li[i].getRoomId())) {
-                ll.add(li[i].getRoomId());
+                ll.add(li[i].getObjectId());
             }
         }
         return ll;
