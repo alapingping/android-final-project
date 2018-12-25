@@ -196,7 +196,7 @@ public class DbManager {
                 whereClause += field[i] + "=?";
                 break;
             }
-            whereClause += field[i] + "=?,";
+            whereClause += field[i] + "=? and ";
         }
         db.delete(tablename,whereClause, fieldvalue);
         db.close();
@@ -225,7 +225,7 @@ public class DbManager {
                 whereClause += selectfield[i] + "=?";
                 break;
             }
-            whereClause += selectfield[i] + "=?,";
+            whereClause += selectfield[i] + "=? and ";
         }
         db.update(tablename,values,whereClause,selectfieldvalue);
         db.close();
@@ -288,7 +288,7 @@ public class DbManager {
                 if (i == 0) {
                     selectQuery += " WHERE " + wherelist[i] + "=?";
                 } else {
-                    selectQuery += "," + wherelist[i] + "=?";
+                    selectQuery += " and " + wherelist[i] + "=?";
                 }
             }
         }
@@ -485,23 +485,28 @@ public class DbManager {
             where = addwhere(where,"UserName");
             value = addwhere(value,username);
         }
-        if (username != null){
-            where = addwhere(where,"createAt");
-            value = addwhere(value,createAt + "");
-        }
         List<String[]> ro = select(null,new String[]{"MESSAGE"},where,value);
-        Message[] rooms = new Message[ro.size()];
+        int size = 0;
         for (int i = 0;i < ro.size();i++){
-            rooms[i] = new Message();
-            rooms[i].setUserName(ro.get(i)[0]);
-            rooms[i].setRoomId(ro.get(i)[1]);
-            rooms[i].setMessageContent(ro.get(i)[2]);
-            try {
-                rooms[i].setCreateAt(format.parse(ro.get(i)[3]));
-            } catch (ParseException e) {
-                e.printStackTrace();
+            if (ro.get(i)[3].equalsIgnoreCase(format.format(createAt))){
+                size++;
             }
-            rooms[i].setUpdatedAt(ro.get(i)[4]);
+        }
+        Message[] rooms = new Message[size];
+        for (int i = 0;i < ro.size();i++){
+            if (ro.get(i)[3].equalsIgnoreCase(format.format(createAt))){
+                rooms[i] = new Message();
+                rooms[i].setUserName(ro.get(i)[0]);
+                rooms[i].setRoomId(ro.get(i)[1]);
+                rooms[i].setMessageContent(ro.get(i)[2]);
+                try {
+                    rooms[i].setCreateAt(format.parse(ro.get(i)[3]));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                rooms[i].setUpdatedAt(ro.get(i)[4]);
+            }
+
         }
         return rooms;
     }
@@ -516,23 +521,30 @@ public class DbManager {
             where = addwhere(where,"UserName");
             value = addwhere(value,username);
         }
-        if (username != null){
-            where = addwhere(where,"createAt");
-            value = addwhere(value,createAt);
-        }
+
         List<String[]> ro = select(null,new String[]{"MESSAGE"},where,value);
-        Message[] rooms = new Message[ro.size()];
+
+        int size = 0;
         for (int i = 0;i < ro.size();i++){
-            rooms[i] = new Message();
-            rooms[i].setUserName(ro.get(i)[0]);
-            rooms[i].setRoomId(ro.get(i)[1]);
-            rooms[i].setMessageContent(ro.get(i)[2]);
-            try {
-                rooms[i].setCreateAt(format.parse(ro.get(i)[3]));
-            } catch (ParseException e) {
-                e.printStackTrace();
+            if (ro.get(i)[3].equalsIgnoreCase(createAt)){
+                size++;
             }
-            rooms[i].setUpdatedAt(ro.get(i)[4]);
+        }
+        Message[] rooms = new Message[size];
+        for (int i = 0;i < ro.size();i++){
+            if (ro.get(i)[3].equalsIgnoreCase(createAt)){
+                rooms[i] = new Message();
+                rooms[i].setUserName(ro.get(i)[0]);
+                rooms[i].setRoomId(ro.get(i)[1]);
+                rooms[i].setMessageContent(ro.get(i)[2]);
+                try {
+                    rooms[i].setCreateAt(format.parse(ro.get(i)[3]));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                rooms[i].setUpdatedAt(ro.get(i)[4]);
+            }
+
         }
         return rooms;
     }
@@ -552,7 +564,7 @@ public class DbManager {
                 if (i == 0) {
                     selectQuery += " WHERE " + wherelist[i] + "=?";
                 } else {
-                    selectQuery += "," + wherelist[i] + "=?";
+                    selectQuery += " and " + wherelist[i] + "=?";
                 }
             }
         }
@@ -583,7 +595,7 @@ public class DbManager {
         if (where == null){
             wh = new String[1];
         }else{
-            wh = new String[where.length];
+            wh = new String[where.length + 1];
         }
 
         for (int i = 0;i < wh.length;i++){

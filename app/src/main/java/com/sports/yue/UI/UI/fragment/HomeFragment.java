@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Button;
+import android.support.v7.widget.Toolbar;
 
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.Service.MyIntentService;
@@ -68,14 +69,14 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        Button startserviceBtn = view.findViewById(R.id.startservice);
-        startserviceBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CameraActivity.class);
-                getActivity().startActivity(intent);
-            }
-        });
+//        Button startserviceBtn = view.findViewById(R.id.startservice);
+//        startserviceBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), CameraActivity.class);
+//                getActivity().startActivity(intent);
+//            }
+//        });
 
 
         return view;
@@ -98,5 +99,13 @@ public class HomeFragment extends Fragment {
 
         return list;
     }
+
+    @Override
+    public void onResume() {
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Home");
+        super.onResume();
+    }
+
 }
 

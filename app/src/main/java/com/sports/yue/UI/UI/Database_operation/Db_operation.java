@@ -119,7 +119,7 @@ public class Db_operation {
                 if (e == null){
                     if (e == null) {
                         for (Message mes : list){
-                            if(DbManager.getDbManager().selectMessage(mes.getUserName(),mes.getRoomId(),mes.getCreateAt()).length==0)
+                            if(DbManager.getDbManager().selectMessage(mes.getUserName(),mes.getRoomId(),mes.getCreatedAt()).length==0)
                                 DbManager.getDbManager().insert(mes);
                         }
                         //  textView.setText(str);

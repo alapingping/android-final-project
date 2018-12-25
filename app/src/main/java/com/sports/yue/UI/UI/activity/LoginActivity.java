@@ -137,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
                     user.setUserName(response.getString("nickname"));
                     user.setUserSex(response.getString("gender"));
 
-                    CurrentUser.getInstance(getApplication()).setCurrentUser(getApplicationContext(),user.getUserName(),"");
+
                     DbManager.getDbManager().insert(user,null);
                     Db_operation.getDb_op().add(user);
 
@@ -425,8 +425,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-        CurrentUser.getInstance(getApplicationContext()).setUserName(username);
-        CurrentUser.getInstance(getApplicationContext()).setUserName(userpass);
+        CurrentUser.getInstance(getApplicationContext()).setCurrentUser(getApplicationContext(),username,userpass);
 
 
 

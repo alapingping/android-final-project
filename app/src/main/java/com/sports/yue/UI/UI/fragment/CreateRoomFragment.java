@@ -6,6 +6,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -73,7 +74,8 @@ public class CreateRoomFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_create_room, container, false);
         Button bu = (Button) view.findViewById(R.id.Room_Submit);
         Button qu = view.findViewById(R.id.Room_Quit);
-
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("CreateRoom");
         roomnames  = (TextView) view.findViewById(R.id.Room_Name_Input);
         description = (TextView) view.findViewById(R.id.Room_Description_Input);
         activity_type = (TextView) view.findViewById(R.id.Room_Type_Input);
@@ -256,5 +258,10 @@ public class CreateRoomFragment extends Fragment {
         }
 
     };
-
+    @Override
+    public void onResume() {
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("CreateRoom");
+        super.onResume();
+    }
 }
