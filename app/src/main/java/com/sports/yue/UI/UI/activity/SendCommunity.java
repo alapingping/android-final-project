@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -36,13 +37,30 @@ import android.widget.Toast;
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.Data.locationData;
 import com.sports.yue.UI.UI.Database_operation.Db_operation;
+import com.sports.yue.UI.UI.api.BmobService;
+import com.sports.yue.UI.UI.api.Client;
+import com.sports.yue.UI.UI.api.MyHttpServer;
 import com.sports.yue.UI.UI.fragment.CommunityFragment;
 import com.sports.yue.UI.UI.fragment.HomeFragment;
 import com.sports.yue.UI.UI.local_db.DbManager;
 import com.sports.yue.UI.UI.models.Community;
 import com.sports.yue.UI.UI.models.CurrentUser;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.logging.Handler;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.http.Multipart;
 
 public class SendCommunity extends AppCompatActivity {
 
@@ -61,10 +79,10 @@ public class SendCommunity extends AppCompatActivity {
     private TextView send;
     private Bitmap bitmap;
     private String path;
-    private static int max = 0;
+    private String pictureUrl;
     private static final int CHOOSE_PHOTO = 603;
     private static final int CHOOSE_VIDEO = 598;
-
+    private static int max = 0;
 
 
     @Override
@@ -114,14 +132,13 @@ public class SendCommunity extends AppCompatActivity {
 
 
                 //发送Community
-                etContent.getText().toString();
+
                 Bitmap obmp = Bitmap.createBitmap(addpic.getDrawingCache());
                 addpic.setDrawingCacheEnabled(false);
-                String imgurl = put(obmp);
 
                 Community community = new Community();
                 community.setUserName(CurrentUser.getInstance(getApplicationContext()).getUserName());
-                community.setEmail("none");
+                community.setEmail(etContent.getText().toString());
                 community.setRoomId("none");
                 community.setVideo("video" + max + ".mp4");
 
@@ -141,8 +158,50 @@ public class SendCommunity extends AppCompatActivity {
 
     }
 
-    private String put(Bitmap bitmap){
+    private String put(int methodType){
         String url = "";
+
+        File file = new File(path);
+        if(file.exists()) {
+
+            if( methodType == 1)
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    MyHttpServer myHttpServer = new MyHttpServer(file);
+                    myHttpServer.uploadVideoToServer();
+                }
+            }).start();
+
+            else if( methodType == 2){
+                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+
+                BmobService service = Client.retrofit.create(BmobService.class);
+                Call<ResponseBody> call = service.upLoadVideo(requestBody);
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            String rep = response.body().string();
+                            JSONObject obj = new JSONObject(rep);
+                            String videoURL = obj.getString("url");
+
+
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        System.out.print(2);
+                    }
+                });
+            }
+        }
         return url;
     }
 
@@ -168,6 +227,7 @@ public class SendCommunity extends AppCompatActivity {
                     path = getPath(getApplicationContext(), data.getData());
                     bitmap = getVideoThumbnail(path);
                     addpic.setImageBitmap(bitmap);
+                    put(1);
 //                    Cursor cursor1 = getContentResolver().query(uri, new String[]{MediaStore.Video.Media.DISPLAY_NAME,
 //                            MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DURATION, MediaStore.Video.Media.DATA}, null, null, null);
 //                    cursor1.moveToFirst();

@@ -57,12 +57,16 @@ public class CommunityFragment extends Fragment {
     ListView videoList;
     private ArrayList<Map<String, Object>> datas;
     private ArrayList<String> string_data;
-//    private String videoUrl = "http://2449.vod.myqcloud.com/2449_22ca37a6ea9011e5acaaf51d105342e3.f20.mp4";
-//    private String imageUrl = "http://p.qpic.cn/videoyun/0/2449_43b6f696980311e59ed467f22794e792_1/640";
+    private String[] videoUrl = new String[]{
+        "http://bmob-cdn-22097.b0.upaiyun.com/2018/12/25/4202bc3e40d4ba828020e00ccb776f07.mp4",
+        "http://bmob-cdn-22097.b0.upaiyun.com/2018/12/25/23e7c032406b3ace80a7a914e2afc153.mp4"
+    };
+    private String imageUrl = "http://p.qpic.cn/videoyun/0/2449_43b6f696980311e59ed467f22794e792_1/640";
     private VideoAdapter adapter;
     private AbsListView.OnScrollListener onScrollListener;
     JCVideoPlayerStandard jcVideoPlayerStandard;
     private WaveSwipeRefreshLayout mWaveSwipeRefreshLayout;
+
 
     private class Task extends AsyncTask<Void, Void, String[]> {
         @Override
@@ -179,13 +183,14 @@ public class CommunityFragment extends Fragment {
 ////            datas.add(map);
 ////        }
 
-        for (Community co : communities){
+        for (int i = 0;i < communities.length;i++){
             Map<String, Object> map = new HashMap<String, Object>();
-            map.put("video_url", co.getVideo());
+            map.put("video_url", communities[i].getVideo());
             map.put("author_photo", R.drawable.position);
-            map.put("author_name", co.getUserName());
+            map.put("author_name", communities[i].getUserName());
             map.put("image_url", imageUrl);
-            string_data.add(videoUrl);
+            map.put("communityMsg", communities[i].getEmail());
+            string_data.add(videoUrl[i]);
             datas.add(map);
         }
 

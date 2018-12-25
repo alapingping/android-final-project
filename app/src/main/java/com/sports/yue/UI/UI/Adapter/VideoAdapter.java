@@ -41,7 +41,8 @@ public class VideoAdapter extends CommonAdapter<String> {
         JCVideoPlayerStandard player = viewHolder.getView(R.id.videoplayer);
         TextView author_name = viewHolder.getView(R.id.author_name);
         author_name.setText(datas.get(position).get("author_name").toString());
-
+        TextView Community_description = viewHolder.getView(R.id.Community_description);
+        Community_description.setText(datas.get(position).get("communityMsg").toString());
         author_name.setOnTouchListener((v, event) -> true);
         if (player != null)
         {
