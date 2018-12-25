@@ -9,7 +9,6 @@ android {
             storePassword '123456'
            // storeFile file('F:/android_about/android-final-project/yue.jks')
 //           storeFile file('D:/GitHub/android-final-project/yue.jks')
-            storeFile file('D:/11-Androids/final2/android-final-project/yue.jks')
 
 
         }

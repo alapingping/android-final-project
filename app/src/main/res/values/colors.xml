@@ -42,5 +42,6 @@
     <color name="colorLemonChiffonDark">#EEE9BF</color>
     <color name="lightgreen">#90ee90</color>
     <color name="greenyellow">#adff2f</color>
+    <color name="textInputLayout">#96ffffff</color>
     <color name="red">#d11616</color>
 </resources>

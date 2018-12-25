@@ -182,7 +182,6 @@ public class CommunityFragment extends Fragment {
                         .replace(R.id.frame_content, new CommunityFragment())
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .commit();
-
             }
         });
 
