@@ -92,7 +92,7 @@ public class MyIntentService extends IntentService {
             new Thread(() -> {
                 while (true){
                     LocalRoomNum = DbManager.getDbManager().selectRoom(null).length;
-                    try{
+                        try{
                         sleep(10000);
                     } catch (InterruptedException e){
                         e.printStackTrace();
@@ -135,14 +135,14 @@ public class MyIntentService extends IntentService {
                         //远端数据与本地不一致
                         //提示用户进行更新
                         CreateNotification();
-                        myHandler.post(() ->
-                                Toast.makeText(getApplicationContext(), "数据不一致", Toast.LENGTH_LONG).show()
-                        );
+//                        myHandler.post(() ->
+//                                Toast.makeText(getApplicationContext(), "数据不一致", Toast.LENGTH_LONG).show()
+//                        );
                     } else if (RoomNum == LocalRoomNum){
-                        CreateNotification();
+//                        CreateNotification();
                         //  每天上市之前删除
-                        myHandler.post(() ->
-                                Toast.makeText(getApplicationContext(), "数据一致", Toast.LENGTH_LONG).show());
+//                        myHandler.post(() ->
+//                                Toast.makeText(getApplicationContext(), "数据一致", Toast.LENGTH_LONG).show());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -191,7 +191,7 @@ public class MyIntentService extends IntentService {
     //若有新房间被创建，则发出新房间出现通知
     private void CreateNotification(){
         Intent clickIntent = new Intent(getApplicationContext(), MyReceiver.class);
-//        clickIntent.setAction("update room");
+        clickIntent.setAction("update room");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), NotificationId, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         Notification notification = new Notification.Builder(getApplicationContext())
                 .setAutoCancel(true)

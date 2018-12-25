@@ -48,6 +48,7 @@ public class RoomFragment extends Fragment {
     TextView Room_Creator;
     TextView Room_Activity_Time;
     TextView Room_type;
+    String roomid;
 
 
     public RoomFragment() {
@@ -112,7 +113,8 @@ public class RoomFragment extends Fragment {
 
         Bundle bundle = new Bundle();
         bundle = getArguments();
-        String roomid = bundle.getString("roomid");
+        if( bundle != null)
+            roomid = bundle.getString("roomid");
 
         Send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,11 +192,7 @@ public class RoomFragment extends Fragment {
 
                 Toast.makeText(getActivity(),"加入成功!",Toast.LENGTH_LONG).show();
 
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .addToBackStack(null)
-                        .replace(R.id.frame_content, new RoomFragment())
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .commit();
+
             }
         });
 

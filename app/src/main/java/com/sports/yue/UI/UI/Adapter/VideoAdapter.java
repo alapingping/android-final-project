@@ -114,12 +114,12 @@ public class VideoAdapter extends CommonAdapter<String> {
         requestPraise(new Callback() {
             @Override
             public void onSuccess() {
-                Toast.makeText(getContext(),"toggle Success ",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Like Success ",Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onFail() {
                 mLikeView.toggleWithoutAnimator();
-                Toast.makeText(getContext(),"toggle Fail ",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Unlike Success ",Toast.LENGTH_SHORT).show();
             }
         });
     }
