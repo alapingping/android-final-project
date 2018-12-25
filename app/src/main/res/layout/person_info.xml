@@ -7,16 +7,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!--<com.sports.yue.UI.UI.CircleImageView.CircleImageView-->
+        <!--android:id="@+id/person_img"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="40dp"-->
+        <!--android:background="@drawable/banner"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
     <com.sports.yue.UI.UI.CircleImageView.CircleImageView
         android:id="@+id/person_img"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+<<<<<<< HEAD
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
         android:layout_gravity="center"
         android:background="@drawable/banner"
+=======
+        android:layout_marginTop="36dp"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:src="@drawable/banner"
+>>>>>>> 98da31ceca6749f49ba56fa58f06749c928a3883
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

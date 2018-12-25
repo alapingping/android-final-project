@@ -16,11 +16,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.Database_operation.Db_operation;
 import com.sports.yue.UI.UI.activity.MainActivity;
 import com.sports.yue.UI.UI.activity.mapActivity;
+import com.sports.yue.UI.UI.api.Share;
 import com.sports.yue.UI.UI.local_db.DbManager;
 import com.sports.yue.UI.UI.models.CurrentUser;
 import com.sports.yue.UI.UI.models.Message;
@@ -57,6 +59,10 @@ public class RoomFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_room, container, false);
+
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Room");
+
 
         photo = view.findViewById(R.id.room_photo_image);
         descriptionbox = view.findViewById(R.id.decription_box);
@@ -146,7 +152,7 @@ public class RoomFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //分享
-
+                Share.onClickShare(getActivity());
             }
         });
         quit.setOnClickListener(new View.OnClickListener() {
@@ -183,6 +189,12 @@ public class RoomFragment extends Fragment {
                 DbManager.getDbManager().insert(new RoomUser(roomid,CurrentUser.getInstance(getActivity().getApplicationContext()).getUserName()),null);
 
                 Toast.makeText(getActivity(),"加入成功!",Toast.LENGTH_LONG).show();
+
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.frame_content, new RoomFragment())
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .commit();
             }
         });
 
@@ -199,7 +211,7 @@ public class RoomFragment extends Fragment {
                 new String[]{"RoomDescription","ActivityPosition","RoomMaxPeople","RoomCreator","ActivityTime","RoomType"}
                 ,new String[]{"ROOM"},new String[]{"RoomId"},new String[]{roomid});
         List<String[]> roomusernum =  DbManager.getDb_M(getActivity().getApplicationContext()).select(
-                new String[]{"UserName"}
+                null
                 ,new String[]{"ROOMUSER"},new String[]{"RoomId"},new String[]{roomid});
         descriptionbox.setText(list.get(0)[0]);
         Room_Activity_Location.setText(list.get(0)[1]);
@@ -224,4 +236,7 @@ public class RoomFragment extends Fragment {
             messagebox.append(str[1] + "(" + str[2] + "):" + "\r\n\r\r\r\r\r" + str[0] + "\r\n");
         }
     }
+
+
+
 }

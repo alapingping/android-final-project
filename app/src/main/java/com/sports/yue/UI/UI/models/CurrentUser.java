@@ -31,6 +31,7 @@ public class CurrentUser extends User {
         DbManager.getDb_M(c).update("CURRENTUSER",new String[]{"UserName","Password"},new String[]{username,password},null,null);
         setUserName(username);
         setUserPass(password);
+
     }
 
 }

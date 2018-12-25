@@ -125,8 +125,7 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"
                         android:tint="@color/colorWhite"
-                        app:srcCompat="@drawable/ic_assignment_ind_black_24dp"
-                        />
+                        app:srcCompat="@drawable/ic_menu_share" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -134,11 +133,10 @@
                         android:layout_marginTop="30dp"
                         android:background="@color/colorBlueJeansDark"
                         android:padding="8dp"
-                        android:text="Audit"
+                        android:text="Share"
                         android:textAlignment="center"
                         android:textColor="@color/colorWhite"
                         android:textSize="18sp" />
-
                 </LinearLayout>
 
                 <LinearLayout

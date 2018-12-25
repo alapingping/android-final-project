@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,8 @@ public class My_groupFragment extends Fragment {
 
         //获取当前View
         View view = inflater.inflate(R.layout.group_main,container,false);
-
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Group");
         list= new ArrayList<Group>();
         initData();
 
@@ -96,5 +98,11 @@ public class My_groupFragment extends Fragment {
 
         list.add(group1);
         list.add(group2);
+    }
+    @Override
+    public void onResume() {
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Group");
+        super.onResume();
     }
 }

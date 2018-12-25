@@ -26,6 +26,7 @@
     <color name="colorHalfTransparentBlack">#40000000</color>
     <color name="colorHalfTransparentWhite">#40FFFFFF</color>
     <color name="control_background">#cc4285f4</color>
+<<<<<<< HEAD
     <color name="textInputLayout">#96ffffff</color>
     <color name="colorCherryRed">#F70025</color>
     <color name="colorSage">#A1BE95</color>
@@ -40,4 +41,11 @@
     <color name="colorGoldenRode">#FFB90F</color>
     <color name="colorLemonChiffon">#FFFACD</color>
     <color name="colorLemonChiffonDark">#EEE9BF</color>
+=======
+    <color name="lightgreen">#90ee90</color>
+    <color name="greenyellow">#adff2f</color>
+    <color name="red">#d11616</color>
+    <color name="textInputLayout">#96ffffff</color>
+
+>>>>>>> 98da31ceca6749f49ba56fa58f06749c928a3883
 </resources>

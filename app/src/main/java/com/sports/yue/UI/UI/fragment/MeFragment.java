@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.SharedElementCallback;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +62,8 @@ public class MeFragment extends Fragment {
 
         //获取当前View
         View view = inflater.inflate(R.layout.fragment_me,container,false);
-
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Me");
         coach_name_text = view.findViewById(R.id.coach_name_text);
         coach_name_text.setText(CurrentUser.getInstance(getContext()).getUserName());
 
@@ -141,5 +143,10 @@ public class MeFragment extends Fragment {
 //    }
 
 
-
+    @Override
+    public void onResume() {
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Me");
+        super.onResume();
+    }
 }

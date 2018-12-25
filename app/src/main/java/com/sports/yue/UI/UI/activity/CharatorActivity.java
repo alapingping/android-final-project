@@ -1,7 +1,10 @@
 package com.sports.yue.UI.UI.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sports.yue.R;
@@ -14,6 +17,7 @@ public class CharatorActivity extends AppCompatActivity {
     private TextView User_Email;
     private TextView User_Tel;
     private TextView User_Sign;
+    private ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +27,14 @@ public class CharatorActivity extends AppCompatActivity {
         User_Email = findViewById(R.id.User_Email);
         User_Tel = findViewById(R.id.User_Tel);
         User_Sign = findViewById(R.id.User_Sign);
-
+        imageView = findViewById(R.id.person_img);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CharatorActivity.this, CameraActivity.class);
+                CharatorActivity.this.startActivity(intent);
+            }
+        });
         User[] users =DbManager.getDbManager().selectUser(CurrentUser.getInstance(getApplicationContext()).getUserName());
         while (users.length == 0){
             users =DbManager.getDbManager().selectUser(CurrentUser.getInstance(getApplicationContext()).getUserName());
