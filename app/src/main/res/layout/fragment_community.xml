@@ -8,22 +8,43 @@
     <jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/main_swipe"
-        >
-
-
+        android:id="@+id/main_swipe">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:gravity="center">
-        <Button
-            android:id="@+id/add_community"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Community"/>
+        android:gravity="center"
+        android:background="@color/colorLemonChiffon">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@color/colorLemonChiffonDark"
+            android:layout_margin="3dp">
+
+            <Button
+                android:id="@+id/add_community"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/tianjia" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:fontFamily="serif"
+                android:gravity="center"
+                android:text="Add Community"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
 
 
         <ListView

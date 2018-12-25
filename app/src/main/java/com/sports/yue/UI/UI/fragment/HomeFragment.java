@@ -68,14 +68,14 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        Button startserviceBtn = view.findViewById(R.id.startservice);
-        startserviceBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CameraActivity.class);
-                getActivity().startActivity(intent);
-            }
-        });
+//        Button startserviceBtn = view.findViewById(R.id.startservice);
+//        startserviceBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), CameraActivity.class);
+//                getActivity().startActivity(intent);
+//            }
+//        });
 
 
         return view;

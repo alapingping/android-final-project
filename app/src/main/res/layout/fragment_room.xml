@@ -29,26 +29,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:background="@drawable/shape"
-                android:orientation="vertical">
+                android:background="@drawable/rec_shape1"
+                android:orientation="vertical"
+                android:layout_margin="3dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left"
-                        android:text="Location:"
-                        android:textSize="24sp" />
+                    <!--<TextView-->
+                        <!--android:layout_width="100dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="left"-->
+                        <!--android:text="Location:"-->
+                        <!--android:textSize="24sp" />-->
                     <TextView
                         android:id="@+id/Room_Activity_Location"
-                        android:layout_width="150dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="ActivityLocation"
                         android:layout_gravity="center"
-                        android:textSize="14sp"
+                        android:textSize="24sp"
                         android:textStyle="bold"/>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -73,11 +73,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Activity Type:"
-                        android:textSize="24dp"/>
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -99,11 +101,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="MaxPeople:"
-                        android:textSize="24dp"/>
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -125,11 +129,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Creator:"
-                        android:textSize="24dp"/>
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -151,11 +157,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Activite Time:"
-                        android:textSize="24dp"/>
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -172,43 +180,75 @@
 
             </LinearLayout>
 
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:background="@drawable/shape"
-                android:text="Description"
-                android:textSize="24sp" />
+                android:orientation="horizontal"
+                android:background="@drawable/rec_shape2"
+                android:layout_marginBottom="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginLeft="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rec_shape2"
+                    android:fontFamily="serif"
+                    android:text="Description"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="120dp"
+                    android:src="@drawable/note" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/decription_box"
                 android:layout_width="match_parent"
-                android:layout_height="118dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="1dp"
-                android:background="@drawable/box_shape"
+                android:layout_height="130dp"
+                android:background="@drawable/rec_shape3"
                 android:scrollbars="vertical"
                 android:textColor="@color/cardview_light_background"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"/>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:background="@drawable/shape"
-                android:text="Messages"
-                android:textSize="24sp" />
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/rec_shape4">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="serif"
+                    android:text="Messages"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="160dp"
+                    android:src="@drawable/xinxi3" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/message_box"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="1dp"
-                android:background="@drawable/box_shape"
+                android:background="@drawable/rec_shape1"
                 android:scrollbars="vertical"
                 android:fadeScrollbars="false"
                 android:paddingTop="20dp"
@@ -216,18 +256,26 @@
                 android:paddingLeft="10dp"
                 android:maxLines = "16"
                 android:textColor="@color/cardview_light_background"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginLeft="3dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
                 android:gravity="right"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@color/colorGoldenRode"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp">
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/Room_MessageSend_Input"
@@ -236,49 +284,117 @@
                         android:layout_marginTop="20dp"
                         android:hint="What tou want to send"
                         android:textSize="24dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"/>
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"/>
                 </android.support.design.widget.TextInputLayout>
 
-                <Button
-                    android:id="@+id/message_send"
-                    android:layout_width="60dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:background="@drawable/shape"
-                    android:layout_marginRight="20dp"
-                    android:gravity="center"
-                    android:text="Send"
-                    android:textSize="14dp" />
+                    android:layout_gravity="center"
+                    android:background="@color/colorGoldenRodeDark"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/message_send"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/fasong" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Send"
+                        android:textAlignment="center"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp">
 
-                <Button
-                    android:id="@+id/like"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shape"
-                    android:text="Share" />
-                <Button
-                    android:id="@+id/quit"
+                    android:orientation="vertical"
+                    android:background="@drawable/button_shape1"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/like"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/fenxiang"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="serif"
+                        android:text="Share"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:background="@drawable/shape"
-                    android:text="Quit" />
-                <Button
-                    android:id="@+id/join"
+                    android:orientation="vertical"
+                    android:background="@drawable/button_shape2"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/quit"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/tuichu"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="serif"
+                        android:text="Quit"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:background="@drawable/shape"
-                    android:text="Join" />
+                    android:orientation="vertical"
+                    android:background="@drawable/button_shape3"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/join"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/jiaru"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="serif"
+                        android:text="Join"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
