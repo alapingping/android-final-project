@@ -1,7 +1,9 @@
 package com.sports.yue.UI.UI.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,9 +23,9 @@ import android.widget.Toast;
 
 //import com.sports.yue.UI.UI.Adapter.VideoAdapter;
 
+import com.jaren.lib.view.LikeView;
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.Adapter.VideoAdapter;
-import com.sports.yue.UI.UI.BroadCast.MyReceiver;
 import com.sports.yue.UI.UI.Database_operation.Db_operation;
 import com.sports.yue.UI.UI.activity.LoginActivity;
 import com.sports.yue.UI.UI.activity.MainActivity;
@@ -31,17 +33,16 @@ import com.sports.yue.UI.UI.activity.SendCommunity;
 import com.sports.yue.UI.UI.local_db.DbManager;
 import com.sports.yue.UI.UI.models.Community;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
-
-import static cn.bmob.v3.Bmob.getApplicationContext;
 
 //import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 //import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
@@ -73,6 +74,73 @@ public class CommunityFragment extends Fragment {
     private AbsListView.OnScrollListener onScrollListener;
     JCVideoPlayerStandard jcVideoPlayerStandard;
     private WaveSwipeRefreshLayout mWaveSwipeRefreshLayout;
+    private LikeView mLikeView;
+    private LikeView mLikeViewSet;
+
+
+    interface Callback {
+
+        void onSuccess();
+
+        void onFail();
+    }
+    private void useSet() {
+        requestPraise(new Callback() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(getContext(),"toggle Success ",Toast.LENGTH_SHORT).show();
+                if (mLikeViewSet.isChecked()) {
+                    mLikeViewSet.setChecked(false);
+//                  mLikeViewSet.setCheckedWithoutAnimator(false);
+                } else {
+                    mLikeViewSet.setChecked(true);
+                }
+            }
+            @Override
+            public void onFail() {
+                Toast.makeText(getContext(),"toggle Fail ",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void useToggle() {
+        mLikeView.toggle();
+        requestPraise(new Callback() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(getContext(),"toggle Success ",Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFail() {
+                mLikeView.toggleWithoutAnimator();
+                Toast.makeText(getContext(),"toggle Fail ",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void requestPraise(final Callback callback) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(400);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Random random = new Random();
+                            if (random.nextInt() % 2 == 0) {
+                                callback.onSuccess();
+                            } else {
+                                callback.onFail();
+                            }
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
 
 
     private class Task extends AsyncTask<Void, Void, String[]> {
@@ -117,8 +185,21 @@ public class CommunityFragment extends Fragment {
         });
 
 
+        mLikeView = view.findViewById(R.id.lv);
+        mLikeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                useToggle();
+            }
+        });
 
-
+        mLikeViewSet = view.findViewById(R.id.lv_set);
+        mLikeViewSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                useSet();
+            }
+        });
 
         Button findButton = view.findViewById(R.id.add_community);
         findButton.setOnClickListener(new View.OnClickListener() {

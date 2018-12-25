@@ -139,6 +139,7 @@ public class MyIntentService extends IntentService {
                                 Toast.makeText(getApplicationContext(), "数据不一致", Toast.LENGTH_LONG).show()
                         );
                     } else if (RoomNum == LocalRoomNum){
+                        //  每天上市之前删除
                         myHandler.post(() ->
                                 Toast.makeText(getApplicationContext(), "数据一致", Toast.LENGTH_LONG).show());
                     }
