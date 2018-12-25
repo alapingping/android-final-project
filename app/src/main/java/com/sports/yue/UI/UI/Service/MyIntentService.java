@@ -186,6 +186,7 @@ public class MyIntentService extends IntentService {
     //若有新房间被创建，则发出新房间出现通知
     private void CreateNotification(){
         Intent clickIntent = new Intent(getApplicationContext(), MyReceiver.class);
+        clickIntent.setAction("update room");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), NotificationId, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         Notification notification = new Notification.Builder(getApplicationContext())
                 .setAutoCancel(true)

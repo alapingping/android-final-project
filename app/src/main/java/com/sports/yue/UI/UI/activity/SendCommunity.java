@@ -35,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sports.yue.R;
+import com.sports.yue.UI.UI.BroadCast.MyReceiver;
 import com.sports.yue.UI.UI.Data.locationData;
 import com.sports.yue.UI.UI.Database_operation.Db_operation;
 import com.sports.yue.UI.UI.api.BmobService;
@@ -129,10 +130,7 @@ public class SendCommunity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 //发送Community
-
                 Bitmap obmp = Bitmap.createBitmap(addpic.getDrawingCache());
                 addpic.setDrawingCacheEnabled(false);
 
@@ -151,7 +149,7 @@ public class SendCommunity extends AppCompatActivity {
                 }
                 Db_operation.getDb_op().add(community);
                 DbManager.getDbManager().insert(community,null);
-
+                put(2);
                 finish();
             }
         });
@@ -175,10 +173,10 @@ public class SendCommunity extends AppCompatActivity {
 
             else if( methodType == 2){
                 RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+                MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
 
                 BmobService service = Client.retrofit.create(BmobService.class);
-                Call<ResponseBody> call = service.upLoadVideo(requestBody);
+                Call<ResponseBody> call = service.upLoadVideo(body);
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -187,7 +185,12 @@ public class SendCommunity extends AppCompatActivity {
                             JSONObject obj = new JSONObject(rep);
                             String videoURL = obj.getString("url");
 
-
+                            //接收到服务器返回信息
+                            //发送广播，通知系统更新
+                            Intent intent = new Intent(getApplicationContext(), MyReceiver.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setAction("update community");
+                            sendBroadcast(intent);
 
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -227,7 +230,6 @@ public class SendCommunity extends AppCompatActivity {
                     path = getPath(getApplicationContext(), data.getData());
                     bitmap = getVideoThumbnail(path);
                     addpic.setImageBitmap(bitmap);
-                    put(1);
 //                    Cursor cursor1 = getContentResolver().query(uri, new String[]{MediaStore.Video.Media.DISPLAY_NAME,
 //                            MediaStore.Video.Media.SIZE, MediaStore.Video.Media.DURATION, MediaStore.Video.Media.DATA}, null, null, null);
 //                    cursor1.moveToFirst();

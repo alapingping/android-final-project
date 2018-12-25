@@ -13,11 +13,18 @@ public class MyReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        String action = intent.getAction();
+        if(action.equals("update room")){
+            Db_operation.getDb_op().searchRoom();
+            Intent newintent = new Intent(context, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(newintent);
+        }
+        else if(action.equals("update community")){
+            Db_operation.getDb_op().searchRoom();
+            Intent newintent = new Intent(context, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(newintent);
+        }
 
-
-        Db_operation.getDb_op().searchRoom();
-        Intent newintent = new Intent(context, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(newintent);
 
     }
 

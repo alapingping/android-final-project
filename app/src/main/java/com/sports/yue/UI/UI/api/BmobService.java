@@ -54,7 +54,7 @@ public interface BmobService {
             "Content-Type: video/mpeg4"})
     @POST("/2/files/1.mp4")
     Call<ResponseBody> upLoadVideo(/*@Part("description") RequestBody requestBody,*/
-                                   @Body RequestBody body);
+                                   @Part MultipartBody.Part body);
 
 
 }
