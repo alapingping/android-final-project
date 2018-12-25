@@ -9,50 +9,51 @@
     <jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/main_swipe"
-        >
-
-
+        android:id="@+id/main_swipe">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:gravity="center">
+        android:gravity="center"
+        android:background="@color/colorLemonChiffon">
 
-        <com.jaren.lib.view.LikeView
-            android:id="@+id/lv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            app:checkedColor="#ffff0000"
-            app:cirRadius="20dp"
-            app:cycleTime="3600"
-            app:defaultColor="#ffcc9999"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@color/colorLemonChiffonDark"
+            android:layout_margin="3dp">
 
-        <com.jaren.lib.view.LikeView
-            android:id="@+id/lv_set"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            app:checkedColor="#ffff0000"
-            app:cirRadius="20dp"
-            app:cycleTime="1600"
-            app:unSelectCycleTime="300"
-            app:defaultColor="#ffcccccc"/>
+            <Button
+                android:id="@+id/add_community"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/tianjia" />
 
-        <Button
-            android:id="@+id/add_community"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Community"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:fontFamily="serif"
+                android:gravity="center"
+                android:text="Add Community"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
 
 
         <ListView
             android:id="@+id/message_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            />
 
 
 

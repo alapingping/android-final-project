@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <!--<com.sports.yue.UI.UI.CircleImageView.CircleImageView-->
         <!--android:id="@+id/person_img"-->
@@ -17,12 +18,26 @@
         <!--app:layout_constraintEnd_toEndOf="parent"-->
         <!--app:layout_constraintStart_toStartOf="parent"-->
         <!--app:layout_constraintTop_toTopOf="parent" />-->
+    <!--<com.sports.yue.UI.UI.CircleImageView.CircleImageView-->
+        <!--android:id="@+id/person_img"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:background="@drawable/banner"-->
+        <!--/>-->
     <com.sports.yue.UI.UI.CircleImageView.CircleImageView
         android:id="@+id/person_img"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        android:background="@drawable/banner"
         android:layout_marginTop="36dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@drawable/banner"
@@ -30,20 +45,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_height="match_parent"
         android:layout_marginTop="8dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/person_img"
         app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="0dp"
-        android:orientation="vertical">
+        tools:layout_editor_absoluteX="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="85dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/rec_shape1"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/person_img"
@@ -78,7 +95,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="85dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/rec_shape2"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/person_img"
@@ -113,7 +131,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="85dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/rec_shape3"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/person_img"
@@ -148,7 +167,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="85dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/rec_shape4"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/person_img"
@@ -183,4 +203,4 @@
 
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

@@ -24,7 +24,9 @@ import android.widget.Toast;
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.Adapter.GridAdapter;
 import com.sports.yue.UI.UI.activity.CharatorActivity;
+import com.sports.yue.UI.UI.activity.LoginActivity;
 import com.sports.yue.UI.UI.activity.MainActivity;
+import com.sports.yue.UI.UI.api.Share;
 import com.sports.yue.UI.UI.local_db.DbManager;
 import com.sports.yue.UI.UI.models.CurrentUser;
 
@@ -44,6 +46,8 @@ public class MeFragment extends Fragment {
     private TextView coach_name_text;
     private TextView coach_introduction_text;
     private LinearLayout Charator;
+    private LinearLayout share;
+    private LinearLayout logout;
     public MeFragment() {
         // Required empty public constructor
 
@@ -66,6 +70,25 @@ public class MeFragment extends Fragment {
         toolbar.setTitle("Me");
         coach_name_text = view.findViewById(R.id.coach_name_text);
         coach_name_text.setText(CurrentUser.getInstance(getContext()).getUserName());
+
+        share = view.findViewById(R.id.me_share);
+        logout = view.findViewById(R.id.me_logout);
+
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Share.onClickShare(getActivity());
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CurrentUser.getInstance(getActivity()).setCurrentUser(getActivity(),"-1","-1");
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Charator = view.findViewById(R.id.Charator);
         Charator.setOnClickListener(new View.OnClickListener() {

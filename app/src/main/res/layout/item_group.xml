@@ -6,17 +6,20 @@
         android:id="@+id/group_name_select"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:background="@color/colorBlueJeans">
 
         <TextView
             android:id="@+id/groupName"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="35dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
+            android:layout_marginStart="35dp"
+            android:background="@color/colorBlueJeansDark"
             android:gravity="center"
-            android:textSize="15dp"
-            android:text="@string/group_name000" />
+            android:text="@string/group_name000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <!--<TextView-->
             <!--android:id="@+id/groupOnline"-->

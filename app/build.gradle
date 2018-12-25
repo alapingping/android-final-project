@@ -8,7 +8,7 @@ android {
             storeFile file('C:/Users/CLANNAD/Desktop/android-final/yue.jks')
             storePassword '123456'
            // storeFile file('F:/android_about/android-final-project/yue.jks')
-           storeFile file('D:/GitHub/android-final-project/yue.jks')
+//           storeFile file('D:/GitHub/android-final-project/yue.jks')
 
 
         }

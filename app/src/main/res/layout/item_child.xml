@@ -10,7 +10,8 @@
     tools:context=".UI.UI.activity.MainActivity">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorAqua">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,16 +21,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp">
+                android:layout_marginStart="2dp">
+
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="RoomID:" />
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAquaDark"
+                    android:text="RoomID:"
+                    android:textSize="18sp"
+                    android:typeface="serif" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/roomid"
-                    android:text="RoomID"/>
+                    android:text="RoomID"
+                    android:layout_marginLeft="2dp"
+                    android:layout_gravity="center"/>
             </LinearLayout>
 
             <ImageView
@@ -60,12 +67,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:layout_marginLeft="15dp"
                     android:text="Room Name:"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:background="@color/colorAquaDark"/>
 
                 <TextView
                     android:id="@+id/room_name_text"
@@ -86,12 +94,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:padding="5dp"
                     android:text="Activity Type:"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:background="@color/colorAquaDark"/>
 
                 <TextView
                     android:id="@+id/activity_type_text"
@@ -112,12 +121,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:padding="5dp"
                     android:text="MaxPeople:"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:background="@color/colorAquaDark"/>
 
                 <TextView
                     android:id="@+id/num_people"
@@ -139,12 +149,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:padding="5dp"
                     android:text="Location:"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:background="@color/colorAquaDark"/>
 
                 <TextView
                     android:id="@+id/location"

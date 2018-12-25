@@ -1,10 +1,13 @@
 package com.sports.yue.UI.UI.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -48,6 +51,7 @@ import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 
@@ -85,6 +89,7 @@ public class MainActivity extends AppCompatActivity
         //设置底部导航按钮
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        disableShiftMode(navigation);
 
         View headerLayout = navigationView.getHeaderView(0);
 
@@ -339,6 +344,34 @@ public class MainActivity extends AppCompatActivity
         bundle.putString("roomid",((TextView) view.findViewById(R.id.roomid)).getText().toString());
         targetfragment.setArguments(bundle);
         changeFragment(R.id.frame_content,targetfragment);
+    }
+
+    /**
+     * 取消底部导航的默认滑动效果
+     *
+     * @param view
+     */
+    @SuppressLint("RestrictedApi")
+    public static void disableShiftMode(BottomNavigationView view) {
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
+        try {
+            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+            shiftingMode.setAccessible(true);
+            shiftingMode.setBoolean(menuView, false);
+            shiftingMode.setAccessible(false);
+
+
+            for (int i = 0; i < menuView.getChildCount(); i++) {
+                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
+                item.setShiftingMode(false);
+                item.setChecked(item.getItemData().isChecked());
+            }
+
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
 }

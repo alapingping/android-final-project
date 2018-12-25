@@ -188,10 +188,10 @@ public class SendCommunity extends AppCompatActivity {
 
                             //接收到服务器返回信息
                             //发送广播，通知系统更新
-//                            Intent intent = new Intent(getApplicationContext(), MyReceiver.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                            intent.setAction("update community");
-//                            sendBroadcast(intent);
+                            Intent intent = new Intent(getApplicationContext(), MyReceiver.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setAction("update community");
+                            sendBroadcast(intent);
 
                         } catch (IOException e) {
                             e.printStackTrace();

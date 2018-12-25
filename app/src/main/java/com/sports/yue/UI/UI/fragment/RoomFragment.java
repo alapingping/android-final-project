@@ -189,6 +189,12 @@ public class RoomFragment extends Fragment {
                 DbManager.getDbManager().insert(new RoomUser(roomid,CurrentUser.getInstance(getActivity().getApplicationContext()).getUserName()),null);
 
                 Toast.makeText(getActivity(),"加入成功!",Toast.LENGTH_LONG).show();
+
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.frame_content, new RoomFragment())
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .commit();
             }
         });
 
