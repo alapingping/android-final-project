@@ -135,23 +135,25 @@ public class SendCommunity extends AppCompatActivity {
                 int max = DbManager.getDbManager().selectCommunity(null,null,(String) null).length;
                 Bitmap obmp = Bitmap.createBitmap(addpic.getDrawingCache());
                 addpic.setDrawingCacheEnabled(false);
-
-                Community community = new Community();
-                community.setUserName(CurrentUser.getInstance(getApplicationContext()).getUserName());
-                community.setEmail(etContent.getText().toString());
-                community.setRoomId("none");
-                community.setVideo("video" + (max + 1) + ".mp4");
-
-                community.setLikes(0);
-
-                if (max >=2){
+                if (max >= 2){
                     Toast.makeText(getApplicationContext(),"Send Failed",Toast.LENGTH_LONG).show();
                     finish();
+                }else {
+                    Community community = new Community();
+                    community.setUserName(CurrentUser.getInstance(getApplicationContext()).getUserName());
+                    community.setEmail(etContent.getText().toString());
+                    community.setRoomId("none");
+                    community.setVideo("video" + (max + 1) + ".mp4");
+
+                    community.setLikes(0);
+
+
+                    Db_operation.getDb_op().add(community);
+                    DbManager.getDbManager().insert(community,null);
+                    put(2);
+                    finish();
                 }
-                Db_operation.getDb_op().add(community);
-                DbManager.getDbManager().insert(community,null);
-                put(2);
-                finish();
+
             }
         });
 
