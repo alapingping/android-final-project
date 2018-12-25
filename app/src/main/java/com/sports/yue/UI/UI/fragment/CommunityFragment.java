@@ -23,17 +23,22 @@ import android.widget.Toast;
 
 //import com.sports.yue.UI.UI.Adapter.VideoAdapter;
 
+import com.jaren.lib.view.LikeView;
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.Adapter.VideoAdapter;
 import com.sports.yue.UI.UI.Database_operation.Db_operation;
 import com.sports.yue.UI.UI.activity.LoginActivity;
 import com.sports.yue.UI.UI.activity.MainActivity;
 import com.sports.yue.UI.UI.activity.SendCommunity;
+import com.sports.yue.UI.UI.local_db.DbManager;
+import com.sports.yue.UI.UI.models.Community;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;

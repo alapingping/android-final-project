@@ -96,4 +96,8 @@ dependencies {
 
     // refresh layout
     compile 'com.github.recruit-lifestyle:WaveSwipeRefreshLayout:1.6'
+
+    // 点赞
+    compile 'com.jaren:likeview:1.2.1'
+
 }
