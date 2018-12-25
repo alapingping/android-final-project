@@ -26,6 +26,9 @@
     <color name="colorHalfTransparentBlack">#40000000</color>
     <color name="colorHalfTransparentWhite">#40FFFFFF</color>
     <color name="control_background">#cc4285f4</color>
-
+    <color name="lightgreen">#90ee90</color>
+    <color name="greenyellow">#adff2f</color>
+    <color name="red">#d11616</color>
     <color name="textInputLayout">#96ffffff</color>
+
 </resources>
