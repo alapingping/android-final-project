@@ -276,34 +276,36 @@ public class MainActivity extends AppCompatActivity
         ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
         ft.commit();
     }
-
-    @Override
-    public boolean onKeyDown(int keyNode, KeyEvent event){
-        if(!isExist) {
-            isExist = true;
-            Toast.makeText(MainActivity.this, "再按一次退出应用", Toast.LENGTH_LONG).show();
-            new ExitHandler().sendEmptyMessageDelayed(0, 2000);
-        }
-        else{
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(0);
-        }
-        return false;
-    }
+//
+//    @Override
+//    public boolean onKeyDown(int keyNode, KeyEvent event){
+//        if(!isExist) {
+//            isExist = true;
+//            Toast.makeText(MainActivity.this, "再按一次退出应用", Toast.LENGTH_LONG).show();
+//            new ExitHandler().sendEmptyMessageDelayed(0, 2000);
+//        }
+//        else{
+//            android.os.Process.killProcess(android.os.Process.myPid());
+//            System.exit(0);
+//        }
+//        return false;
+//    }
 
 
     private void setActionBarTitle(int position, int page_num){
         Toolbar toolbar = findViewById(R.id.toolbar);
         if(page_num == 1){
             if(position == -1){
-                toolbar.setTitle("主页");
+                toolbar.setTitle("Home");
                 return;
             }
             toolbar.setTitle(titles[position]);
         }else if(page_num == 2){
-            toolbar.setTitle("日程");
+            toolbar.setTitle("Group");
         }else if(page_num == 3){
-            toolbar.setTitle("收藏");
+            toolbar.setTitle("Community");
+        }else if(page_num == 4){
+            toolbar.setTitle("Me");
         }
     }
 
@@ -318,13 +320,13 @@ public class MainActivity extends AppCompatActivity
         finish();
     }
 
-    //处理退出信息的Handler
-    static class ExitHandler extends Handler {
-      @Override
-      public void handleMessage(Message msg){
-          isExist = false;
-      }
-    }
+//    //处理退出信息的Handler
+//    static class ExitHandler extends Handler {
+//      @Override
+//      public void handleMessage(Message msg){
+//          isExist = false;
+//      }
+//    }
 
     public void onClickCreateRoom(View view){
         changeFragment(R.id.frame_content,new CreateRoomFragment());

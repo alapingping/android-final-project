@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Yue</string>
+    <string name="app_name">Lazz</string>
     <string name="title_activity_navigation">navigationActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -23,9 +23,9 @@
     <string name="loginRightNow">Have a account,login in</string>
 
     <!-- This is for bottom navigation -->
-    <string name="title_home">主页</string>
-    <string name="title_group">分组</string>
-    <string name="title_me">我的</string>
+    <string name="title_home">Home</string>
+    <string name="title_group">Group</string>
+    <string name="title_me">Community</string>
     <string name="title_activity_tabbed">TabbedActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="noAppointment">还没有预约</string>
@@ -55,7 +55,7 @@
     <string name="like000">点赞</string>
     <string name="save000">收藏</string>
     <string name="grouppicture000">群组图片</string>
-    <string name="groups010">组</string>
+    <string name="groups010">Me</string>
 
 
     <!-- This is for left map-->
