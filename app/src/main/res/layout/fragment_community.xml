@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center"
-<<<<<<< HEAD
+
         android:gravity="center"
         android:background="@color/colorLemonChiffon">
 
@@ -47,42 +47,14 @@
 
 
         </LinearLayout>
-=======
-        android:gravity="center">
 
-        <com.jaren.lib.view.LikeView
-            android:id="@+id/lv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            app:checkedColor="#ffff0000"
-            app:cirRadius="20dp"
-            app:cycleTime="3600"
-            app:defaultColor="#ffcc9999"/>
-
-        <com.jaren.lib.view.LikeView
-            android:id="@+id/lv_set"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            app:checkedColor="#ffff0000"
-            app:cirRadius="20dp"
-            app:cycleTime="1600"
-            app:unSelectCycleTime="300"
-            app:defaultColor="#ffcccccc"/>
-
-        <Button
-            android:id="@+id/add_community"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Community"/>
->>>>>>> 98da31ceca6749f49ba56fa58f06749c928a3883
 
 
         <ListView
             android:id="@+id/message_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            />
 
 
 

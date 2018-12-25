@@ -187,21 +187,21 @@ public class CommunityFragment extends Fragment {
         });
 
 
-        mLikeView = view.findViewById(R.id.lv);
-        mLikeView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                useToggle();
-            }
-        });
-
-        mLikeViewSet = view.findViewById(R.id.lv_set);
-        mLikeViewSet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                useSet();
-            }
-        });
+//        mLikeView = view.findViewById(R.id.lv);
+//        mLikeView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                useToggle();
+//            }
+//        });
+//
+//        mLikeViewSet = view.findViewById(R.id.lv_set);
+//        mLikeViewSet.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                useSet();
+//            }
+//        });
 
         Button findButton = view.findViewById(R.id.add_community);
         findButton.setOnClickListener(new View.OnClickListener() {
