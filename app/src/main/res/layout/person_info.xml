@@ -46,8 +46,8 @@
                 android:src="@drawable/genders" />
 
             <TextView
-                android:id="@+id/sex_txt"
-                android:layout_width="wrap_content"
+                android:id="@+id/User_Sex"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="40dp"
@@ -60,7 +60,6 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="70dp"
                 android:background="@drawable/xiugai" />
 
         </LinearLayout>
@@ -82,8 +81,8 @@
                 android:src="@drawable/email" />
 
             <TextView
-                android:id="@+id/email_txt"
-                android:layout_width="wrap_content"
+                android:id="@+id/User_Email"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="40dp"
@@ -96,7 +95,6 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="70dp"
                 android:background="@drawable/xiugai" />
 
         </LinearLayout>
@@ -118,8 +116,8 @@
                 android:src="@drawable/dianhua2" />
 
             <TextView
-                android:id="@+id/dianhua_txt"
-                android:layout_width="wrap_content"
+                android:id="@+id/User_Tel"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="40dp"
@@ -132,7 +130,6 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="70dp"
                 android:background="@drawable/xiugai" />
 
         </LinearLayout>
@@ -154,8 +151,8 @@
                 android:src="@drawable/wenjian" />
 
             <TextView
-                android:id="@+id/sign_txt"
-                android:layout_width="wrap_content"
+                android:id="@+id/User_Sign"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="40dp"
@@ -168,7 +165,6 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="70dp"
                 android:background="@drawable/xiugai" />
 
         </LinearLayout>
