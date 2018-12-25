@@ -59,7 +59,7 @@ public class DbManager {
         sql = "CREATE TABLE IF NOT EXISTS COMMUNITY ("
                 + "UserName varchar DEFAULT '', Likes number DEFAULT 0,Video varchar DEFAULT '',RoomId varcahr DEFAULT '',"
                 + "Email varchar DEFAULT '',createdAT datetime DEFAULT (datetime(CURRENT_TIMESTAMP,'localtime')),"
-                + "updatedAt datetime DEFAULT (datetime(CURRENT_TIMESTAMP,'localtime')), PRIMARY KEY (UserName,RoomId,createdAT))";
+                + "updatedAt datetime DEFAULT (datetime(CURRENT_TIMESTAMP,'localtime')), PRIMARY KEY (UserName,createdAT))";
         SQLiteDatabase db4 = dbHelper.getWritableDatabase();
         db4.execSQL(sql);
         db4.close();

@@ -27,8 +27,11 @@ import com.sports.yue.UI.UI.Database_operation.Db_operation;
 import com.sports.yue.UI.UI.activity.LoginActivity;
 import com.sports.yue.UI.UI.activity.MainActivity;
 import com.sports.yue.UI.UI.activity.SendCommunity;
+import com.sports.yue.UI.UI.local_db.DbManager;
+import com.sports.yue.UI.UI.models.Community;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,8 +57,8 @@ public class CommunityFragment extends Fragment {
     ListView videoList;
     private ArrayList<Map<String, Object>> datas;
     private ArrayList<String> string_data;
-    private String videoUrl = "http://2449.vod.myqcloud.com/2449_22ca37a6ea9011e5acaaf51d105342e3.f20.mp4";
-    private String imageUrl = "http://p.qpic.cn/videoyun/0/2449_43b6f696980311e59ed467f22794e792_1/640";
+//    private String videoUrl = "http://2449.vod.myqcloud.com/2449_22ca37a6ea9011e5acaaf51d105342e3.f20.mp4";
+//    private String imageUrl = "http://p.qpic.cn/videoyun/0/2449_43b6f696980311e59ed467f22794e792_1/640";
     private VideoAdapter adapter;
     private AbsListView.OnScrollListener onScrollListener;
     JCVideoPlayerStandard jcVideoPlayerStandard;
@@ -162,6 +165,9 @@ public class CommunityFragment extends Fragment {
     private void initDatas() {
         datas = new ArrayList<>();
         string_data = new ArrayList<>();
+
+        Community[] communities = DbManager.getDbManager().selectCommunity(null,null,(Date) null);
+
 //        f String[] name = new String[]{"Sun Yang","Zhu ","Zhu Y","Zhu Ya","Zhu Yan"};
 ////        for (int i = 0; i < 5; i++) {
 ////            Map<String, Object> map = new HashMap<String, Object>();
@@ -173,13 +179,16 @@ public class CommunityFragment extends Fragment {
 ////            datas.add(map);
 ////        }
 
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("video_url", videoUrl);
-        map.put("author_photo", R.drawable.position);
-        map.put("author_name", "Sun Yang");
-        map.put("image_url", imageUrl);
-        string_data.add(videoUrl);
-        datas.add(map);
+        for (Community co : communities){
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("video_url", co.getVideo());
+            map.put("author_photo", R.drawable.position);
+            map.put("author_name", co.getUserName());
+            map.put("image_url", imageUrl);
+            string_data.add(videoUrl);
+            datas.add(map);
+        }
+
 
 //        map = new HashMap<>();
 //        map.put("video_url", videoUrl);

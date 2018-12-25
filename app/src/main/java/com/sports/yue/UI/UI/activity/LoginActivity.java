@@ -136,10 +136,12 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     user.setUserName(response.getString("nickname"));
                     user.setUserSex(response.getString("gender"));
-                    if (DbManager.getDbManager().selectUser(user.getUserName()).length==0){
-                        DbManager.getDbManager().insert(user,null);
-                    }
+
+                    CurrentUser.getInstance(getApplication()).setCurrentUser(getApplicationContext(),user.getUserName(),"");
+                    DbManager.getDbManager().insert(user,null);
                     Db_operation.getDb_op().add(user);
+
+                    jump2main(user.getUserName(),"");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -205,6 +207,7 @@ public class LoginActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
 
             Toast.makeText(LoginActivity.this, "登录成功",Toast.LENGTH_LONG).show();
             doComplete((JSONObject)response);

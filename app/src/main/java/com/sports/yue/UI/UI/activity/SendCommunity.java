@@ -31,11 +31,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.Data.locationData;
+import com.sports.yue.UI.UI.Database_operation.Db_operation;
 import com.sports.yue.UI.UI.fragment.CommunityFragment;
 import com.sports.yue.UI.UI.fragment.HomeFragment;
+import com.sports.yue.UI.UI.local_db.DbManager;
+import com.sports.yue.UI.UI.models.Community;
+import com.sports.yue.UI.UI.models.CurrentUser;
 
 import java.util.logging.Handler;
 
@@ -56,6 +61,7 @@ public class SendCommunity extends AppCompatActivity {
     private TextView send;
     private Bitmap bitmap;
     private String path;
+    private static int max = 0;
     private static final int CHOOSE_PHOTO = 603;
     private static final int CHOOSE_VIDEO = 598;
 
@@ -105,13 +111,29 @@ public class SendCommunity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 //发送Community
                 etContent.getText().toString();
                 Bitmap obmp = Bitmap.createBitmap(addpic.getDrawingCache());
                 addpic.setDrawingCacheEnabled(false);
                 String imgurl = put(obmp);
 
+                Community community = new Community();
+                community.setUserName(CurrentUser.getInstance(getApplicationContext()).getUserName());
+                community.setEmail("none");
+                community.setRoomId("none");
+                community.setVideo("video" + max + ".mp4");
 
+                community.setLikes(0);
+
+                max++;
+                if (max >=2){
+                    Toast.makeText(getApplicationContext(),"Send Failed",Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                Db_operation.getDb_op().add(community);
+                DbManager.getDbManager().insert(community,null);
 
                 finish();
             }
