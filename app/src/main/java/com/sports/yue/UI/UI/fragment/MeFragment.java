@@ -1,6 +1,7 @@
 package com.sports.yue.UI.UI.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -13,13 +14,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.Adapter.GridAdapter;
+import com.sports.yue.UI.UI.activity.CharatorActivity;
 import com.sports.yue.UI.UI.activity.MainActivity;
+import com.sports.yue.UI.UI.local_db.DbManager;
+import com.sports.yue.UI.UI.models.CurrentUser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +40,9 @@ public class MeFragment extends Fragment {
     private ListView listView;
     private View view;
     private RecyclerView recyclerView;
+    private TextView coach_name_text;
+    private TextView coach_introduction_text;
+    private LinearLayout Charator;
     public MeFragment() {
         // Required empty public constructor
 
@@ -53,6 +62,17 @@ public class MeFragment extends Fragment {
         //获取当前View
         View view = inflater.inflate(R.layout.fragment_me,container,false);
 
+        coach_name_text = view.findViewById(R.id.coach_name_text);
+        coach_name_text.setText(CurrentUser.getInstance(getContext()).getUserName());
+
+        Charator = view.findViewById(R.id.Charator);
+        Charator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),CharatorActivity.class);
+                startActivity(intent);
+            }
+        });
 
 //        recyclerView = view.findViewById(R.id.recycler_view);
 //        recyclerView.setAdapter(new GridAdapter(this));
