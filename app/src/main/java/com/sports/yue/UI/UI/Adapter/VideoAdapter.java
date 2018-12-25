@@ -50,7 +50,7 @@ public class VideoAdapter extends CommonAdapter<String> {
         }
         player.setUp(url, JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
 
-        Glide.with(mContext).load("http://a4.att.hudong.com/05/71/01300000057455120185716259013.jpg").into(player.thumbImageView);
+        Glide.with(mContext).load(datas.get(position).get("image_url")).into(player.thumbImageView);
 
     }
 

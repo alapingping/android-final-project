@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.Adapter.VideoAdapter;
+import com.sports.yue.UI.UI.BroadCast.MyReceiver;
 import com.sports.yue.UI.UI.Database_operation.Db_operation;
 import com.sports.yue.UI.UI.activity.LoginActivity;
 import com.sports.yue.UI.UI.activity.MainActivity;
@@ -39,6 +40,8 @@ import java.util.Map;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
+
+import static cn.bmob.v3.Bmob.getApplicationContext;
 
 //import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 //import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
@@ -61,7 +64,11 @@ public class CommunityFragment extends Fragment {
         "http://bmob-cdn-22097.b0.upaiyun.com/2018/12/25/4202bc3e40d4ba828020e00ccb776f07.mp4",
         "http://bmob-cdn-22097.b0.upaiyun.com/2018/12/25/23e7c032406b3ace80a7a914e2afc153.mp4"
     };
-    private String imageUrl = "http://p.qpic.cn/videoyun/0/2449_43b6f696980311e59ed467f22794e792_1/640";
+    private String[] imageUrl = new String[]{
+            "http://bmob-cdn-22097.b0.upaiyun.com/2018/12/25/1501ea9840e7180d80500617c8ae6884.jpg",
+            "http://bmob-cdn-22097.b0.upaiyun.com/2018/12/25/0e599d9640872aee800cf3899cddbba8.jpg"
+    };
+//    private String imageUrl = "http://p.qpic.cn/videoyun/0/2449_43b6f696980311e59ed467f22794e792_1/640";
     private VideoAdapter adapter;
     private AbsListView.OnScrollListener onScrollListener;
     JCVideoPlayerStandard jcVideoPlayerStandard;
@@ -93,9 +100,19 @@ public class CommunityFragment extends Fragment {
         mWaveSwipeRefreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
             @Override public void onRefresh() {
                 // Do work to refresh the list here.
+
+                //更新数据
                 Db_operation.getDb_op().searchCommunity();
                 Toast.makeText(getActivity(), "更新完成",Toast.LENGTH_LONG).show();
                 new Task().execute();
+
+                //更新界面
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.frame_content, new CommunityFragment())
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .commit();
+
             }
         });
 
@@ -187,7 +204,7 @@ public class CommunityFragment extends Fragment {
             map.put("video_url", communities[i].getVideo());
             map.put("author_photo", R.drawable.position);
             map.put("author_name", communities[i].getUserName());
-            map.put("image_url", imageUrl);
+            map.put("image_url", imageUrl[i]);
             map.put("communityMsg", communities[i].getEmail());
             string_data.add(videoUrl[i]);
             datas.add(map);

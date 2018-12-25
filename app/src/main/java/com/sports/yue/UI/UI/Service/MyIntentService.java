@@ -134,11 +134,14 @@ public class MyIntentService extends IntentService {
                     if (RoomNum != LocalRoomNum) {
                         //远端数据与本地不一致
                         //提示用户进行更新
+                        CreateNotification();
                         myHandler.post(() ->
                                 Toast.makeText(getApplicationContext(), "数据不一致", Toast.LENGTH_LONG).show()
                         );
-                    } else if (RoomNum == LocalRoomNum)
-                        CreateNotification();
+                    } else if (RoomNum == LocalRoomNum){
+                        myHandler.post(() ->
+                                Toast.makeText(getApplicationContext(), "数据一致", Toast.LENGTH_LONG).show());
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
