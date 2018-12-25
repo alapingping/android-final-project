@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 //import com.sports.yue.UI.UI.Adapter.VideoAdapter;
 
-import com.jaren.lib.view.LikeView;
 import com.sports.yue.R;
 import com.sports.yue.UI.UI.Adapter.VideoAdapter;
 import com.sports.yue.UI.UI.Database_operation.Db_operation;
@@ -35,7 +34,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
@@ -58,8 +56,15 @@ public class CommunityFragment extends Fragment {
     ListView videoList;
     private ArrayList<Map<String, Object>> datas;
     private ArrayList<String> string_data;
-    private String videoUrl = "http://2449.vod.myqcloud.com/2449_22ca37a6ea9011e5acaaf51d105342e3.f20.mp4";
-    private String imageUrl = "http://p.qpic.cn/videoyun/0/2449_43b6f696980311e59ed467f22794e792_1/640";
+    private String[] videoUrl = new String[]{
+        "http://bmob-cdn-22097.b0.upaiyun.com/2018/12/25/4202bc3e40d4ba828020e00ccb776f07.mp4",
+        "http://bmob-cdn-22097.b0.upaiyun.com/2018/12/25/23e7c032406b3ace80a7a914e2afc153.mp4"
+    };
+    private String[] imageUrl = new String[]{
+            "http://bmob-cdn-22097.b0.upaiyun.com/2018/12/25/1501ea9840e7180d80500617c8ae6884.jpg",
+            "http://bmob-cdn-22097.b0.upaiyun.com/2018/12/25/0e599d9640872aee800cf3899cddbba8.jpg"
+    };
+//    private String imageUrl = "http://p.qpic.cn/videoyun/0/2449_43b6f696980311e59ed467f22794e792_1/640";
     private VideoAdapter adapter;
     private AbsListView.OnScrollListener onScrollListener;
     JCVideoPlayerStandard jcVideoPlayerStandard;
@@ -132,6 +137,7 @@ public class CommunityFragment extends Fragment {
     }
 
 
+
     private class Task extends AsyncTask<Void, Void, String[]> {
         @Override
         protected String[] doInBackground(Void... voids) {
@@ -141,12 +147,10 @@ public class CommunityFragment extends Fragment {
         @Override
         protected void onPostExecute(String[] result) {
             // Call setRefreshing(false) when the list has been refreshed.
-           // mWaveSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.lightgreen),getResources().getColor(R.color.colorPrimary),getResources().getColor(R.color.red),getResources().getColor(R.color.greenyellow));
             mWaveSwipeRefreshLayout.setRefreshing(false);
             super.onPostExecute(result);
         }
     }
-
 
 
     @Override
@@ -156,16 +160,22 @@ public class CommunityFragment extends Fragment {
 
         // Inflate the layout for this fragment
         mWaveSwipeRefreshLayout = (WaveSwipeRefreshLayout)view.findViewById(R.id.main_swipe);
-//        mWaveSwipeRefreshLayout.setColorSchemeResources(Color.parseColor("#FF4081"),Color.parseColor("#303F9F"));
-
         mWaveSwipeRefreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
             @Override public void onRefresh() {
                 // Do work to refresh the list here.
 
+                //更新数据
                 Db_operation.getDb_op().searchCommunity();
-
                 Toast.makeText(getActivity(), "更新完成",Toast.LENGTH_LONG).show();
                 new Task().execute();
+
+                //更新界面
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.frame_content, new CommunityFragment())
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .commit();
+
             }
         });
 
@@ -212,9 +222,6 @@ public class CommunityFragment extends Fragment {
     }
 
 
-
-
-
     @Override
     public void onPause() {
         super.onPause();
@@ -255,6 +262,8 @@ public class CommunityFragment extends Fragment {
     private void initDatas() {
         datas = new ArrayList<>();
         string_data = new ArrayList<>();
+        Community[] communities = DbManager.getDbManager().selectCommunity(null,null,(Date) null);
+
 //        f String[] name = new String[]{"Sun Yang","Zhu ","Zhu Y","Zhu Ya","Zhu Yan"};
 ////        for (int i = 0; i < 5; i++) {
 ////            Map<String, Object> map = new HashMap<String, Object>();
@@ -266,13 +275,17 @@ public class CommunityFragment extends Fragment {
 ////            datas.add(map);
 ////        }
 
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("video_url", videoUrl);
-        map.put("author_photo", R.drawable.position);
-        map.put("author_name", "Sun Yang");
-        map.put("image_url", imageUrl);
-        string_data.add(videoUrl);
-        datas.add(map);
+        for (int i = 0;i < communities.length;i++){
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("video_url", communities[i].getVideo());
+            map.put("author_photo", R.drawable.position);
+            map.put("author_name", communities[i].getUserName());
+            map.put("image_url", imageUrl[i]);
+            map.put("communityMsg", communities[i].getEmail());
+            string_data.add(videoUrl[i]);
+            datas.add(map);
+        }
+
 
 //        map = new HashMap<>();
 //        map.put("video_url", videoUrl);

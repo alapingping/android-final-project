@@ -89,7 +89,8 @@ public class Db_operation {
                 if (e == null){
                     if (e == null) {
                         for (Community community : list){
-                            DbManager.getDbManager().insert(community);
+                            if(DbManager.getDbManager().selectCommunity(community.getUserName(),"none",community.getCreatedAt()).length==0)
+                                DbManager.getDbManager().insert(community);
                         }
                         //  textView.setText(str);
                     } else {
@@ -118,7 +119,8 @@ public class Db_operation {
                 if (e == null){
                     if (e == null) {
                         for (Message mes : list){
-                            DbManager.getDbManager().insert(mes);
+                            if(DbManager.getDbManager().selectMessage(mes.getUserName(),mes.getRoomId(),mes.getCreateAt()).length==0)
+                                DbManager.getDbManager().insert(mes);
                         }
                         //  textView.setText(str);
                     } else {
@@ -147,7 +149,8 @@ public class Db_operation {
                 if (e == null){
                     if (e == null) {
                         for (User user : list){
-                            DbManager.getDbManager().insert(user);
+                            if(DbManager.getDbManager().selectUser(user.getUserName()).length==0)
+                                DbManager.getDbManager().insert(user);
                         }
                         //  textView.setText(str);
                     } else {
@@ -168,7 +171,8 @@ public class Db_operation {
                 if (e == null){
                     if (e == null) {
                         for (RoomUser roomUser : list){
-                            DbManager.getDbManager().insert(roomUser);
+                            if(DbManager.getDbManager().selectRoomUser(roomUser.getRoomId(),roomUser.getUserName()).length==0)
+                                DbManager.getDbManager().insert(roomUser);
                         }                //  textView.setText(str);
                     } else {
                         System.out.println(e.getErrorCode());

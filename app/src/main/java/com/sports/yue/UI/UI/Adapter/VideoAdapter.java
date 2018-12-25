@@ -41,7 +41,8 @@ public class VideoAdapter extends CommonAdapter<String> {
         JCVideoPlayerStandard player = viewHolder.getView(R.id.videoplayer);
         TextView author_name = viewHolder.getView(R.id.author_name);
         author_name.setText(datas.get(position).get("author_name").toString());
-
+        TextView Community_description = viewHolder.getView(R.id.Community_description);
+        Community_description.setText(datas.get(position).get("communityMsg").toString());
         author_name.setOnTouchListener((v, event) -> true);
         if (player != null)
         {
@@ -49,7 +50,7 @@ public class VideoAdapter extends CommonAdapter<String> {
         }
         player.setUp(url, JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
 
-        Glide.with(mContext).load("http://a4.att.hudong.com/05/71/01300000057455120185716259013.jpg").into(player.thumbImageView);
+        Glide.with(mContext).load(datas.get(position).get("image_url")).into(player.thumbImageView);
 
     }
 

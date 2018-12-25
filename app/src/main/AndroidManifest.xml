@@ -4,6 +4,7 @@
 
     <!-- this permission is for applying for internet access -->
     <uses-permission android:name="android.permission.INTERNET" />
+    
     <!-- 获取GSM（2g）、WCDMA（联通3g）等网络状态的信息 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- 获取wifi网络状态的信息 -->
@@ -100,13 +101,12 @@
             android:enabled="true"
             android:process=":remote" />
 
-        <activity android:name=".UI.UI.activity.mapActivity">
+        <activity android:name=".UI.UI.activity.CameraActivity">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".UI.UI.activity.CameraActivity">
+        <activity android:name=".UI.UI.activity.CharatorActivity">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

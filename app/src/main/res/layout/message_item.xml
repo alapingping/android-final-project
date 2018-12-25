@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="500评论"
+            android:text="0评论"
             android:layout_gravity="center_vertical"/>
 
         <ImageView
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="331点赞"
+            android:text="0点赞"
             android:layout_gravity="center_vertical"/>
 
 

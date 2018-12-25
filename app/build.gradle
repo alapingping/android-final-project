@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'key0'
             keyPassword '123456'
-            //storeFile file('C:/Users/CLANNAD/Desktop/android-final/yue.jks')
+            storeFile file('C:/Users/CLANNAD/Desktop/android-final/yue.jks')
             storePassword '123456'
            // storeFile file('F:/android_about/android-final-project/yue.jks')
            storeFile file('D:/GitHub/android-final-project/yue.jks')
@@ -96,9 +96,4 @@ dependencies {
 
     // refresh layout
     compile 'com.github.recruit-lifestyle:WaveSwipeRefreshLayout:1.6'
-
-
-
-    //thumb up
-    compile 'com.jaren:likeview:1.2.1'
 }

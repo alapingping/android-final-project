@@ -58,8 +58,8 @@ public class Community extends BmobObject {
         return createAt;
     }
 
-    public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
+    public void setCreateAt(Date createdAt) {
+        this.createAt = createdAt;
     }
 
 

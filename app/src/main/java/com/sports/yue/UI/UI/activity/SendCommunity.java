@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -31,13 +32,36 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sports.yue.R;
+import com.sports.yue.UI.UI.BroadCast.MyReceiver;
 import com.sports.yue.UI.UI.Data.locationData;
+import com.sports.yue.UI.UI.Database_operation.Db_operation;
+import com.sports.yue.UI.UI.api.BmobService;
+import com.sports.yue.UI.UI.api.Client;
+import com.sports.yue.UI.UI.api.MyHttpServer;
 import com.sports.yue.UI.UI.fragment.CommunityFragment;
 import com.sports.yue.UI.UI.fragment.HomeFragment;
+import com.sports.yue.UI.UI.local_db.DbManager;
+import com.sports.yue.UI.UI.models.Community;
+import com.sports.yue.UI.UI.models.CurrentUser;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.logging.Handler;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.http.Multipart;
 
 public class SendCommunity extends AppCompatActivity {
 
@@ -56,9 +80,9 @@ public class SendCommunity extends AppCompatActivity {
     private TextView send;
     private Bitmap bitmap;
     private String path;
+    private String pictureUrl;
     private static final int CHOOSE_PHOTO = 603;
     private static final int CHOOSE_VIDEO = 598;
-
 
 
     @Override
@@ -105,22 +129,83 @@ public class SendCommunity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 //发送Community
-                etContent.getText().toString();
+                int max = DbManager.getDbManager().selectCommunity(null,null,(String) null).length;
                 Bitmap obmp = Bitmap.createBitmap(addpic.getDrawingCache());
                 addpic.setDrawingCacheEnabled(false);
-                String imgurl = put(obmp);
 
+                Community community = new Community();
+                community.setUserName(CurrentUser.getInstance(getApplicationContext()).getUserName());
+                community.setEmail(etContent.getText().toString());
+                community.setRoomId("none");
+                community.setVideo("video" + (max + 1) + ".mp4");
 
+                community.setLikes(0);
 
+                if (max >=2){
+                    Toast.makeText(getApplicationContext(),"Send Failed",Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                Db_operation.getDb_op().add(community);
+                DbManager.getDbManager().insert(community,null);
+                put(2);
                 finish();
             }
         });
 
     }
 
-    private String put(Bitmap bitmap){
+    private String put(int methodType){
         String url = "";
+
+        File file = new File(path);
+        if(file.exists()) {
+
+            if( methodType == 1)
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    MyHttpServer myHttpServer = new MyHttpServer(file);
+                    myHttpServer.uploadVideoToServer();
+                }
+            }).start();
+
+            else if( methodType == 2){
+                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+
+                BmobService service = Client.retrofit.create(BmobService.class);
+                Call<ResponseBody> call = service.upLoadVideo(body);
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            String rep = response.body().string();
+                            JSONObject obj = new JSONObject(rep);
+                            String videoURL = obj.getString("url");
+
+                            //接收到服务器返回信息
+                            //发送广播，通知系统更新
+                            Intent intent = new Intent(getApplicationContext(), MyReceiver.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setAction("update community");
+                            sendBroadcast(intent);
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        System.out.print(2);
+                    }
+                });
+            }
+        }
         return url;
     }
 
