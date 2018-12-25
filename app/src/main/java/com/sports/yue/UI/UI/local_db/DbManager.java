@@ -384,7 +384,7 @@ public class DbManager {
             where = addwhere(where,"UserName");
             value = addwhere(value,username);
         }
-        if (username != null){
+        if (createAt != null){
             where = addwhere(where,"createAt");
             value = addwhere(value,createAt + "");
         }
@@ -417,25 +417,34 @@ public class DbManager {
             where = addwhere(where,"UserName");
             value = addwhere(value,username);
         }
-        if (username != null){
-            where = addwhere(where,"createAt");
-            value = addwhere(value,createAt);
-        }
+//        if (createAt != null){
+//            where = addwhere(where,"createAt");
+//            value = addwhere(value,createAt);
+//        }
         List<String[]> ro = select(null,new String[]{"COMMUNITY"},where,value);
-        Community[] rooms = new Community[ro.size()];
+
+        int size = 0;
         for (int i = 0;i < ro.size();i++){
-            rooms[i] = new Community();
-            rooms[i].setUserName(ro.get(i)[0]);
-            rooms[i].setLikes(Integer.valueOf(ro.get(i)[1]));
-            rooms[i].setVideo(ro.get(i)[2]);
-            rooms[i].setRoomId(ro.get(i)[3]);
-            rooms[i].setEmail(ro.get(i)[4]);
-            try {
-                rooms[i].setCreateAt(format.parse(ro.get(i)[5]));
-            } catch (ParseException e) {
-                e.printStackTrace();
+            if (ro.get(i)[5].equalsIgnoreCase(createAt)) {
+                size++;
             }
-            rooms[i].setUpdatedAt(ro.get(i)[6]);
+        }
+        Community[] rooms = new Community[size];
+        for (int i = 0;i < ro.size();i++){
+            if (ro.get(i)[5].equalsIgnoreCase(createAt)) {
+                rooms[i] = new Community();
+                rooms[i].setUserName(ro.get(i)[0]);
+                rooms[i].setLikes(Integer.valueOf(ro.get(i)[1]));
+                rooms[i].setVideo(ro.get(i)[2]);
+                rooms[i].setRoomId(ro.get(i)[3]);
+                rooms[i].setEmail(ro.get(i)[4]);
+                try {
+                    rooms[i].setCreateAt(format.parse(ro.get(i)[5]));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                rooms[i].setUpdatedAt(ro.get(i)[6]);
+            }
         }
         return rooms;
     }

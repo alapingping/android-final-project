@@ -83,7 +83,6 @@ public class SendCommunity extends AppCompatActivity {
     private String pictureUrl;
     private static final int CHOOSE_PHOTO = 603;
     private static final int CHOOSE_VIDEO = 598;
-    private static int max = 0;
 
 
     @Override
@@ -130,7 +129,10 @@ public class SendCommunity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 //发送Community
+                int max = DbManager.getDbManager().selectCommunity(null,null,(String) null).length;
                 Bitmap obmp = Bitmap.createBitmap(addpic.getDrawingCache());
                 addpic.setDrawingCacheEnabled(false);
 
@@ -138,11 +140,10 @@ public class SendCommunity extends AppCompatActivity {
                 community.setUserName(CurrentUser.getInstance(getApplicationContext()).getUserName());
                 community.setEmail(etContent.getText().toString());
                 community.setRoomId("none");
-                community.setVideo("video" + max + ".mp4");
+                community.setVideo("video" + (max + 1) + ".mp4");
 
                 community.setLikes(0);
 
-                max++;
                 if (max >=2){
                     Toast.makeText(getApplicationContext(),"Send Failed",Toast.LENGTH_LONG).show();
                     finish();

@@ -169,7 +169,6 @@ public class CommunityFragment extends Fragment {
     private void initDatas() {
         datas = new ArrayList<>();
         string_data = new ArrayList<>();
-
         Community[] communities = DbManager.getDbManager().selectCommunity(null,null,(Date) null);
 
 //        f String[] name = new String[]{"Sun Yang","Zhu ","Zhu Y","Zhu Ya","Zhu Yan"};

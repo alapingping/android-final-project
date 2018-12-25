@@ -89,7 +89,7 @@ public class Db_operation {
                 if (e == null){
                     if (e == null) {
                         for (Community community : list){
-                            if(DbManager.getDbManager().selectCommunity(community.getUserName(),community.getRoomId(),community.getCreateAt()).length==0)
+                            if(DbManager.getDbManager().selectCommunity(community.getUserName(),"none",community.getCreatedAt()).length==0)
                                 DbManager.getDbManager().insert(community);
                         }
                         //  textView.setText(str);
