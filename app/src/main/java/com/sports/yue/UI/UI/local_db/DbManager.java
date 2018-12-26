@@ -385,7 +385,7 @@ public class DbManager {
             value = addwhere(value,username);
         }
         if (createAt != null){
-            where = addwhere(where,"createAt");
+            where = addwhere(where,"createdAt");
             value = addwhere(value,createAt + "");
         }
         List<String[]> ro = select(null,new String[]{"COMMUNITY"},where,value);
@@ -485,14 +485,12 @@ public class DbManager {
             where = addwhere(where,"UserName");
             value = addwhere(value,username);
         }
-        List<String[]> ro = select(null,new String[]{"MESSAGE"},where,value);
-        int size = 0;
-        for (int i = 0;i < ro.size();i++){
-            if (ro.get(i)[3].equalsIgnoreCase(format.format(createAt))){
-                size++;
-            }
+        if (createAt != null){
+            where = addwhere(where,"createdAt");
+            value = addwhere(value,createAt + "");
         }
-        Message[] rooms = new Message[size];
+        List<String[]> ro = select(null,new String[]{"MESSAGE"},where,value);
+        Message[] rooms = new Message[ro.size()];
         for (int i = 0;i < ro.size();i++){
             if (ro.get(i)[3].equalsIgnoreCase(format.format(createAt))){
                 rooms[i] = new Message();
